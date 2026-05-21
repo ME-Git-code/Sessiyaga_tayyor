@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qo'llanma | Ehtimollik va Statistika</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"]] },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="progress" id="progress"></div>
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">E</span>
+        <span>
+          <strong>Ehtimol</strong>
+          <small>Nazariya qo'llanmasi</small>
+        </span>
+      </a>
+      <nav class="top-nav">
+        <a href="index.html">Bosh sahifa</a>
+        <a href="test.html">Test ishlash</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="page-hero guide-hero">
+        <p class="eyebrow">Homepage 1</p>
+        <h1>Qo'llanma: 21 mavzuni noldan tushunish</h1>
+        <p>Bu sahifa formulani yodlashdan oldin uning ma'nosini tushuntiradi. Har mavzuda sodda izoh, formula, kelib chiqish, hayotiy misol va yechilgan namuna bor.</p>
+      </section>
+
+      <section class="tools-row">
+        <label class="search-box">
+          <span>🔎</span>
+          <input id="searchInput" type="search" placeholder="Mavzu yoki formula qidirish: Bayes, dispersiya, Puasson..." />
+        </label>
+        <div class="pdf-links">
+          <a href="../Ehtimol1.pdf" target="_blank" rel="noreferrer">Ehtimol1 PDF</a>
+          <a href="../Ehtimol2.pdf" target="_blank" rel="noreferrer">Ehtimol2 PDF</a>
+        </div>
+      </section>
+
+      <section id="nazariya" class="section">
+        <div class="section-title">
+          <p>Bo'lim 1</p>
+          <h2>Nazariya</h2>
+          <span>Har mavzuni ochib o'qi, kerakli formulani qidiruvdan top.</span>
+        </div>
+        <div id="topics" class="accordion-list"></div>
+      </section>
+    </main>
+    <button id="toTop" class="to-top" aria-label="Tepaga qaytish">↑</button>
+  </body>
+</html>
