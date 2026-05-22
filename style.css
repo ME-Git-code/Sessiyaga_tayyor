@@ -259,6 +259,12 @@ h1 {
     var(--card);
 }
 
+.solve-home {
+  background:
+    linear-gradient(145deg, rgba(247, 196, 106, 0.2), rgba(29, 36, 53, 0.93)),
+    var(--card);
+}
+
 .exam-strip {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
