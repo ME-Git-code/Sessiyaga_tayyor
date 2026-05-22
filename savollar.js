@@ -371,6 +371,21 @@ const theory = {
   }
 };
 
+const formulaGuide = [
+  ["Matematik kutilma", "M(X)=Σxᵢpᵢ", "Har bir qiymat ehtimoliga ko'paytirilib qo'shiladi", "1·0.2+2·0.3+3·0.5=2.3"],
+  ["Dispersiya", "D(X)=Σ(xᵢ-M(X))²pᵢ", "Avval M(X), keyin farqlar kvadrati olinadi", "M=2: (1-2)²·0.5+(3-2)²·0.5=1"],
+  ["O'rtacha kvadratik chetlanish", "σ=√D(X)", "Dispersiyadan ildiz olinadi", "D=9 ⇒ σ=3"],
+  ["Moda", "Mo", "Eng ko'p uchragan qiymat", "1,2,2,3 ⇒ Mo=2"],
+  ["Mediana", "Me", "Ranjirlangan qatordagi o'rtadagi son", "1,2,3,4,5 ⇒ Me=3"],
+  ["Ranjirlangan variatsion qator", "-", "Sonlarni kichikdan kattaga yozish", "5,1,3 ⇒ 1,3,5"],
+  ["Diskret variatsion qator", "x̄=Σxᵢnᵢ/Σnᵢ", "Qiymat chastotaga ko'paytiriladi", "(1·2+2·3)/5=1.6"],
+  ["Oraliqli variatsion qator", "xᵢ=(a+b)/2", "Interval markazi olinadi", "[10;20] ⇒ 15"],
+  ["Siljigan dispersiya", "D=Σ(xᵢ-x̄)²/n", "n ga bo'linadi", "Σ=2, n=2 ⇒ D=1"],
+  ["Siljimagan dispersiya", "S²=Σ(xᵢ-x̄)²/(n-1)", "n-1 ga bo'linadi", "Σ=2, n=3 ⇒ S²=1"],
+  ["Klassik ehtimollik", "P(A)=m/n", "Qulay natijalar jami natijalarga bo'linadi", "m=2, n=6 ⇒ P=1/3"],
+  ["Geometrik ehtimollik", "P(A)=S(A)/S(Ω)", "Qulay yuza umumiy yuzaga bo'linadi", "S(A)=4, S(Ω)=8 ⇒ P=1/2"]
+];
+
 function q(text, options, answer, solution) {
   return {
     text,
@@ -449,6 +464,40 @@ function buildTheory(topic) {
     </div>`;
 }
 
+function buildFormulaGuide() {
+  const rows = formulaGuide.map(([name, formula, how, example]) => `
+    <tr>
+      <td class="formula-name">${escapeHtml(name)}</td>
+      <td class="formula-short">${escapeHtml(formula)}</td>
+      <td class="formula-how">${escapeHtml(how)}</td>
+      <td class="formula-example">${escapeHtml(example)}</td>
+    </tr>`).join("");
+
+  return `
+    <section class="formula-guide">
+      <div class="formula-guide-head">
+        <div>
+          <h2>Qisqa formulalar yo'nalishi</h2>
+          <p>Imtihon oldidan tez takrorlash uchun eng ko'p ishlatiladigan formulalar.</p>
+        </div>
+        <span class="formula-guide-badge">tezkor jadval</span>
+      </div>
+      <div class="formula-table-wrap">
+        <table class="formula-table">
+          <thead>
+            <tr>
+              <th>Mavzu</th>
+              <th>Formula</th>
+              <th>Qanday topiladi</th>
+              <th>Qisqa misol</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </section>`;
+}
+
 function buildTopic(topic) {
   const questions = topic.questions.map((question, qi) => {
     const options = question.options.map((option, oi) => {
@@ -493,7 +542,7 @@ function buildTopic(topic) {
     </section>`;
 }
 
-main.innerHTML = data.map(buildTopic).join("");
+main.innerHTML = buildFormulaGuide() + data.map(buildTopic).join("");
 
 document.addEventListener("click", (event) => {
   const menuBtn = event.target.closest("#topicMenuToggle");

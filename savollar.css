@@ -240,6 +240,103 @@ main {
   padding: 0 2rem 4rem;
 }
 
+.formula-guide {
+  margin: 2rem 0 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(35, 34, 32, 0.92), rgba(26, 25, 22, 0.94));
+  overflow: hidden;
+}
+
+.formula-guide-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+}
+
+.formula-guide-head h2 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.formula-guide-head p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.formula-guide-badge {
+  flex-shrink: 0;
+  border: 1px solid rgba(201, 168, 76, 0.28);
+  border-radius: 4px;
+  padding: 4px 9px;
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.formula-table-wrap {
+  overflow-x: auto;
+}
+
+.formula-table {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.formula-table th,
+.formula-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.formula-table th {
+  color: var(--gold);
+  background: rgba(15, 14, 12, 0.45);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.formula-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.formula-name {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.formula-short {
+  color: var(--gold-light);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.formula-how {
+  color: var(--text-muted);
+}
+
+.formula-example {
+  color: #60bab8;
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+
 .topic {
   display: none;
   padding-top: 2rem;
@@ -659,6 +756,10 @@ footer a:hover {
   main {
     padding-right: 1rem;
     padding-left: 1rem;
+  }
+
+  .formula-guide-head {
+    flex-direction: column;
   }
 
   .nav-inner {
