@@ -6,15 +6,27 @@
     <title>Test ishlash | Ehtimollik va Statistika</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script>
       window.MathJax = {
-        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"]] },
-        svg: { fontCache: "global" }
+        tex: {
+          inlineMath: [
+            ["\\(", "\\)"],
+            ["$", "$"],
+          ],
+          displayMath: [["\\[", "\\]"]],
+        },
+        svg: { fontCache: "global" },
       };
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
     <script defer src="data.js"></script>
     <script defer src="script.js"></script>
   </head>
@@ -40,17 +52,29 @@
       <section class="page-hero test-hero">
         <p class="eyebrow">Homepage 2</p>
         <h1>Test ishlash: savolni tanib, tez va tushunarli yechish</h1>
-        <p>Bu bo'lim Ehtimol1 va Ehtimol2 PDFlaridagi savol uslublariga moslab tuzildi: tanga, o'yin toshi, karta, shar, geometrik ehtimollik, Bernulli, Puasson, regressiya va statistik hisoblar.</p>
+        <p>
+          Bu bo'lim Ehtimol1 va Ehtimol2 PDFlaridagi savol uslublariga moslab
+          tuzildi: tanga, o'yin toshi, karta, shar, geometrik ehtimollik,
+          Bernulli, Puasson, regressiya va statistik hisoblar.
+        </p>
       </section>
 
       <section class="tools-row">
         <label class="search-box">
           <span>🔎</span>
-          <input id="searchInput" type="search" placeholder="Savol turini qidirish: karta, shar, Puasson, mediana..." />
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Savol turini qidirish: karta, shar, Puasson, mediana..."
+          />
         </label>
         <div class="pdf-links">
-          <a href="../Ehtimol1.pdf" target="_blank" rel="noreferrer">Ehtimol1 PDF</a>
-          <a href="../Ehtimol2.pdf" target="_blank" rel="noreferrer">Ehtimol2 PDF</a>
+          <a href="../Ehtimol1.pdf" target="_blank" rel="noreferrer"
+            >Ehtimol1 PDF</a
+          >
+          <a href="../Ehtimol2.pdf" target="_blank" rel="noreferrer"
+            >Ehtimol2 PDF</a
+          >
         </div>
       </section>
 
@@ -58,7 +82,10 @@
         <div class="section-title">
           <p>Bo'lim 2</p>
           <h2>PDF testlar bo'yicha yo'riqnoma</h2>
-          <span>Har bir karta: qanday taniysan, nima qilasan, PDFga o'xshash misol.</span>
+          <span
+            >Har bir karta: qanday taniysan, nima qilasan, PDFga o'xshash
+            misol.</span
+          >
         </div>
         <div id="guides" class="guide-grid"></div>
       </section>
@@ -73,21 +100,43 @@
             <h3>🎲 Bernulli formulasi</h3>
             <p>\(P_n(k)=C_n^k p^k q^{n-k}\)</p>
             <div class="inputs">
-              <label>n <input id="bernN" type="number" value="5" min="0" /></label>
-              <label>k <input id="bernK" type="number" value="2" min="0" /></label>
-              <label>p <input id="bernP" type="number" value="0.5" min="0" max="1" step="0.01" /></label>
+              <label
+                >n <input id="bernN" type="number" value="5" min="0"
+              /></label>
+              <label
+                >k <input id="bernK" type="number" value="2" min="0"
+              /></label>
+              <label
+                >p
+                <input
+                  id="bernP"
+                  type="number"
+                  value="0.5"
+                  min="0"
+                  max="1"
+                  step="0.01"
+              /></label>
             </div>
-            <button class="btn primary small" data-calc="bernoulli">Hisobla</button>
+            <button class="btn primary small" data-calc="bernoulli">
+              Hisobla
+            </button>
             <output id="bernOut">Natija shu yerda chiqadi.</output>
           </article>
           <article class="calc-card">
             <h3>🚚 Puasson formulasi</h3>
             <p>\(P(X=k)=\frac{\lambda^k e^{-\lambda}}{k!}\)</p>
             <div class="inputs">
-              <label>lambda <input id="poisL" type="number" value="1" min="0" step="0.01" /></label>
-              <label>k <input id="poisK" type="number" value="3" min="0" /></label>
+              <label
+                >lambda
+                <input id="poisL" type="number" value="1" min="0" step="0.01"
+              /></label>
+              <label
+                >k <input id="poisK" type="number" value="3" min="0"
+              /></label>
             </div>
-            <button class="btn primary small" data-calc="poisson">Hisobla</button>
+            <button class="btn primary small" data-calc="poisson">
+              Hisobla
+            </button>
             <output id="poisOut">Natija shu yerda chiqadi.</output>
           </article>
           <article class="calc-card">
