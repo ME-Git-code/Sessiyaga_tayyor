@@ -3,101 +3,245 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ehtimollik | Sessiya markazi</title>
+    <title>Sessiyaga Tayyorlan | Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="study-dashboard">
     <div class="progress" id="progress"></div>
-    <header class="site-header">
-      <a class="brand" href="index.html">
-        <span class="brand-mark">E</span>
-        <span>
-          <strong>Ehtimol</strong>
-          <small>Qo'llanma va test tayyorgarligi</small>
-        </span>
-      </a>
-      <nav class="top-nav">
-        <a href="qollanma.html">Qo'llanma</a>
-        <a href="test.html">Test ishlash</a>
-        <a href="savollar.html">14 mavzu</a>
-      </nav>
-    </header>
 
-    <main id="top">
-      <section class="home-hero">
-        <p class="eyebrow">Ehtimollar va statistika fanidan</p>
-        <h1>Mavzularni o'rganib testga tayyorgarlik</h1>
-        <p>
-          Bu saytda ikkita alohida sahifa bor: biri fanni noldan o'rganish
-          uchun, ikkinchisi esa Ehtimol1 va Ehtimol2 testlaridagi savol
-          turlarini amaliy yechish uchun.
-        </p>
-      </section>
+    <div class="dashboard-shell">
+      <aside class="dashboard-sidebar" aria-label="Asosiy navigatsiya">
+        <a class="dashboard-logo" href="index.html">
+          <span>ST</span>
+          <strong>Sessiyaga<br />Tayyorlan</strong>
+        </a>
 
-      <section class="home-grid">
-        <a class="home-card guide-home" href="qollanma.html">
-          <span class="home-icon">📘</span>
-          <p class="eyebrow">Homepage 1</p>
-          <h2>Qo'llanma</h2>
-          <p>
-            Mavzular sodda tilda: ta'rif, formula, kelib chiqish, hayotiy misol
-            va yechim.
-          </p>
-          <strong>O'rganishga kirish →</strong>
-        </a>
-        <a class="home-card test-home" href="test.html">
-          <span class="home-icon">🧪</span>
-          <p class="eyebrow">Homepage 2</p>
-          <h2>Test ishlash</h2>
-          <p>
-            PDFdagi savollarga o'xshash naqshlar: qanday taniysan, qaysi
-            formula, qayerda adashmaslik kerak.
-          </p>
-          <strong>Test yo'riqnomasiga o'tish →</strong>
-        </a>
-        <a class="home-card solve-home" href="savollar.html">
-          <span class="home-icon">14</span>
-          <p class="eyebrow">Yechimli savollar</p>
-          <h2>14 ta test savollari</h2>
-          <p>
-            Har bir mavzu bo'yicha test savollari, to'g'ri javoblar va
-            qadamba-qadam yechimlar.
-          </p>
-          <strong>Yechimlarni ochish →</strong>
-        </a>
-      </section>
+        <nav class="side-nav">
+          <a class="active" href="#overview"><span>O</span>Overview</a>
+          <a href="#fanlar"><span>F</span>Fanlar</a>
+          <a href="#bazalar"><span>B</span>Bazalar</a>
+          <a href="#test-markazi"><span>T</span>Test markazi</a>
+          <a href="#roadmap"><span>R</span>Roadmap</a>
+        </nav>
 
-      <section class="exam-strip">
-        <article>
-          <h3>📄 Test fayllari</h3>
-          <p>
-            Asosiy tayyorgarlik Ehtimol1 va Ehtimol2 PDF testlariga moslangan.
-          </p>
-          <div class="pdf-links">
-            <a href="Ehtimol1.pdf" target="_blank" rel="noreferrer"
-              >Ehtimol1 PDF</a
-            >
-            <a href="Ehtimol2.pdf" target="_blank" rel="noreferrer"
-              >Ehtimol2 PDF</a
-            >
+        <div class="sidebar-card">
+          <span class="mini-label">Test rejimi</span>
+          <strong>Platforma v0.1</strong>
+          <p>Fanlar va sessiya bazalari bosqichma-bosqich qo'shilmoqda.</p>
+        </div>
+      </aside>
+
+      <main class="dashboard-main" id="overview">
+        <header class="dashboard-topbar">
+          <div>
+            <span class="mini-label">Joriy semestr paneli</span>
+            <h1>Sessiyaga tayyorgarlik dashboardi</h1>
           </div>
-        </article>
-        <article>
-          <h3>⏱️ Tavsiya qilingan tartib</h3>
-          <p>
-            1, 2, 3, 4, 5, 7-mavzularni o'qi, keyin test sahifasidagi Bernulli,
-            Puasson, kombinatorika va geometrik ehtimollik bloklarini mashq qil.
-          </p>
-        </article>
-      </section>
-    </main>
+          <div class="topbar-actions">
+            <a href="#fanlar">Fanlarni ochish</a>
+            <a href="#test-markazi">Test markazi</a>
+          </div>
+        </header>
+
+        <section class="overview-grid">
+          <article class="hero-balance-card">
+            <div class="hero-card-top">
+              <div>
+                <span class="mini-label">Akademik workspace</span>
+                <h2>Materiallar tartibli, testlar tez, formulalar yoningizda</h2>
+              </div>
+              <span class="live-pill">Online</span>
+            </div>
+
+            <div class="hero-metrics">
+              <div><span>Fanlar</span><strong>2</strong></div>
+              <div><span>Tayyor modul</span><strong>1</strong></div>
+              <div><span>PDF bazalar</span><strong>2</strong></div>
+            </div>
+
+            <div class="study-curve" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </article>
+
+          <aside class="quick-status-card">
+            <div class="card-heading">
+              <span class="mini-label">Holat</span>
+              <strong>Bugungi fokus</strong>
+            </div>
+            <div class="status-stack">
+              <a href="qollanma.html" data-transition>
+                <span class="status-chip blue">E</span>
+                <div>
+                  <strong>Ehtimollik va statistika</strong>
+                  <small>Qo'llanma, testlar, 14 savol</small>
+                </div>
+                <em>Tayyor</em>
+              </a>
+              <a href="#fanlar">
+                <span class="status-chip violet">H</span>
+                <div>
+                  <strong>Hisoblash tafakkuri</strong>
+                  <small>Algoritm, kod, test bazasi</small>
+                </div>
+                <em>Chala</em>
+              </a>
+              <a href="#roadmap">
+                <span class="status-chip green">AI</span>
+                <div>
+                  <strong>AI yordamchi</strong>
+                  <small>PDF tahlil va izohlar</small>
+                </div>
+                <em>Keyin</em>
+              </a>
+            </div>
+          </aside>
+        </section>
+
+        <section class="dashboard-section" id="fanlar">
+          <div class="section-row">
+            <div>
+              <span class="mini-label">Fanlar</span>
+              <h2>O'qish modullari</h2>
+            </div>
+            <a class="section-link" href="qollanma.html" data-transition>
+              Ehtimollik moduliga o'tish
+            </a>
+          </div>
+
+          <div class="asset-grid">
+            <article class="asset-card probability-card">
+              <div class="asset-top">
+                <span class="asset-icon">E</span>
+                <span class="asset-badge ready">Tayyor</span>
+              </div>
+              <h3>Ehtimollik va statistika</h3>
+              <p>
+                Mavzular, formulalar, test usullari va Ehtimol1/Ehtimol2
+                bazalari asosida tayyorlangan asosiy modul.
+              </p>
+              <div class="asset-stats">
+                <div><span>Mavzu</span><strong>21</strong></div>
+                <div><span>Savol</span><strong>14</strong></div>
+                <div><span>PDF</span><strong>2</strong></div>
+              </div>
+              <div class="asset-actions">
+                <a href="qollanma.html" data-transition>Qo'llanma</a>
+                <a href="test.html" data-transition>Test</a>
+                <a href="savollar.html" data-transition>14 savol</a>
+              </div>
+            </article>
+
+            <article class="asset-card coding-card">
+              <div class="asset-top">
+                <span class="asset-icon">H</span>
+                <span class="asset-badge draft">Ishlanmoqda</span>
+              </div>
+              <h3>Hisoblash tafakkuri va dasturlashga kirish</h3>
+              <p>
+                Algoritmlar, blok-sxemalar, shart operatorlari, sikllar,
+                funksiyalar va kodli testlar uchun yangi fan moduli.
+              </p>
+              <div class="asset-stats">
+                <div><span>Mavzu</span><strong>0</strong></div>
+                <div><span>Kod</span><strong>0</strong></div>
+                <div><span>PDF</span><strong>0</strong></div>
+              </div>
+              <div class="asset-actions disabled">
+                <a href="#roadmap">Rejada</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="session-tools">
+          <article class="tool-panel" id="bazalar">
+            <div class="card-heading">
+              <span class="mini-label">Sessiya bazalari</span>
+              <strong>Original materiallar</strong>
+            </div>
+            <p>
+              PDF va eski savollar shu yerda fanlarga bog'lanadi. Hozir
+              Ehtimollik modulida 2 ta asosiy PDF baza bor.
+            </p>
+            <div class="tool-links">
+              <a href="Ehtimol1.pdf" target="_blank" rel="noreferrer">Ehtimol1 PDF</a>
+              <a href="Ehtimol2.pdf" target="_blank" rel="noreferrer">Ehtimol2 PDF</a>
+            </div>
+          </article>
+
+          <article class="tool-panel" id="test-markazi">
+            <div class="card-heading">
+              <span class="mini-label">Test markazi</span>
+              <strong>Tez mashq qilish</strong>
+            </div>
+            <p>
+              Test yo'riqnomasi va 14 ta yechimli savollar orqali sessiya
+              savollariga tez moslashish mumkin.
+            </p>
+            <div class="tool-links">
+              <a href="test.html" data-transition>Test ishlash</a>
+              <a href="savollar.html" data-transition>14 savol</a>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-lower">
+          <article class="activity-card">
+            <div class="card-heading">
+              <span class="mini-label">Tayyorlanish xaritasi</span>
+              <strong>Mavzu oqimi</strong>
+            </div>
+            <div class="timeline-list">
+              <div>
+                <span></span>
+                <p>Katta LMS materiallari fan va mavzularga ajratiladi.</p>
+              </div>
+              <div>
+                <span></span>
+                <p>Formula, teorema va muhim joylar alohida ko'rsatiladi.</p>
+              </div>
+              <div>
+                <span></span>
+                <p>Testlar va eski sessiya bazalari amaliy formatga o'tkaziladi.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="roadmap-card" id="roadmap">
+            <div class="card-heading">
+              <span class="mini-label">Tez orada</span>
+              <strong>Platforma upgrade</strong>
+            </div>
+            <div class="roadmap-grid">
+              <span>AI Assistant</span>
+              <span>Smart Tests</span>
+              <span>PDF Analyze</span>
+              <span>Progress System</span>
+            </div>
+          </article>
+        </section>
+
+        <footer class="dashboard-note">
+          Platforma test rejimida ishlamoqda. Yangi fanlar va imkoniyatlar tez
+          orada qo'shiladi.
+        </footer>
+      </main>
+    </div>
+
     <button id="toTop" class="to-top" aria-label="Tepaga qaytish">↑</button>
-    <script defer src="script.js"></script>
+    <script defer src="script.js?v=2"></script>
   </body>
 </html>

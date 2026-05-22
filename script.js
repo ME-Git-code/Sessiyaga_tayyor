@@ -160,6 +160,107 @@ function bindCalculators() {
   });
 }
 
+function bindDashboardNavigation() {
+  const links = $$(".side-nav a[href^='#']");
+  if (!links.length) return;
+
+  const setActive = (hash) => {
+    links.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === hash));
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => setActive(link.getAttribute("href")));
+  });
+
+  const sections = links
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+
+  if (!("IntersectionObserver" in window) || !sections.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActive(`#${visible.target.id}`);
+    },
+    { rootMargin: "-18% 0px -62% 0px", threshold: [0.12, 0.28, 0.48] },
+  );
+
+  sections.forEach((section) => observer.observe(section));
+}
+
+function bindPageTransitions() {
+  const overlay = document.createElement("div");
+  overlay.className = "page-transition-overlay";
+  document.body.append(overlay);
+
+  const links = $$("a[href]").filter((link) => {
+    const href = link.getAttribute("href") || "";
+    return (
+      !href.startsWith("#") &&
+      !href.startsWith("http") &&
+      !href.endsWith(".pdf") &&
+      link.target !== "_blank"
+    );
+  });
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (!href) return;
+      event.preventDefault();
+      const rect = link.getBoundingClientRect();
+      overlay.style.setProperty("--transition-x", `${rect.left + rect.width / 2}px`);
+      overlay.style.setProperty("--transition-y", `${rect.top + rect.height / 2}px`);
+      overlay.classList.add("show");
+      document.body.classList.add("is-leaving");
+      window.setTimeout(() => {
+        window.location.href = href;
+      }, 330);
+    });
+  });
+}
+
+function bindCustomCursor() {
+  if (!document.body.classList.contains("study-dashboard")) return;
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+
+  const cursor = document.createElement("div");
+  const ring = document.createElement("div");
+  cursor.className = "mac-cursor";
+  ring.className = "mac-cursor-ring";
+  document.body.append(ring, cursor);
+  document.body.classList.add("use-custom-cursor");
+
+  let ringX = 0;
+  let ringY = 0;
+  let targetX = 0;
+  let targetY = 0;
+
+  const move = (event) => {
+    targetX = event.clientX;
+    targetY = event.clientY;
+    cursor.style.transform = `translate(${targetX}px, ${targetY}px)`;
+  };
+
+  const tick = () => {
+    ringX += (targetX - ringX) * 0.22;
+    ringY += (targetY - ringY) * 0.22;
+    ring.style.left = `${ringX}px`;
+    ring.style.top = `${ringY}px`;
+    window.requestAnimationFrame(tick);
+  };
+
+  document.addEventListener("mousemove", move, { passive: true });
+  document.addEventListener("mouseleave", () => document.body.classList.remove("use-custom-cursor"));
+  document.addEventListener("mouseenter", () => document.body.classList.add("use-custom-cursor"));
+  document.addEventListener("mousedown", () => ring.style.transform = "translate(-50%, -50%) scale(0.72)");
+  document.addEventListener("mouseup", () => ring.style.transform = "translate(-50%, -50%) scale(1)");
+  tick();
+}
+
 function escapeHtml(text) {
   return String(text)
     .replaceAll("&", "&amp;")
@@ -175,6 +276,9 @@ document.addEventListener("DOMContentLoaded", () => {
   bindProgress();
   bindSearch();
   bindCalculators();
+  bindDashboardNavigation();
+  bindPageTransitions();
+  bindCustomCursor();
   const first = $(".accordion-item");
   if (first) {
     first.classList.add("open");
