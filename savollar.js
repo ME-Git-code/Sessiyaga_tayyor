@@ -249,6 +249,14 @@ function q(text, options, answer, solution) {
 
 const nav = document.getElementById("nav");
 const main = document.getElementById("main");
+const activeTopicLabel = document.getElementById("activeTopicLabel");
+const topicMenuToggle = document.getElementById("topicMenuToggle");
+const prevTopicTop = document.getElementById("prevTopicTop");
+const nextTopicTop = document.getElementById("nextTopicTop");
+let activeTopicId = 1;
+
+prevTopicTop.dataset.topicStep = "-1";
+nextTopicTop.dataset.topicStep = "1";
 
 data.forEach((topic) => {
   const btn = document.createElement("button");
@@ -303,12 +311,37 @@ function buildTopic(topic) {
         <span class="topic-ball">${topic.ball} ball</span>
       </div>
       ${questions}
+      <div class="topic-footer-nav">
+        <button class="topic-footer-btn prev" type="button" data-topic-step="-1">
+          ← Oldingi mavzu
+        </button>
+        <span class="topic-footer-current">Mavzu ${topic.id} / ${data.length}</span>
+        <button class="topic-footer-btn next" type="button" data-topic-step="1">
+          Keyingi mavzu →
+        </button>
+      </div>
     </section>`;
 }
 
 main.innerHTML = data.map(buildTopic).join("");
 
 document.addEventListener("click", (event) => {
+  const menuBtn = event.target.closest("#topicMenuToggle");
+  if (menuBtn) {
+    toggleTopicMenu();
+    return;
+  }
+
+  const stepBtn = event.target.closest("[data-topic-step]");
+  if (stepBtn) {
+    moveTopic(Number(stepBtn.dataset.topicStep));
+    return;
+  }
+
+  if (!event.target.closest(".topic-nav") && !event.target.closest(".compact-nav")) {
+    closeTopicMenu();
+  }
+
   const btn = event.target.closest(".solution-toggle");
   if (!btn) return;
   const el = document.getElementById(btn.dataset.solution);
@@ -319,11 +352,52 @@ document.addEventListener("click", (event) => {
 });
 
 function activate(id) {
+  activeTopicId = Number(id);
   document.querySelectorAll(".topic").forEach((topic) => topic.classList.remove("active"));
   document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
-  document.getElementById(`topic-${id}`).classList.add("active");
-  document.querySelector(`.nav-btn[data-id="${id}"]`).classList.add("active");
+  document.getElementById(`topic-${activeTopicId}`).classList.add("active");
+  document.querySelector(`.nav-btn[data-id="${activeTopicId}"]`).classList.add("active");
+  updateTopicControls();
+  closeTopicMenu();
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function moveTopic(step) {
+  const nextId = activeTopicId + step;
+  if (nextId < 1 || nextId > data.length) return;
+  activate(nextId);
+}
+
+function updateTopicControls() {
+  const current = data.find((topic) => topic.id === activeTopicId);
+  if (activeTopicLabel && current) {
+    activeTopicLabel.textContent = `Mavzu ${activeTopicId}/${data.length}: ${current.title}`;
+  }
+
+  [prevTopicTop, ...document.querySelectorAll(".topic.active [data-topic-step='-1']")]
+    .filter(Boolean)
+    .forEach((button) => {
+      button.disabled = activeTopicId === 1;
+    });
+
+  [nextTopicTop, ...document.querySelectorAll(".topic.active [data-topic-step='1']")]
+    .filter(Boolean)
+    .forEach((button) => {
+      button.disabled = activeTopicId === data.length;
+      if (button.classList.contains("next")) {
+        button.textContent = activeTopicId === data.length ? "Mavzular tugadi" : "Keyingi mavzu →";
+      }
+    });
+}
+
+function toggleTopicMenu() {
+  const open = nav.classList.toggle("open");
+  topicMenuToggle.classList.toggle("open", open);
+}
+
+function closeTopicMenu() {
+  nav.classList.remove("open");
+  topicMenuToggle.classList.remove("open");
 }
 
 function escapeHtml(text) {

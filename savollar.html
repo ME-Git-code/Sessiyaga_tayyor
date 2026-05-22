@@ -27,9 +27,19 @@
 
     <nav>
       <div class="nav-inner">
-        <a class="nav-link" href="index.html">Bosh sahifa</a>
-        <a class="nav-link" href="qollanma.html">Qo'llanma</a>
-        <a class="nav-link" href="test.html">Test</a>
+        <div class="site-links">
+          <a class="nav-link" href="index.html">Bosh sahifa</a>
+          <a class="nav-link" href="qollanma.html">Qo'llanma</a>
+          <a class="nav-link" href="test.html">Test</a>
+        </div>
+        <div class="compact-nav">
+          <button class="nav-step" id="prevTopicTop" type="button">‹</button>
+          <button class="topic-menu-toggle" id="topicMenuToggle" type="button">
+            <span id="activeTopicLabel">Mavzu 1/14</span>
+            <span class="menu-chevron">▾</span>
+          </button>
+          <button class="nav-step" id="nextTopicTop" type="button">›</button>
+        </div>
         <div class="topic-nav" id="nav"></div>
       </div>
     </nav>
