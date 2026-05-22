@@ -238,13 +238,166 @@ const data = [
   }
 ];
 
+const theory = {
+  1: {
+    text: "Elementar hodisalar fazosi Ω - tajribaning barcha mumkin bo'lgan natijalari to'plami. Har bir yakka natija elementar hodisa deyiladi. Voqea A esa Ω ning quyi to'plamidir.",
+    formulas: [
+      "A ∪ B = { x : x ∈ A yoki x ∈ B }",
+      "A ∩ B = { x : x ∈ A va x ∈ B }",
+      "A \\ B = { x : x ∈ A va x ∉ B }",
+      "|Ω| = n₁ × n₂ × ... × nₖ"
+    ],
+    note: "Mustaqil qurilmalar birgalikda qatnashsa, ularning natijalari soni ko'paytiriladi."
+  },
+  2: {
+    text: "Klassik ehtimollik barcha elementar hodisalar teng imkoniyatli bo'lganda ishlatiladi. Avval jami natija, keyin qulay natija sanaladi.",
+    formulas: [
+      "P(A) = m / n",
+      "0 ≤ P(A) ≤ 1",
+      "P(Ω) = 1,   P(∅) = 0",
+      "A \\ B - A da bor, B da yo'q; A ∩ B - umumiy qism"
+    ],
+    note: "To'plam amallari klassik ehtimollik masalalarining poydevori."
+  },
+  3: {
+    text: "Geometrik ehtimollik natijalar uzluksiz bo'lganda qo'llanadi. Bunday holatda sanash emas, uzunlik, yuza yoki hajm solishtiriladi.",
+    formulas: [
+      "P(A) = |Kesma_A| / |Kesma_Ω|",
+      "P(A) = S(A) / S(Ω)",
+      "P(A) = V(A) / V(Ω)",
+      "P(A) = μ(A) / μ(Ω)"
+    ],
+    note: "Agar shart soha bilan berilsa, qulay maydon ko'pincha integral orqali topiladi."
+  },
+  4: {
+    text: "Kombinatorika katta sonli tanlashlarda ishlatiladi. Karta, qalam, talaba tanlash kabi masalalarda tartib muhim bo'lmasa kombinatsiya olinadi.",
+    formulas: [
+      "Cₙᵏ = n! / (k!(n-k)!)",
+      "Aₙᵏ = n! / (n-k)!",
+      "Pₙ = n!",
+      "P(A) = qulay kombinatsiyalar / jami kombinatsiyalar"
+    ],
+    note: "Savolda 'n tadan k ta olindi' deyilsa va tartib aytilmasa, odatda C formulasi ishlatiladi."
+  },
+  5: {
+    text: "Ko'rsatkichli taqsimotda X ~ Exp(λ) bo'lsa, matematik kutilma M(X)=1/λ. Momentlar usuli nazariy momentni tanlanma momentga tenglashtiradi.",
+    formulas: [
+      "M(X) = 1 / λ",
+      "λ̂ = 1 / x̄",
+      "x̄ = Σ(xᵢ·nᵢ) / Σnᵢ"
+    ],
+    note: "Bu turdagi masalada eng muhim ish x̄ ni to'g'ri hisoblash, keyin teskarisini olish."
+  },
+  6: {
+    text: "Uzluksiz tasodifiy miqdorda f(x) zichlik funksiyasi bo'ladi. Zichlikning umumiy maydoni 1 ga teng bo'lishi shart.",
+    formulas: [
+      "f(x) ≥ 0",
+      "∫₋∞⁺∞ f(x) dx = 1",
+      "∫ xⁿ dx = xⁿ⁺¹ / (n+1) + C"
+    ],
+    note: "c parametrini topish uchun ∫f(x)dx=1 tenglamasi tuziladi."
+  },
+  7: {
+    text: "Dispersiya ma'lumotlarning o'rtacha qiymatdan qanchalik tarqalganini o'lchaydi. To'g'rilangan dispersiyada Bessel korreksiyasi ishlatiladi.",
+    formulas: [
+      "x̄ = Σxᵢ / n",
+      "s² = Σ(xᵢ - x̄)² / n",
+      "S² = Σ(xᵢ - x̄)² / (n - 1)",
+      "s = √s²"
+    ],
+    note: "'To'g'rilangan' so'zi bo'lsa, n emas, n-1 ga bo'linadi."
+  },
+  8: {
+    text: "Moda eng ko'p takrorlangan qiymat, mediana esa ranjirlangan qatordagi o'rtadagi qiymatdir.",
+    formulas: [
+      "Mo = eng katta chastotali qiymat",
+      "n toq: Me = x₍ₙ₊₁₎/₂",
+      "n juft: Me = (xₙ/₂ + xₙ/₂₊₁) / 2"
+    ],
+    note: "Medianani topishdan oldin sonlarni albatta o'sish tartibida joylashtiring."
+  },
+  9: {
+    text: "Oraliqli variatsion qatorda har bir oraliq markazi olinadi va chastota bilan vaznlanadi.",
+    formulas: [
+      "xᵢ = (aᵢ + bᵢ) / 2",
+      "x̄ = Σ(xᵢ·nᵢ) / n",
+      "n = Σnᵢ"
+    ],
+    note: "Jadval tuzing: oraliq, markaz, chastota, markaz×chastota."
+  },
+  10: {
+    text: "Diskret variatsion qatorda qiymatlar alohida-alohida beriladi. Bir xil qiymatlar chastota sifatida jamlanadi.",
+    formulas: [
+      "x̄ = Σ(xᵢ·nᵢ) / n",
+      "s² = Σ[nᵢ·(xᵢ-x̄)²] / n",
+      "s = √s²"
+    ],
+    note: "Xom ro'yxat berilsa, avval har bir qiymat necha marta takrorlanganini sanang."
+  },
+  11: {
+    text: "Oraliqli qatorda moda va mediana aniq nuqta emas, formula orqali taxminiy/interpolyatsion qiymat sifatida topiladi.",
+    formulas: [
+      "Mo = x_Mo + h·(n_Mo-n_prev)/(2n_Mo-n_prev-n_next)",
+      "Me = a_Me + h·(n/2-F_prev)/n_Me"
+    ],
+    note: "Mediana uchun kumulativ chastota jadvali eng ishonchli yo'l."
+  },
+  12: {
+    text: "Ishonchlilik oralig'i noma'lum parametr qaysi oraliqda bo'lishini ko'rsatadi. Odatda xato chegarasi Δ topiladi.",
+    formulas: [
+      "x̄ - tγ·S/√n ≤ μ ≤ x̄ + tγ·S/√n",
+      "Δ = tγ·S/√n",
+      "(n-1)S²/u₂ ≤ σ² ≤ (n-1)S²/u₁"
+    ],
+    note: "Dispersiya oralig'ida katta u pastki chegarada, kichik u yuqori chegarada ishlatiladi."
+  },
+  13: {
+    text: "Chiziqli regressiya ŷ=ax+b ko'rinishida bo'ladi. a qiyalikni, b esa boshlang'ich siljishni bildiradi.",
+    formulas: [
+      "a = (nΣxy - ΣxΣy) / (nΣx² - (Σx)²)",
+      "b = ȳ - a·x̄",
+      "x̄ = Σx/n,   ȳ = Σy/n"
+    ],
+    note: "Regressiyada jadval ustunlari: x, y, x², xy. Shu jadval xatoni kamaytiradi."
+  },
+  14: {
+    text: "Bayes mavzusida avval gipotezalar ehtimolligi, keyin shartli ehtimolliklar olinadi. Ko'p testlarda faqat to'liq ehtimollik so'raladi.",
+    formulas: [
+      "P(B) = Σ P(Hᵢ)·P(B|Hᵢ)",
+      "P(Hᵢ|B) = P(Hᵢ)·P(B|Hᵢ) / P(B)",
+      "ΣP(Hᵢ)=1"
+    ],
+    note: "Agar savolda 'qaysi sabab/gipoteza' so'ralmasa, Bayesning maxrajidagi P(B) ni topish yetarli bo'lishi mumkin."
+  }
+};
+
 function q(text, options, answer, solution) {
   return {
     text,
     options,
     answer,
-    solution: solution.map(([step, detail = "", formula = "", result = ""]) => ({ step, detail, formula, result }))
+    solution: solution.map(([step, detail = "", formula = "", result = ""]) => ({
+      step,
+      detail,
+      formula,
+      result,
+      formulaType: result ? "teal" : formula && /hisob|integral|o'rtacha|jadval|yig'indi/i.test(step) ? "blue" : "",
+      tip: result ? professorTip(text) : ""
+    }))
   };
+}
+
+function professorTip(text) {
+  if (/A∪B|A\\B|A∩B/.test(text)) return "To'plam amallarida avval ta'rifni o'qing: birlashma - yoki, kesishma - ham, ayirma - A da bor B da yo'q.";
+  if (/kesma|0≤x|y≥|maydon/i.test(text)) return "Geometrik ehtimollikda sanash emas, o'lchov ishlaydi: qulay maydonni umumiy maydonga bo'ling.";
+  if (/karta|qalam/i.test(text)) return "Tartib muhim bo'lmasa C kombinatsiya ishlatiladi. Avval umumiy, keyin qulay kombinatsiyalarni yozing.";
+  if (/ko'rsatkichli|λ/i.test(text)) return "Ko'rsatkichli taqsimot uchun eng qisqa yo'l: x̄ ni toping va λ̂=1/x̄ qiling.";
+  if (/c·x|f\(x\)/i.test(text)) return "Zichlikdagi c doim ∫f(x)dx=1 shartidan topiladi.";
+  if (/dispersiya/i.test(text)) return "Oddiy dispersiya n ga, to'g'rilangan dispersiya n-1 ga bo'linadi.";
+  if (/Moda|Mediana/i.test(text)) return "Medianadan oldin sonlarni o'sish tartibiga keltirish majburiy.";
+  if (/regressiya/i.test(text)) return "Regressiyada jadval tuzing: x, y, x², xy. Keyin a va b formulalari xatosiz chiqadi.";
+  if (/kredit|a'lochi|Bayes/i.test(text)) return "Agar savolda sabab so'ralmasa, ko'pincha to'liq ehtimollik P(B)=ΣP(Hᵢ)P(B|Hᵢ) yetarli.";
+  return "Avval berilganlarni tartiblang, keyin formulani qo'llang. Testda eng ko'p xato shoshilib formula tanlashdan chiqadi.";
 }
 
 const nav = document.getElementById("nav");
@@ -273,11 +426,27 @@ function buildSolution(steps) {
     let inner = '<div class="sol-step-content">';
     if (s.step) inner += `<strong class="sol-title">${escapeHtml(s.step)}</strong><br />`;
     if (s.detail) inner += `<span style="white-space:pre-line">${escapeHtml(s.detail)}</span>`;
-    if (s.formula) inner += `<div class="formula">${escapeHtml(s.formula)}</div>`;
+    if (s.formula) inner += `<div class="formula ${s.formulaType ? `formula-${s.formulaType}` : ""}">${escapeHtml(s.formula)}</div>`;
     if (s.result) inner += `<div class="result-box">${escapeHtml(s.result)}</div>`;
+    if (s.tip) inner += `<div class="pro-tip">${escapeHtml(s.tip)}</div>`;
     inner += "</div>";
     return `<div class="sol-step"><div class="sol-step-num">${i + 1}</div>${inner}</div>`;
   }).join("");
+}
+
+function buildTheory(topic) {
+  const item = theory[topic.id];
+  if (!item) return "";
+  const formulas = item.formulas.map((formula) => `<div class="theory-formula">${escapeHtml(formula)}</div>`).join("");
+  return `
+    <div class="theory-block">
+      <div class="theory-head">Nazariya va formulalar</div>
+      <div class="theory-body">
+        <p>${escapeHtml(item.text)}</p>
+        ${formulas}
+        <div class="theory-note"><strong>ESLATMA:</strong> ${escapeHtml(item.note)}</div>
+      </div>
+    </div>`;
 }
 
 function buildTopic(topic) {
@@ -310,6 +479,7 @@ function buildTopic(topic) {
         <span class="topic-title">${escapeHtml(topic.title)}</span>
         <span class="topic-ball">${topic.ball} ball</span>
       </div>
+      ${buildTheory(topic)}
       ${questions}
       <div class="topic-footer-nav">
         <button class="topic-footer-btn prev" type="button" data-topic-step="-1">
