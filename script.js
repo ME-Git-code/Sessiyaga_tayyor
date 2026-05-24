@@ -238,11 +238,14 @@ function bindCustomCursor() {
   let ringY = 0;
   let targetX = 0;
   let targetY = 0;
+  const hoverSelector = "a, button, input, textarea, select, summary, [role='button'], [tabindex]:not([tabindex='-1'])";
 
   const move = (event) => {
     targetX = event.clientX;
     targetY = event.clientY;
-    cursor.style.transform = `translate(${targetX}px, ${targetY}px)`;
+    cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    const target = event.target instanceof Element ? event.target : null;
+    document.body.classList.toggle("is-cursor-hovering", Boolean(target?.closest(hoverSelector)));
   };
 
   const tick = () => {
@@ -254,10 +257,12 @@ function bindCustomCursor() {
   };
 
   document.addEventListener("mousemove", move, { passive: true });
-  document.addEventListener("mouseleave", () => document.body.classList.remove("use-custom-cursor"));
+  document.addEventListener("mouseleave", () => {
+    document.body.classList.remove("use-custom-cursor", "is-cursor-hovering", "is-cursor-down");
+  });
   document.addEventListener("mouseenter", () => document.body.classList.add("use-custom-cursor"));
-  document.addEventListener("mousedown", () => ring.style.transform = "translate(-50%, -50%) scale(0.72)");
-  document.addEventListener("mouseup", () => ring.style.transform = "translate(-50%, -50%) scale(1)");
+  document.addEventListener("mousedown", () => document.body.classList.add("is-cursor-down"));
+  document.addEventListener("mouseup", () => document.body.classList.remove("is-cursor-down"));
   tick();
 }
 

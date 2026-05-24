@@ -1,0 +1,4003 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kiberxavfsizlik Asoslari – To'liq Qo'llanma</title>
+    <style>
+      :root {
+        --blue: #1a3c6e;
+        --blue2: #2563eb;
+        --green: #16a34a;
+        --red: #dc2626;
+        --yellow: #ca8a04;
+        --bg: #f1f5f9;
+        --card: #ffffff;
+        --text: #1e293b;
+        --muted: #64748b;
+        --border: #e2e8f0;
+        --accent: #dbeafe;
+        --accent2: #dcfce7;
+        --accent3: #fef9c3;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      /* ── TOP NAV ── */
+      nav {
+        background: var(--blue);
+        color: #fff;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        flex-wrap: wrap;
+      }
+      nav .logo {
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 14px 0;
+        flex: 1;
+        min-width: 180px;
+      }
+      nav .logo span {
+        color: #93c5fd;
+      }
+      nav .tabs {
+        display: flex;
+        gap: 4px;
+        padding: 8px 0;
+        flex-wrap: wrap;
+      }
+      nav .tabs a,
+      nav .tabs button {
+        background: transparent;
+        border: none;
+        color: #cbd5e1;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        white-space: nowrap;
+      }
+      nav .tabs a:hover,
+      nav .tabs button.active,
+      nav .tabs button:hover {
+        background: #2563eb;
+        color: #fff;
+      }
+      nav .search-wrap {
+        padding: 8px 0;
+      }
+      nav .search-wrap input {
+        padding: 8px 14px;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        font-size: 0.9rem;
+        width: 220px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
+      nav .search-wrap input::placeholder {
+        color: #94a3b8;
+      }
+      nav .search-wrap input:focus {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      /* ── LAYOUT ── */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px 16px;
+      }
+
+      /* ── SIDEBAR + CONTENT ── */
+      .main-layout {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .sidebar {
+        width: 260px;
+        min-width: 220px;
+        background: var(--card);
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        padding: 12px 0;
+        position: sticky;
+        top: 70px;
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
+      }
+      .sidebar h3 {
+        padding: 8px 16px;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        color: var(--muted);
+        letter-spacing: 1px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 16px;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        font-size: 0.88rem;
+        transition: all 0.15s;
+        color: var(--text);
+      }
+      .sidebar-item:hover {
+        background: var(--accent);
+        border-left-color: var(--blue2);
+      }
+      .sidebar-item.active {
+        background: var(--accent);
+        border-left-color: var(--blue2);
+        color: var(--blue2);
+        font-weight: 600;
+      }
+      .sidebar-item .num {
+        background: var(--blue);
+        color: #fff;
+        border-radius: 6px;
+        padding: 2px 7px;
+        font-size: 0.75rem;
+        min-width: 26px;
+        text-align: center;
+      }
+      .sidebar-item.active .num {
+        background: var(--blue2);
+      }
+
+      .content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* ── PAGES ── */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        background: linear-gradient(135deg, #1a3c6e 0%, #2563eb 100%);
+        border-radius: 16px;
+        color: #fff;
+        padding: 36px 32px;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+      }
+      .hero p {
+        color: #bfdbfe;
+        font-size: 1rem;
+      }
+      .hero .stats {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .hero .stat {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        padding: 12px 20px;
+        text-align: center;
+      }
+      .hero .stat .n {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .hero .stat .l {
+        font-size: 0.8rem;
+        color: #bfdbfe;
+      }
+
+      /* ── LECTURE CARDS (main page grid) ── */
+      .lecture-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .lecture-card {
+        background: var(--card);
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        padding: 18px;
+        cursor: pointer;
+        transition:
+          box-shadow 0.2s,
+          transform 0.15s;
+      }
+      .lecture-card:hover {
+        box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+        transform: translateY(-2px);
+      }
+      .lecture-card .badge {
+        display: inline-block;
+        background: var(--blue);
+        color: #fff;
+        border-radius: 8px;
+        padding: 3px 10px;
+        font-size: 0.75rem;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .lecture-card h3 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+        line-height: 1.4;
+      }
+      .lecture-card p {
+        font-size: 0.83rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── SINGLE LECTURE VIEW ── */
+      .lecture-view {
+        background: var(--card);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .lv-header {
+        background: linear-gradient(90deg, #1a3c6e, #2563eb);
+        color: #fff;
+        padding: 24px 28px;
+      }
+      .lv-header .lv-num {
+        font-size: 0.8rem;
+        opacity: 0.75;
+        margin-bottom: 4px;
+      }
+      .lv-header h2 {
+        font-size: 1.4rem;
+      }
+      .lv-body {
+        padding: 28px;
+      }
+      .lv-nav {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .lv-nav-btn {
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.15s;
+      }
+      .lv-nav-btn.active,
+      .lv-nav-btn:hover {
+        background: var(--blue2);
+        color: #fff;
+        border-color: var(--blue2);
+      }
+
+      /* ── SECTIONS ── */
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+
+      .info-block {
+        background: var(--accent);
+        border-left: 4px solid var(--blue2);
+        border-radius: 0 10px 10px 0;
+        padding: 14px 18px;
+        margin-bottom: 16px;
+      }
+      .info-block.green {
+        background: var(--accent2);
+        border-left-color: var(--green);
+      }
+      .info-block.yellow {
+        background: var(--accent3);
+        border-left-color: var(--yellow);
+      }
+      .info-block.red {
+        background: #fee2e2;
+        border-left-color: var(--red);
+      }
+      .info-block h4 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        color: var(--blue);
+      }
+      .info-block.green h4 {
+        color: var(--green);
+      }
+      .info-block.yellow h4 {
+        color: var(--yellow);
+      }
+      .info-block.red h4 {
+        color: var(--red);
+      }
+      .info-block p,
+      .info-block li {
+        font-size: 0.92rem;
+        line-height: 1.65;
+      }
+      .info-block ul {
+        padding-left: 18px;
+      }
+      .info-block li {
+        margin-bottom: 4px;
+      }
+
+      h3.sec-title {
+        font-size: 1.05rem;
+        color: var(--blue);
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 8px;
+        margin: 22px 0 14px;
+      }
+
+      /* ATAMALAR TABLE */
+      .term-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .term-table th {
+        background: var(--blue);
+        color: #fff;
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 0.85rem;
+      }
+      .term-table td {
+        padding: 9px 14px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.88rem;
+        vertical-align: top;
+      }
+      .term-table tr:nth-child(even) td {
+        background: #f8fafc;
+      }
+      .term-table td:first-child {
+        font-weight: 600;
+        color: var(--blue2);
+        white-space: nowrap;
+      }
+
+      /* FORMULA BLOCK */
+      .formula {
+        background: #0f172a;
+        color: #7dd3fc;
+        border-radius: 10px;
+        padding: 14px 20px;
+        font-family: "Courier New", monospace;
+        font-size: 0.95rem;
+        margin: 12px 0;
+        overflow-x: auto;
+      }
+
+      /* COMPARE TABLE */
+      .cmp-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 16px;
+      }
+      .cmp-table th {
+        background: var(--blue);
+        color: #fff;
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+      .cmp-table td {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      .cmp-table .good {
+        color: var(--green);
+        font-weight: 600;
+      }
+      .cmp-table .bad {
+        color: var(--red);
+      }
+
+      /* BACK BTN */
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        cursor: pointer;
+        font-size: 0.88rem;
+        margin-bottom: 16px;
+        transition: all 0.15s;
+      }
+      .back-btn:hover {
+        background: var(--accent);
+      }
+
+      /* PROGRESS */
+      .progress-bar {
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        margin-bottom: 6px;
+      }
+      .progress-bar .fill {
+        height: 100%;
+        background: var(--blue2);
+        border-radius: 2px;
+        transition: width 0.5s;
+      }
+
+      /* ── TEST PAGE ── */
+      .test-container {
+        max-width: 760px;
+      }
+      .test-setup {
+        background: var(--card);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        padding: 28px;
+      }
+      .test-setup h2 {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+      }
+      .test-filters {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+      .test-filters select {
+        padding: 9px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      .btn-start {
+        background: var(--blue2);
+        color: #fff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-start:hover {
+        background: #1d4ed8;
+      }
+      .btn-start:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      .test-active {
+        display: none;
+      }
+      .q-card {
+        background: var(--card);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        padding: 28px;
+      }
+      .q-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .q-text {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+      .q-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .q-opt {
+        padding: 12px 18px;
+        border-radius: 10px;
+        border: 2px solid var(--border);
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: all 0.15s;
+        background: var(--card);
+      }
+      .q-opt:hover {
+        border-color: var(--blue2);
+        background: var(--accent);
+      }
+      .q-opt.correct {
+        border-color: var(--green);
+        background: var(--accent2);
+        font-weight: 600;
+      }
+      .q-opt.wrong {
+        border-color: var(--red);
+        background: #fee2e2;
+      }
+      .q-opt.disabled {
+        cursor: default;
+      }
+
+      .q-feedback {
+        margin-top: 16px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        display: none;
+      }
+      .q-feedback.show {
+        display: block;
+      }
+      .q-feedback.ok {
+        background: var(--accent2);
+        color: var(--green);
+      }
+      .q-feedback.fail {
+        background: #fee2e2;
+        color: var(--red);
+      }
+
+      .q-btn-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .btn-next {
+        background: var(--blue2);
+        color: #fff;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 9px;
+        cursor: pointer;
+        font-size: 0.92rem;
+        display: none;
+      }
+      .btn-next.show {
+        display: block;
+      }
+
+      /* RESULT */
+      .test-result {
+        display: none;
+        background: var(--card);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        padding: 32px;
+        text-align: center;
+      }
+      .test-result .big-score {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .test-result .score-label {
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+      .test-result .grade {
+        font-size: 1.4rem;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 10px;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+      .grade-a {
+        background: var(--accent2);
+        color: var(--green);
+      }
+      .grade-b {
+        background: var(--accent);
+        color: var(--blue2);
+      }
+      .grade-c {
+        background: var(--accent3);
+        color: var(--yellow);
+      }
+      .grade-d {
+        background: #fee2e2;
+        color: var(--red);
+      }
+      .result-details {
+        text-align: left;
+        margin-top: 20px;
+      }
+      .result-item {
+        padding: 10px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.88rem;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+      }
+      .result-item .ri {
+        font-size: 1rem;
+      }
+
+      /* GLOSSARY */
+      .gloss-search {
+        width: 100%;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+      }
+      .gloss-list {
+        display: grid;
+        gap: 10px;
+      }
+      .gloss-item {
+        background: var(--card);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 14px 18px;
+      }
+      .gloss-item .term {
+        font-weight: 700;
+        color: var(--blue2);
+        margin-bottom: 4px;
+        font-size: 1rem;
+      }
+      .gloss-item .def {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        color: var(--text);
+      }
+      .gloss-item .tag {
+        font-size: 0.75rem;
+        background: var(--accent);
+        color: var(--blue2);
+        border-radius: 6px;
+        padding: 2px 8px;
+        display: inline-block;
+        margin-top: 6px;
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      /* SEARCH RESULTS */
+      .search-results {
+        margin-top: 16px;
+      }
+      .sr-item {
+        background: var(--card);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 16px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: box-shadow 0.15s;
+      }
+      .sr-item:hover {
+        box-shadow: 0 2px 12px rgba(37, 99, 235, 0.12);
+      }
+      .sr-item .sr-title {
+        font-weight: 600;
+        color: var(--blue2);
+        margin-bottom: 4px;
+      }
+      .sr-item .sr-text {
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+      .sr-item .sr-source {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      mark {
+        background: #fef08a;
+        border-radius: 3px;
+        padding: 0 2px;
+      }
+
+      @media (max-width: 768px) {
+        .main-layout {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 100%;
+          position: relative;
+          top: 0;
+          max-height: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">🔐 <span>Kiberxavfsizlik</span> Asoslari</div>
+      <div class="tabs">
+        <a href="index.html">Dashboard</a>
+        <button class="active" onclick="showPage('home')">
+          🏠 Bosh sahifa
+        </button>
+        <button onclick="showPage('lectures')">📚 Ma'ruzalar</button>
+        <button onclick="showPage('glossary')">📖 Atamalar</button>
+        <button onclick="showPage('test')">✅ Test</button>
+      </div>
+      <div class="search-wrap">
+        <input
+          type="text"
+          id="globalSearch"
+          placeholder="🔍 Qidirish..."
+          oninput="doSearch(this.value)"
+        />
+      </div>
+    </nav>
+
+    <!-- ═══════════════ HOME PAGE ═══════════════ -->
+    <div id="page-home" class="page active">
+      <div class="container">
+        <div class="hero">
+          <h1>Kiberxavfsizlik Asoslari — To'liq Qo'llanma</h1>
+          <p>
+            TUIT · KIA1406, CSF · Xudoykulov Z.T. — barcha 21 ta ma'ruza,
+            atamalar va test bo'limlari
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <div class="n">21</div>
+              <div class="l">Ma'ruza</div>
+            </div>
+            <div class="stat">
+              <div class="n">120+</div>
+              <div class="l">Atama</div>
+            </div>
+            <div class="stat">
+              <div class="n">105</div>
+              <div class="l">Test savoli</div>
+            </div>
+            <div class="stat">
+              <div class="n">6</div>
+              <div class="l">Mavzu bloki</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="searchPage" class="page-section hidden">
+          <h3 class="sec-title">Qidiruv natijalari</h3>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <div id="homeMain">
+          <h3 class="sec-title">Mavzu bloklari bo'yicha ma'ruzalar</h3>
+          <div class="lecture-grid" id="homeGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ LECTURES PAGE ═══════════════ -->
+    <div id="page-lectures" class="page">
+      <div class="container">
+        <div class="main-layout">
+          <div class="sidebar">
+            <h3>Ma'ruzalar</h3>
+            <div id="sidebarList"></div>
+          </div>
+          <div class="content" id="lectureContent">
+            <div style="text-align: center; padding: 40px; color: var(--muted)">
+              <div style="font-size: 3rem">📖</div>
+              <p>Chap tomondagi ro'yxatdan ma'ruzani tanlang</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ GLOSSARY PAGE ═══════════════ -->
+    <div id="page-glossary" class="page">
+      <div class="container" style="max-width: 900px">
+        <h2 style="margin-bottom: 16px">📖 Atamalar lug'ati</h2>
+        <input
+          class="gloss-search"
+          type="text"
+          placeholder="Atama qidirish..."
+          oninput="filterGloss(this.value)"
+        />
+        <div class="gloss-list" id="glossList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ TEST PAGE ═══════════════ -->
+    <div id="page-test" class="page">
+      <div class="container">
+        <div class="test-container">
+          <div class="test-setup" id="testSetup">
+            <h2>✅ Sessiyaga tayyorlanish testi</h2>
+            <p style="color: var(--muted); margin-bottom: 20px">
+              Ma'ruza tanlang va savollar sonini belgilang
+            </p>
+            <div class="test-filters">
+              <select id="testTopic">
+                <option value="all">Barcha mavzular</option>
+                <option value="1">1–4: Asoslar & Risklar</option>
+                <option value="2">5–9: Kriptografiya</option>
+                <option value="3">11–12: Foydalanishni boshqarish</option>
+                <option value="4">13–16: Tarmoq xavfsizligi</option>
+                <option value="5">17–18: Bulut & IoT</option>
+                <option value="6">19–21: Dasturiy & Ijtimoiy</option>
+              </select>
+              <select id="testCount">
+                <option value="10">10 ta savol</option>
+                <option value="20" selected>20 ta savol</option>
+                <option value="30">30 ta savol</option>
+                <option value="all">Barchasi</option>
+              </select>
+            </div>
+            <button class="btn-start" onclick="startTest()">
+              Testni boshlash ▶
+            </button>
+          </div>
+          <div class="test-active" id="testActive">
+            <div class="q-meta">
+              <span id="qNum"></span>
+              <span
+                id="qScore"
+                style="font-weight: 600; color: var(--blue2)"
+              ></span>
+            </div>
+            <div class="progress-bar">
+              <div class="fill" id="qProgress"></div>
+            </div>
+            <div class="q-card">
+              <div class="q-text" id="qText"></div>
+              <div class="q-options" id="qOptions"></div>
+              <div class="q-feedback" id="qFeedback"></div>
+              <div class="q-btn-row">
+                <button class="btn-next" id="btnNext" onclick="nextQuestion()">
+                  Keyingisi →
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="test-result" id="testResult">
+            <div class="big-score" id="resultScore"></div>
+            <div class="score-label" id="resultLabel"></div>
+            <div class="grade" id="resultGrade"></div>
+            <div class="result-details" id="resultDetails"></div>
+            <button
+              class="btn-start"
+              style="margin-top: 20px"
+              onclick="resetTest()"
+            >
+              🔄 Qayta boshlash
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ═══════════════════════════════════════════════════════
+      // DATA
+      // ═══════════════════════════════════════════════════════
+      const LECTURES = [
+        {
+          num: 1,
+          title: "Kiberxavfsizlikning asosiy tushunchalari",
+          short: "CIA triada, tahdid, zaiflik, aktiv, kibermakon",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">📌 Asosiy ta'riflar</h3>
+<div class="info-block">
+<h4>Kiberxavfsizlik nima?</h4>
+<p><b>Kiberxavfsizlik</b> — kibermakonda shaxs, jamiyat va davlat manfaatlarining tashqi va ichki tahdidlardan himoyalanganlik holati (O'zRes Qonuni). Buzg'unchilar mavjud sharoitda amallarning to'g'ri bajarilishini kafolatlash uchun texnologiya, inson, axborot va jarayonlarni mujassamlashtiradi.</p>
+</div>
+<div class="info-block green">
+<h4>Tizim to'g'riligi vs Xavfsizlik</h4>
+<ul>
+<li><b>Tizim to'g'riligi:</b> Yaxshi kirish → Yaxshi chiqish</li>
+<li><b>Xavfsizlik:</b> Yomon kirish ⇏ Yomon chiqish</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🔑 CIA Triada (6 ta asosiy atama)</h3>
+<table class="term-table">
+<tr><th>Atama</th><th>Ta'rif</th><th>Misol (AOB ssenariyi)</th></tr>
+<tr><td>Konfidensiallik</td><td>Axborotdan ruxsatsiz foydalanishning oldini olish — "o'qishdan" himoya</td><td>Bob balansini Tridi bilmasligi kerak</td></tr>
+<tr><td>Yaxlitlik (Integrity)</td><td>Ma'lumotning buzilmagan ko'rinishda mavjudligi — "yozishdan" himoya</td><td>Tridi Alisaning balansini o'zgartira olmasligi</td></tr>
+<tr><td>Foydalanuvchanlik</td><td>Vakolatli foydalanuvchilar ma'lumotdan o'z vaqtida foydalana olishi — "bajarmaslikdan" himoya</td><td>Bob AOB saytiga kira olmasligi = foydalanuvchanlik muammosi</td></tr>
+<tr><td>Risk</td><td>RISK = Tahdid × Zaiflik × Ta'sir. Salbiy hodisaning yuzaga kelish ehtimoli</td><td>ISO: "Noaniqlikning maqsadlarga ta'siri"</td></tr>
+<tr><td>Xavfsizlik tafakkuri</td><td>Hujumchi kabi fikrlash — mumkin bo'lgan xavfni oldindan aniqlash</td><td>Schneier: Xavfsizlik mutaxassislari o'g'irlik usulini ko'rmasdan ilojlari yo'q</td></tr>
+<tr><td>Tizimli fikrlash</td><td>Ijtimoiy va texnik cheklovlarning o'zaro ta'sirini hisobga olish</td><td>Faqat texnik emas, ijtimoiy omillarni ham ko'rish</td></tr>
+</table>
+
+<h3 class="sec-title">🏛 Kiberxavfsizlik 8 ta bilim sohasi (CSEC2017)</h3>
+<div class="info-block">
+<ul>
+<li><b>Ma'lumotlar xavfsizligi</b> — ma'lumotlarni saqlash, ishlash va uzatishda himoya</li>
+<li><b>Dasturiy ta'minot xavfsizligi</b> — xavfsiz dasturlar yaratish</li>
+<li><b>Tashkil etuvchilar xavfsizligi</b> — komponentlarni loyihalash va testlash</li>
+<li><b>Aloqa xavfsizligi</b> — komponentlar o'rtasidagi aloqani himoyalash</li>
+<li><b>Tizim xavfsizligi</b> — butun tizim xavfsizligi</li>
+<li><b>Inson faoliyati xavfsizligi</b> — inson xatti-harakatlari, shaxsiy hayot</li>
+<li><b>Tashkilot xavfsizligi</b> — risklarni boshqarish</li>
+<li><b>Ijtimoiy xavfsizlik</b> — kiberjinoyatchilik, qonunlar, etika</li>
+</ul>
+</div>
+
+<div class="info-block yellow">
+<h4>⚠️ Statistika (O'zbekiston)</h4>
+<p>2024-yilda O'zbekistonda 60 mingga yaqin kibertahdid va 119 ta kiberxavfsizlik buzilishi qayd etildi. Eng ko'p zarar — bank, moliya, ishlab chiqarish va AKT sohalarida.</p>
+</div>`,
+
+            atamalar: `
+<h3 class="sec-title">📖 Kalit atamalar</h3>
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Aktiv (Asset)</td><td>Tashkilot uchun qimmatli barcha narsalar — himoyalanuvchi axborot yoki resurslar</td></tr>
+<tr><td>Tahdid (Threat)</td><td>Tizim yoki tashkilotga zarar yetkazishi mumkin bo'lgan istalmagan hodisa</td></tr>
+<tr><td>Zaiflik (Vulnerability)</td><td>Tahdidni amalga oshirishga imkon beruvchi tizim kamchiligi</td></tr>
+<tr><td>Boshqarish vositasi</td><td>Riskni o'zgartiruvchi harakatlar — zaiflik yoki tahdidga ta'sir qiladi</td></tr>
+<tr><td>Kibermakon</td><td>Axborot texnologiyalari yordamida yaratilgan virtual muhit</td></tr>
+<tr><td>Kibertahdid</td><td>Kibermakonda shaxs, jamiyat va davlat manfaatlariga tahdid</td></tr>
+<tr><td>Axborot xavfsizligi</td><td>Axborotning konfidensiallik, yaxlitlik va foydalanuvchanligini ta'minlash holati</td></tr>
+<tr><td>DOS hujumi</td><td>Denial of Service — xizmat ko'rsatishdan voz kechishga undovchi hujum (foydalanuvchanlikni buzadi)</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Sessiyaga tayyorlanish uchun asosiy nuqtalar</h4>
+<ul>
+<li>CIA = Konfidensiallik + Yaxlitlik + Foydalanuvchanlik</li>
+<li>RISK = Tahdid × Zaiflik × Ta'sir</li>
+<li>Kiberxavfsizlik ≠ Axborot xavfsizligi (axborot xavfsizligi kengroq)</li>
+<li>Inson — tizimning eng zaif nuqtasi</li>
+<li>8 ta bilim sohasi: Ma'lumot, Dasturiy, Tashkil etuvchi, Aloqa, Tizim, Inson, Tashkilot, Ijtimoiy</li>
+<li>AOB ssenariysi: Alisa (bank), Bob (mijoz), Tridi (hujumchi)</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 2,
+          title: "Risklarni boshqarish",
+          short: "Risk matritsasi, 4 bosqich, ERM Framework, RMIS",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">📌 Risk tushunchasi</h3>
+<div class="info-block">
+<h4>Risk ta'riflari</h4>
+<ul>
+<li>Belgilangan sharoitda tahdidning manbalarga potensial zarar yetkazilishini kutish</li>
+<li>ISO: "Noaniqlikning maqsadlarga ta'siri"</li>
+</ul>
+</div>
+<div class="formula">RISK = Tahdid × Zaiflik × Ta'sir
+RISK = Tahdid × Zaiflik × Aktiv qiymati
+Risk darajasi = Natija × Ehtimollik</div>
+
+<h3 class="sec-title">📊 Risk darajalari (4 ta)</h3>
+<table class="term-table">
+<tr><th>Daraja</th><th>Ta'rif</th><th>Harakat</th></tr>
+<tr><td>Ekstremal yuqori</td><td>Yuqori ta'sir + Yuqori ehtimollik</td><td>Zudlik bilan qarshi chora</td></tr>
+<tr><td>Yuqori</td><td>O'rtacha ta'sirning yuqori ehtimolligi</td><td>Tezkor harakat talab etiladi</td></tr>
+<tr><td>O'rta</td><td>Yuqori ehtimol+past natija YOKI past ehtimol+yuqori natija</td><td>Dastlabki himoya o'rnatiladi</td></tr>
+<tr><td>Past</td><td>E'tibor bermasa bo'ladigan risklar</td><td>Keyingi baholashlarda ko'rib chiqiladi</td></tr>
+</table>
+
+<h3 class="sec-title">🔄 Risklarni boshqarish 4 bosqichi</h3>
+<div class="info-block">
+<ul>
+<li>1️⃣ <b>Aniqlash</b> — riskni tashkilotga zarar yetkazmasdan oldin topish (muhit, jihoz, mijoz, vazifalar)</li>
+<li>2️⃣ <b>Baholash</b> — miqdoriy va sifatiy qiymat aniqlash; tahlil + darajalarga ajratish</li>
+<li>3️⃣ <b>Bartaraf etish</b> — darajasi yuqorilariga birinchi navbatda murojaat. 5 usul mavjud</li>
+<li>4️⃣ <b>Monitoring va qayta ko'rish</b> — yangi risklarni aniqlash, nazorat usuli amalga oshirilganligini kafolatlash</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🏢 Muhim rollar</h3>
+<table class="term-table">
+<tr><th>Rol</th><th>Vazifa</th></tr>
+<tr><td>Bosh boshqaruvchi</td><td>Risk boshqarish jarayoniga rahbar, siyosat va usullarni ishlab chiqadi</td></tr>
+<tr><td>CIO (AT direktori)</td><td>AT siyosati va rejalarini amalga oshirish</td></tr>
+<tr><td>Tizim egalari</td><td>Axborot tizimlari rejalari va siyosatini monitoring qilish</td></tr>
+<tr><td>AT xavfsizlik amaliyotchilari</td><td>Shaxsiy, fizik va axborot xavfsizligini amalga oshirish</td></tr>
+</table>
+
+<h3 class="sec-title">📋 ERM va RMIS</h3>
+<div class="info-block">
+<h4>ERM Framework (Enterprise Risk Management)</h4>
+<p>Tashkilotda risklarni boshqarishning strukturasi. Amalda: <b>NIST ERM, COSO ERM, COBIT ERM</b></p>
+</div>
+<div class="info-block green">
+<h4>RMIS (Risk Management Information Systems)</h4>
+<p>Axborotni saqlash, tahlil qilish va risk haqida ma'lumot olish imkoniyatini beruvchi tizim. Misol: Aon Enterprise, Stars RMIS, RiskConnect.</p>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Risk ta'siri</td><td>Normal jarayonga va loyiha narxiga ta'sir</td></tr>
+<tr><td>Risk chastotasi</td><td>Riskni takrorlanish darajasi — minor (e'tibor talab qilmaydi) va major (alohida e'tibor kerak)</td></tr>
+<tr><td>Risk matritsasi</td><td>Paydo bo'lish ehtimoli va ta'sirni grafik ko'rsatuvchi vosita</td></tr>
+<tr><td>ERM Framework</td><td>Tashkilotda risklarni boshqarishning yagona strukturasi</td></tr>
+<tr><td>RMIS</td><td>Risk Management Information Systems — boshqaruv axborot tizimi</td></tr>
+<tr><td>KRI</td><td>Key Risk Indicators — Muhim risk ko'rsatkichlari (dastlabki xavf signali)</td></tr>
+<tr><td>Minor risk</td><td>E'tibor talab qilmaydigan past darajali risk</td></tr>
+<tr><td>Major risk</td><td>Alohida e'tibor va kuzatuv talab qiluvchi risk</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Risk formulasi: RISK = Tahdid × Zaiflik × Ta'sir</li>
+<li>4 daraja: Ekstremal yuqori → Yuqori → O'rta → Past</li>
+<li>4 bosqich: Aniqlash → Baholash → Bartaraf etish → Monitoring</li>
+<li>ERM = Enterprise Risk Management Framework</li>
+<li>RMIS = Risk Management Information Systems</li>
+<li>Risk matritsasi ehtimollik × ta'sir = risk darajasini ko'rsatadi</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 3,
+          title:
+            "Kiberjinoyatchilik, kiberqonunlar, kiberetika va kriminalistika",
+          short:
+            "Kiberjinoyat turlari, O'z qonunlari, etika, raqamli kriminalistika",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🦹 Kiberjinoyatchilik</h3>
+<div class="info-block">
+<p><b>Kiberjinoyatchilik</b> — axborotni egallash, o'zgartirish, yo'q qilish yoki axborot tizimlarini ishdan chiqarish maqsadida kibermakonda amalga oshiriladigan jinoyatlar (O'zRes Qonuni)</p>
+</div>
+<table class="term-table">
+<tr><th>Tur</th><th>Ta'rif</th></tr>
+<tr><td>Ichki kiberjinoyat</td><td>Tarmoqqa yoki tizimga tanish shaxs tomonidan — ko'pincha norozi xodimlar</td></tr>
+<tr><td>Tashqi kiberjinoyat</td><td>Tashqaridan yoki yollangan hujumchi — moliyaviy va obro' yo'qotishlariga sabab</td></tr>
+<tr><td>Iqtisodiy kiberjinoyat</td><td>Bank firibgarligi, onlayn aldov, noqonuniy o'zlashtirish</td></tr>
+<tr><td>Huquqlarga qarshi jinoyat</td><td>Kompyuter qaroqchiligi (piracy), mualliflik huquqi buzilishi</td></tr>
+<tr><td>Davlat xavfsizligiga qarshi</td><td>Kritik infratuzilmaga hujum, davlat sirlarini o'g'irlash</td></tr>
+</table>
+
+<h3 class="sec-title">⚖️ O'zbekiston Kiberqonunlari</h3>
+<div class="info-block">
+<ul>
+<li><b>"Kiberxavfsizlik to'g'risida"gi Qonun</b> — 15.04.2022, O'RQ-764-son, 40 modda</li>
+<li><b>11-modda:</b> DXX — kiberxavfsizlik sohasidagi vakolatli davlat organi</li>
+<li><b>37-modda:</b> Qonunchilikni buzganlar javobgarlikka tortiladi</li>
+<li><b>"Axborot erkinligi" Qonuni</b> — 2002, 439-II son, 16 modda</li>
+<li>Ma'muriy kodeks <b>155-modda</b> (ruxsatsiz kirish), <b>218-modda</b></li>
+<li>Jinoyat kodeksi <b>143-modda</b> — xat-yozishmalar sirini buzish</li>
+</ul>
+</div>
+
+<h3 class="sec-title">💡 Kiberetika</h3>
+<div class="info-block green">
+<h4>Kompyuterdan foydalanish etikasining 10 qoidasi</h4>
+<ul>
+<li>Kompyuteringizdan boshqalarga zarar yetkizmaslik</li>
+<li>Boshqa foydalanuvchilar ishlariga xalaqit bermaslik</li>
+<li>Boshqalarning fayllariga qaramaslik</li>
+<li>O'g'irlik va yomonlik maqsadida foydalanmaslik</li>
+<li>O'z pulingizga sotib olmagan dasturni nusxa ko'chirmaslik</li>
+<li>Birovning kompyuteridan ruxsatsiz foydalanmaslik</li>
+<li>Birovlarning intellektual mehnatiga zarar yetkizmaslik</li>
+<li>Yaratgan dasturning ijtimoiy oqibatini o'ylash</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🔍 Raqamli kriminalistika (Digital Forensics)</h3>
+<div class="info-block">
+<p><b>Raqamli kriminalistika</b> — raqamli dalillarni yig'ish va tahlil qilish jarayoni. Sud ekspertizasining bir yo'nalishi.</p>
+</div>
+<div class="info-block">
+<h4>Asosiy sohalar</h4>
+<ul>
+<li><b>Kompyuter kriminalistikasi</b> — saqlash qurilmalaridagi dalillar</li>
+<li><b>Mobil qurilmalar</b> — raqamli dalillarni tiklash</li>
+<li><b>Tarmoq kriminalistikasi</b> — tarmoq faoliyatini tahlil</li>
+<li><b>Forensik ma'lumotlar tahlili (FDA)</b> — moliyaviy jinoyatlar</li>
+<li><b>Ma'lumotlar bazasi kriminalistikasi</b> — kirish va o'zgarishlar</li>
+</ul>
+</div>
+<div class="info-block yellow">
+<h4>4 bosqich</h4>
+<p>1. Yig'ish (Collection) → 2. Tekshirish (Examination) → 3. Tahlil (Analysis) → 4. Hisobot (Reporting)</p>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Kiberjinoyat</td><td>Kibermakonda dasturiy va texnik vositalar yordamida amalga oshirilgan jinoyat</td></tr>
+<tr><td>Budapesht konvensiyasi</td><td>Yevropa Kengashining 2004-yildagi kiberjinoyatchilik shartnomasi (106 ta davlat a'zo)</td></tr>
+<tr><td>Kiberetika</td><td>Kompyuterlar bilan bog'liq falsafiy soha — foydalanuvchi xatti-harakatlari etikasi</td></tr>
+<tr><td>Raqamli to'siqlar</td><td>Digital Divide — kiberfazodan foydalanish imkoniyatidagi tengsizlik</td></tr>
+<tr><td>Digital Forensics</td><td>Raqamli dalillarni yig'ish va tahlil qilish — sud ekspertizasi yo'nalishi</td></tr>
+<tr><td>Kompyuter qaroqchiligi</td><td>Piracy — dasturiy ta'minot va ma'lumotlar bazasidagi mualliflik huquqini buzish</td></tr>
+<tr><td>Axborot erkinligi</td><td>Ma'lumotni qidirish, olish va uzatish huquqi</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Kiberjinoyat: Ichki (xodimlar) va Tashqi (chetdan) bo'ladi</li>
+<li>O'zbekiston qonunlari: Kiberxavfsizlik (2022), Axborot erkinligi (2002), Ma'muriy kodeks 155-modda, Jinoyat kodeksi 143-modda</li>
+<li>DXX = kiberxavfsizlik vakolatli organi</li>
+<li>Raqamli kriminalistika 4 bosqich: Yig'ish → Tekshirish → Tahlil → Hisobot</li>
+<li>5 ta soha: Kompyuter, Mobil, Tarmoq, FDA, Ma'lumotlar bazasi</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 4,
+          title: "Kiberxavfsizlik arxitekturasi, strategiyasi va siyosati",
+          short:
+            "Arxitektura 3 sath, strategiya, xavfsizlik siyosati iyerarxiyasi",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🏗 Arxitektura tushunchasi</h3>
+<div class="info-block">
+<h4>Korxona arxitekturasi qismlar</h4>
+<p>Tijorat arxitekturasi → Axborot arxitekturasi → Ilovalar arxitekturasi → Infratuzilma arxitekturasi</p>
+</div>
+<div class="info-block">
+<h4>Kiberxavfsizlik arxitekturasi — 3 sath</h4>
+<ul>
+<li><b>Konseptual sath</b> — nima himoyalanadi?</li>
+<li><b>Mantiqiy sath</b> — qanday himoyalanadi?</li>
+<li><b>Amalga oshirish sathi</b> — qanday texnologiyalar bilan?</li>
+</ul>
+<p>3 element: Insonlar + Axborot + Texnologiyalar</p>
+</div>
+
+<h3 class="sec-title">📋 Strategiya vs Arxitektura</h3>
+<table class="cmp-table">
+<tr><th>Arxitektura</th><th>Strategiya</th></tr>
+<tr><td>Maqsadlarni tavsiflaydi (nima kerak?)</td><td>Maqsadlarga qanday erishish yo'li</td></tr>
+<tr><td>Vaqt o'tishi bilan kamroq o'zgaradi</td><td>Tashqi omillarga qarab o'zgaradi</td></tr>
+<tr><td>Himoyalash tuzilmasi</td><td>Himoyaning uzoq muddatli bosh rejasi</td></tr>
+</table>
+
+<h3 class="sec-title">📜 Xavfsizlik siyosati iyerarxiyasi</h3>
+<div class="info-block">
+<p><b>Yuqoridan pastga:</b> Qonunlar → Normativ hujjatlar → Siyosatlar → Standartlar → Yo'riqnomalar → Muolajalar → Umumiy qoidalar</p>
+</div>
+
+<h3 class="sec-title">🌐 Internetdan foydalanish siyosatlari (4 tur)</h3>
+<table class="term-table">
+<tr><th>Tur</th><th>Ta'rif</th></tr>
+<tr><td>Tartibsiz (Promiscuous)</td><td>Hech qanday cheklov yo'q — istalgan saytga kirish mumkin</td></tr>
+<tr><td>Ruxsat berishga asoslangan (Permissive)</td><td>Faqat xavfli xizmatlar blokirovka — asosiy trafik ochiq</td></tr>
+<tr><td>Paranoid</td><td>Hamma narsa blokirovka — Internetga umuman ulana olmaslik</td></tr>
+<tr><td>Ehtiyotkorlik (Prudent)</td><td>Barcha xizmatlar bloklangan, ma'mur alohida ruxsat beradi — maksimal xavfsizlik</td></tr>
+</table>
+
+<h3 class="sec-title">📁 Xavfsizlik siyosati 3 turi</h3>
+<div class="info-block">
+<ul>
+<li><b>EISP</b> — Enterprise Information Security Policies: tashkilot xavfsiz muhitini madadlaydi</li>
+<li><b>ISSP</b> — Issue-Specific Security Policies: muayyan xavfsizlik muammosiga qaratilgan</li>
+<li><b>SSSP</b> — System-Specific Security Policies: biror tizimning xavfsizligini ta'minlash</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Kiberxavfsizlik arxitekturasi</td><td>Tashkilotning kibertahdidlarga qarshi himoyasining asosi</td></tr>
+<tr><td>Kiberxavfsizlik strategiyasi</td><td>Tashkilot xavfsizligini oshirish uchun harakatlar rejasi</td></tr>
+<tr><td>Xavfsizlik siyosati</td><td>Tashkilot maqsadlari va xavfsizlik tadbirlarini tavsiflaydigan hujjatlar majmuasi</td></tr>
+<tr><td>EISP</td><td>Enterprise Information Security Policies — tashkilot miqyosida xavfsizlik siyosati</td></tr>
+<tr><td>ISSP</td><td>Issue-Specific Security Policies — muammoga qaratilgan siyosat</td></tr>
+<tr><td>SSSP</td><td>System-Specific Security Policies — tizimga qaratilgan siyosat</td></tr>
+<tr><td>Maqbul foydalanish siyosati</td><td>Hisoblash resurslaridan to'g'ri foydalanishni belgilaydigan siyosat</td></tr>
+<tr><td>Prudent Policy</td><td>Ehtiyotkorlik siyosati — barcha xizmatlar bloklangan, alohida ruxsat kerak</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Arxitektura 3 sath: Konseptual → Mantiqiy → Amalga oshirish</li>
+<li>Iyerarxiya: Qonun → Normativ → Siyosat → Standart → Yo'riqnoma → Muolaja → Umumiy qoida</li>
+<li>4 internet siyosati: Tartibsiz, Permissive, Paranoid, Prudent (Ehtiyotkorlik)</li>
+<li>3 siyosat turi: EISP, ISSP, SSSP</li>
+<li>Arxitektura = "nima kerak?", Strategiya = "qanday erishish?"</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 5,
+          title: "Kriptografiyaning asosiy tushunchalari",
+          short:
+            "Shifrlash, kalit, simmetrik/assimetrik, steganografiya, Kerkgoff prinsipi",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🔐 Kriptografiya nima?</h3>
+<div class="info-block">
+<ul>
+<li><b>Kriptologiya</b> — "maxfiy kodlar"ni yaratish va buzish fani</li>
+<li><b>Kriptografiya</b> — maxfiy kodlar yaratish</li>
+<li><b>Kriptotahlil</b> — maxfiy kodlarni buzish</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🎯 Kriptografiyaning 4 ta vazifasi</h3>
+<div class="info-block green">
+<ul>
+<li>✅ Konfidensiallik — axborotni maxfiy saqlash</li>
+<li>✅ Yaxlitlik — axborot o'zgartirilmaganligini kafolatlash</li>
+<li>✅ Autentifikatsiya — tomonga kim ekanligini tasdiqlash</li>
+<li>✅ Rad etishdan himoya — harakatni inkor qila olmaslik</li>
+</ul>
+</div>
+
+<h3 class="sec-title">📝 Asosiy tushunchalar</h3>
+<table class="term-table">
+<tr><th>Atama</th><th>Ta'rif</th></tr>
+<tr><td>Ochiq matn (plaintext)</td><td>Shifrlashga atalgan dastlabki xabar</td></tr>
+<tr><td>Shifrmatn (ciphertext)</td><td>Ochiq matnni shifrlash natijasi</td></tr>
+<tr><td>Shifrlash (encryption)</td><td>Ochiq matnni shifrmatnga o'zgartirish</td></tr>
+<tr><td>Rasshifrovkalash (decryption)</td><td>Shifrmatnni ochiq matnga qaytarish</td></tr>
+<tr><td>Deshifrlash (breaking)</td><td>Kalitni bilmasdan shifrmatndan ochiq matnni tiklash</td></tr>
+<tr><td>Kalit (key)</td><td>O'zgartirishlar oilasidan birini tanlashni ta'minlovchi parametr</td></tr>
+<tr><td>Kriptotizim</td><td>Ochiq matnni shifrmatnga qaytariluvchan o'zgartirishlar oilasi</td></tr>
+</table>
+
+<h3 class="sec-title">⚖️ Kerkgoff prinsipi</h3>
+<div class="info-block yellow">
+<p><b>Faqat kalit sir saqlanadi, algoritm esa ochiq bo'lishi lozim.</b> Agar buzg'unchi algoritmni bilsa ham tizim xavfsiz bo'lishi kerak. Klod Shennon: "Dushman tizimni biladi"</p>
+</div>
+
+<h3 class="sec-title">🔄 3 ta kriptografiya bo'limi</h3>
+<table class="cmp-table">
+<tr><th>Bo'lim</th><th>Kalit</th><th>Vazifasi</th><th>Misol</th></tr>
+<tr><td>Simmetrik</td><td>1 kalit</td><td>Konfidensiallik</td><td>AES, DES, GOST</td></tr>
+<tr><td>Ochiq kalitli (Assimetrik)</td><td>2 kalit (ochiq+shaxsiy)</td><td>Konfidensiallik + ERI</td><td>RSA, El-Gamal</td></tr>
+<tr><td>Xesh funksiyalar</td><td>Kalitsiz</td><td>Yaxlitlik</td><td>MD5, SHA1, SHA256</td></tr>
+</table>
+
+<h3 class="sec-title">🕵 Kriptografiya vs Steganografiya</h3>
+<table class="cmp-table">
+<tr><th>Kriptografiya</th><th>Steganografiya</th></tr>
+<tr><td>Xabarni shifrlab, tushunarsiz qiladi</td><td>Xabarni boshqa ob'ekt ichiga yashiradi</td></tr>
+<tr><td>Ma'lumot mavjudligi ma'lum</td><td>Ma'lumot mavjudligi ham yashiriladi</td></tr>
+</table>
+
+<h3 class="sec-title">📅 Kriptografiya tarixi (4 davr)</h3>
+<div class="info-block">
+<ul>
+<li><b>Qadimiy</b> — bir alfavitli (Sezar, Polibiya kvadrati)</li>
+<li><b>O'rta asr</b> — ko'p alfavitli (Vijiner, Atbash)</li>
+<li><b>Jahon urushlari</b> — elektromexanik (Enigma, SIGABA)</li>
+<li><b>Kompyuter davri</b> — DES, AES, RSA, El-Gamal</li>
+</ul>
+</div>
+
+<h3 class="sec-title">📖 Bir martali bloknot (Vernam shifri)</h3>
+<div class="formula">Shifrlash: C = P ⊕ K
+Rasshifrovkalash: P = C ⊕ K</div>
+<div class="info-block green"><p>XOR amali asosida ishlaydi. Kalit bir marta ishlatiladi. <b>Absolyut bardoshli</b> hisoblanadi.</p></div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Kriptologiya</td><td>Maxfiy kodlarni yaratish va buzish fani</td></tr>
+<tr><td>Kriptografiya</td><td>Maxfiy kodlar yaratish bilan shug'ullanadi</td></tr>
+<tr><td>Kriptotahlil</td><td>Maxfiy kodlarni buzish bilan shug'ullanadi</td></tr>
+<tr><td>Ochiq matn</td><td>Plaintext — shifrlashdan oldingi asl ma'lumot</td></tr>
+<tr><td>Shifrmatn</td><td>Ciphertext — shifrlangan ma'lumot</td></tr>
+<tr><td>Kalit</td><td>Key — shifrlash/rasshifrovkalashni boshqaruvchi parametr</td></tr>
+<tr><td>Kerkgoff prinsipi</td><td>Algoritm ochiq, faqat kalit sir bo'lishi kerak</td></tr>
+<tr><td>Kodlash</td><td>Encoding — ma'lumotni boshqa formatga o'zgartirish (sirlanmaydi, masalan ASCII)</td></tr>
+<tr><td>Steganografiya</td><td>Maxfiy xabarni boshqa ob'ekt ichiga yashirish</td></tr>
+<tr><td>XOR amali</td><td>Bit darajasidagi mantiqiy amal: 0⊕0=0, 0⊕1=1, 1⊕1=0</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Kriptografiya 4 vazifa: Konfidensiallik, Yaxlitlik, Autentifikatsiya, Rad etishdan himoya</li>
+<li>Kerkgoff: Algoritm ochiq, faqat kalit sir</li>
+<li>Simmetrik = 1 kalit; Assimetrik = ochiq+shaxsiy kalit; Xesh = kalitsiz</li>
+<li>Vernam shifri (OTP) = Absolyut bardoshli</li>
+<li>Steganografiya ≠ Kriptografiya (biri yashiradi, biri shifrlaydi)</li>
+<li>Sezar = o'rniga qo'yish; Permutation = o'rin almashtirish</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 6,
+          title: "Simmetrik kriptografik algoritmlar",
+          short: "Oqimli va blokli shifrlash, DES, AES, A5/1, RC4",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🔑 Simmetrik shifrlash</h3>
+<div class="info-block">
+<p>Shifrlash va rasshifrovkalashda <b>yagona kalit</b>dan foydalaniladi.</p>
+</div>
+<div class="formula">Shifrlash: C = E(P, K)
+Rasshifrovkalash: M = D(C, K)</div>
+
+<h3 class="sec-title">📊 Oqimli vs Blokli shifrlash</h3>
+<table class="cmp-table">
+<tr><th></th><th>Oqimli (Stream)</th><th>Blokli (Block)</th></tr>
+<tr><td>Ishlash usuli</td><td>Bit-bit yoki bayt-bayt shifrlash</td><td>Bloklarga bo'lib shifrlash</td></tr>
+<tr><td>Asos</td><td>Bir martali bloknot asosida</td><td>O'rniga qo'yish + O'rin almashtirish</td></tr>
+<tr><td>Misol</td><td>A5/1, RC4, Salsa20</td><td>DES, AES, GOST</td></tr>
+<tr><td>Qo'llanish</td><td>GSM, HTTPS (ba'zi)</td><td>Bank tizimi, disk shifrlash</td></tr>
+</table>
+
+<h3 class="sec-title">📱 A5/1 algoritmi</h3>
+<div class="info-block">
+<ul>
+<li>GSM mobil aloqada foydalanish va asos stansiya orasidagi shifrlash</li>
+<li>64 bitli kalit uzunligi</li>
+<li>3 ta chiziqli siljitish registri: X(19 bit) + Y(22 bit) + Z(23 bit)</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🏆 Mashhur blokli algoritmlar</h3>
+<table class="term-table">
+<tr><th>Algoritm</th><th>Kalit</th><th>Blok</th><th>Izoh</th></tr>
+<tr><td>DES</td><td>56 bit</td><td>64 bit</td><td>Eski standart, hozir xavfsiz emas</td></tr>
+<tr><td>3DES</td><td>112/168 bit</td><td>64 bit</td><td>DES ning kuchliroq varianti</td></tr>
+<tr><td>AES</td><td>128/192/256 bit</td><td>128 bit</td><td>Hozirgi standart (NIST, 2001)</td></tr>
+<tr><td>GOST R 28147-89</td><td>256 bit</td><td>64 bit</td><td>Rossiya standarti</td></tr>
+</table>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Stream cipher</td><td>Oqimli shifrlash — bit yoki bayt darajasida shifrlash</td></tr>
+<tr><td>Block cipher</td><td>Blokli shifrlash — ma'lumotni bloklarga bo'lib shifrlash</td></tr>
+<tr><td>DES</td><td>Data Encryption Standard — 56 bitli kalit, 64 bitli blok</td></tr>
+<tr><td>AES</td><td>Advanced Encryption Standard — 128/192/256 bitli kalit, zamonaviy standart</td></tr>
+<tr><td>A5/1</td><td>GSM telefon aloqasini himoyalashda ishlatiladigan oqimli algoritm</td></tr>
+<tr><td>RC4</td><td>Rivest Cipher 4 — keng tarqalgan oqimli algoritm</td></tr>
+<tr><td>GOST</td><td>Rossiya kriptografiya standarti</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Simmetrik = 1 kalit, tez, keng tarqalgan</li>
+<li>Oqimli: A5/1 (GSM), RC4 — bit-bit shifrlaydi</li>
+<li>Blokli: DES (eskirgan), AES (zamonaviy standart), GOST (Rossiya)</li>
+<li>AES kalit uzunligi: 128, 192 yoki 256 bit</li>
+<li>DES 56 bit — bugungi kunda xavfsiz emas</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 7,
+          title: "Ochiq kalitli kriptotizimlar",
+          short:
+            "RSA, El-Gamal, ECC, Diffie-Hellman, bir tomonlama funksiyalar",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🔓 Ochiq kalitli kriptotizim</h3>
+<div class="info-block">
+<p>Shifrlash <b>ochiq kalit</b> bilan, rasshifrovkalash esa <b>shaxsiy kalit</b> bilan amalga oshiriladi. Kalitlarni taqsimlash muammosi bartaraf etilgan.</p>
+</div>
+
+<h3 class="sec-title">🔢 Matematik asoslar</h3>
+<table class="term-table">
+<tr><th>Muammo</th><th>Asosi</th></tr>
+<tr><td>Faktorlash muammosi</td><td>N = p × q (katta N ni ikkita tub songa bo'lish qiyin) → RSA asosi</td></tr>
+<tr><td>Diskret logarifmlash</td><td>y = g^x mod p uchun x ni topish qiyin → El-Gamal, Diffie-Hellman asosi</td></tr>
+<tr><td>Elliptik egri muammo</td><td>Qisqa kalit, kuchli himoya → ECC asosi</td></tr>
+</table>
+
+<h3 class="sec-title">⚙️ Ishlash prinsipi</h3>
+<div class="info-block">
+<ol style="padding-left:16px;line-height:1.8">
+<li>B tomon ochiq kalit + shaxsiy kalit juftini yaratadi</li>
+<li>Ochiq kalit hamma bilan almashadi</li>
+<li>Jo'natuvchi B ning ochiq kaliti bilan shifrlaydi</li>
+<li>Faqat B ning shaxsiy kaliti bilan rasshifrovkalash mumkin</li>
+</ol>
+</div>
+
+<h3 class="sec-title">📊 Simmetrik vs Ochiq kalitli</h3>
+<table class="cmp-table">
+<tr><th></th><th>Simmetrik</th><th>Ochiq kalitli</th></tr>
+<tr><td>Kalit soni</td><td>1 ta (umumiy)</td><td>2 ta (ochiq + shaxsiy)</td></tr>
+<tr><td>Tezlik</td><td class="good">Tez</td><td class="bad">Sekin</td></tr>
+<tr><td>Kalitni ulashish</td><td class="bad">Muammo</td><td class="good">Muammosiz</td></tr>
+<tr><td>Qo'llanish</td><td>Ma'lumot shifrlash</td><td>ERI, kalit almashinuvi</td></tr>
+</table>
+
+<h3 class="sec-title">📐 Modul arifmetikasi</h3>
+<div class="formula">a mod b = r  (a ni b ga bo'lgandagi qoldiq)
+Misol: 7 mod 3 = 1,  14 mod 3 = 2,  -2 mod 5 = 3</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Ochiq kalit (Public key)</td><td>Hamma biladigan kalit — shifrlash uchun</td></tr>
+<tr><td>Shaxsiy kalit (Private key)</td><td>Faqat egasi biladigan kalit — rasshifrovkalash uchun</td></tr>
+<tr><td>Bir tomonlama funksiya</td><td>Hisoblash oson, teskarisi o'ta qiyin</td></tr>
+<tr><td>Qopqonli funksiya</td><td>Trapdoor function — maxfiy ma'lumot (kalit) bilan teskari hisoblash oson</td></tr>
+<tr><td>RSA</td><td>Rivest-Shamir-Adleman — faktorlash muammosiga asoslangan</td></tr>
+<tr><td>El-Gamal</td><td>Diskret logarifmlashga asoslangan ochiq kalitli tizim</td></tr>
+<tr><td>Modul arifmetikasi</td><td>Butun sonlar bo'yicha mod amali asosida hisoblash</td></tr>
+<tr><td>Diffie-Hellman</td><td>Xavfsiz kanal orqali kalit almashinuvi protokoli</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Ochiq kalit = shifrlash, Shaxsiy kalit = rasshifrovkalash</li>
+<li>RSA asosi: Faktorlash muammosi (N = p × q)</li>
+<li>El-Gamal/DH asosi: Diskret logarifmlash muammosi</li>
+<li>Bir tomonlama funksiya: forward = oson, backward = o'ta qiyin</li>
+<li>Simmetrik tez lekin kalit muammosi bor; Ochiq kalitli sekin lekin kalit muammosi yo'q</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 8,
+          title: "Ma'lumotlar yaxlitligini ta'minlash usullari",
+          short: "Xesh funksiya, MAC, ERI (elektron raqamli imzo), PKI",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🔍 Xesh funksiya</h3>
+<div class="info-block">
+<p><b>Xesh funksiya</b> — ixtiyoriy uzunlikdagi kirishni qat'iy uzunlikdagi chiqishga aylantiruvchi funksiya.</p>
+</div>
+<div class="info-block">
+<h4>4 ta xususiyat</h4>
+<ul>
+<li>Ixtiyoriy uzunlikdagi matnga qo'llash mumkin</li>
+<li>Chiqishda tayinlangan uzunlikdagi qiymat</li>
+<li>Berilgan x bo'yicha h(x) oson hisoblanadi</li>
+<li>Bir tomonlilik: h(x) = H dan x ni toplb bo'lmaydi</li>
+<li>Kolliziyaga bardoshlilik: x≠y uchun h(x)≠h(y)</li>
+</ul>
+</div>
+<table class="term-table">
+<tr><th>Algoritm</th><th>Chiqish uzunligi</th><th>Holati</th></tr>
+<tr><td>MD5</td><td>128 bit</td><td>Zaif — kolliziya topilgan</td></tr>
+<tr><td>SHA-1</td><td>160 bit</td><td>Eskirgan</td></tr>
+<tr><td>SHA-256</td><td>256 bit</td><td>Kuchli — hozir keng ishlatiladi</td></tr>
+<tr><td>SHA-512</td><td>512 bit</td><td>Eng kuchli</td></tr>
+</table>
+
+<h3 class="sec-title">🔏 MAC (Message Authentication Code)</h3>
+<div class="info-block green">
+<p><b>MAC</b> — kalit yordamida xesh hisoblanadi. Yaxlitlik + autentifikatsiya ta'minlanadi.</p>
+</div>
+<div class="formula">MAC = h(K, M) yoki h(M, K)
+Tekshirish: jo'natilgan MAC = qabul qilingan MAC?</div>
+
+<h3 class="sec-title">✍️ Elektron Raqamli Imzo (ERI)</h3>
+<div class="info-block">
+<p>Shaxsiy kalit bilan imzolash, ochiq kalit bilan tekshirish. Yaxlitlik + Rad etishdan himoya.</p>
+</div>
+<div class="formula">Imzolash: Sig = D(h(M), PrivKey)
+Tekshirish: E(Sig, PubKey) == h(M)?</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Xesh funksiya</td><td>Hash function — ixtiyoriy uzunlikdagi ma'lumotni qat'iy uzunlikka aylantiradi</td></tr>
+<tr><td>Kolliziya</td><td>Ikki xil kirishdan bir xil xesh qiymati chiqishi — bu muammo!</td></tr>
+<tr><td>MD5</td><td>Message Digest 5 — 128 bit, hozir xavfsiz emas</td></tr>
+<tr><td>SHA-256</td><td>Secure Hash Algorithm — 256 bit, kuchli va keng tarqalgan</td></tr>
+<tr><td>MAC</td><td>Message Authentication Code — kalit bilan xesh, yaxlitlik + autentifikatsiya</td></tr>
+<tr><td>ERI</td><td>Elektron Raqamli Imzo — shaxsiy kalit bilan imzolash</td></tr>
+<tr><td>PKI</td><td>Public Key Infrastructure — ochiq kalitli infratuzilma</td></tr>
+<tr><td>Bir tomonlilik</td><td>Xesh funksiyaning asosiy xususiyati: teskari hisoblash mumkin emas</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Xesh funksiya: Ixtiyoriy kirishdan qat'iy uzunlikdagi chiqish</li>
+<li>MD5=128 bit (zaif), SHA-256=256 bit (kuchli)</li>
+<li>MAC = Kalit + Xesh → Yaxlitlik + Autentifikatsiya</li>
+<li>ERI = Shaxsiy kalit bilan imzolash, Ochiq kalit bilan tekshirish</li>
+<li>Kolliziya = Xavfli! Ikki xil kirishdan bir xil xesh chiqishi</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 9,
+          title: "Kriptografik ilovalar",
+          short: "HSM, TrueCrypt, SSL/TLS, PKI, PGP, sertifikatlar",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🖥 Kriptografik vositalar 3 turi</h3>
+<div class="info-block">
+<ul>
+<li><b>Apparat vositalar</b> — maxsus protsessor, kalit generatori, tashqaridan buzib bo'lmaydi. Misol: HSM</li>
+<li><b>Dasturiy vositalar</b> — kompyuter dasturlari orqali. Misol: TrueCrypt, VeraCrypt</li>
+<li><b>Apparat-dasturiy</b> — ikkalasining birikuvi</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🔒 HSM (Hardware Security Module)</h3>
+<div class="info-block green">
+<p>Banklar va sertifikatlash markazlarida ishlatiladi. Kriptografik kalitlarni saqlash va shifrlash operatsiyalarini bajaradi. Misol: Thales HSM, SafeNet Luna HSM.</p>
+</div>
+
+<h3 class="sec-title">💿 Dasturiy shifrlash tur</h3>
+<table class="term-table">
+<tr><th>Tur</th><th>Vazifasi</th><th>Misol</th></tr>
+<tr><td>Disk shifrlash</td><td>Butun diskni shifrlash</td><td>BitLocker, TrueCrypt</td></tr>
+<tr><td>Fayl/katalog shifrlash</td><td>Alohida fayllarni shifrlash</td><td>7-Zip, VeraCrypt</td></tr>
+<tr><td>Ma'lumotlar bazasi shifrlash</td><td>MB ma'lumotlarini shifrlash</td><td>TDE (Transparent Data Encryption)</td></tr>
+<tr><td>Aloqa shifrlash</td><td>Uzatilaiyotgan ma'lumotni shifrlash</td><td>SSL/TLS, VPN</td></tr>
+</table>
+
+<h3 class="sec-title">🌐 SSL/TLS va HTTPS</h3>
+<div class="info-block">
+<p><b>SSL/TLS</b> — Internet orqali xavfsiz ma'lumot uzatish protokoli. Brauzer va server o'rtasidagi barcha ma'lumotlar shifrlangan holda uzatiladi. <b>HTTPS = HTTP + TLS</b></p>
+</div>
+
+<h3 class="sec-title">📜 PKI va Sertifikatlar</h3>
+<div class="info-block">
+<p><b>PKI (Public Key Infrastructure)</b> — ochiq kalitlarni boshqarish tizimi. Sertifikatlash markazi (CA) ochiq kalitni tasdiqlaydi.</p>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>HSM</td><td>Hardware Security Module — apparat kriptografik qurilma</td></tr>
+<tr><td>TrueCrypt/VeraCrypt</td><td>Disk va fayl shifrlash dasturiy vositasi</td></tr>
+<tr><td>BitLocker</td><td>Windows dagi disk shifrlash xususiyati</td></tr>
+<tr><td>SSL</td><td>Secure Sockets Layer — xavfsiz ulanish protokoli</td></tr>
+<tr><td>TLS</td><td>Transport Layer Security — SSL ning yangilangan versiyasi</td></tr>
+<tr><td>HTTPS</td><td>HTTP + TLS — xavfsiz veb protokoli</td></tr>
+<tr><td>PKI</td><td>Public Key Infrastructure — ochiq kalit infratuzilmasi</td></tr>
+<tr><td>CA</td><td>Certificate Authority — sertifikatlash markazi</td></tr>
+<tr><td>PGP</td><td>Pretty Good Privacy — email shifrlash va ERI dasturi</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>3 tur vosita: Apparat (HSM), Dasturiy (TrueCrypt), Apparat-dasturiy</li>
+<li>HSM = banklar va CA lar ishlatadi</li>
+<li>SSL/TLS = Internet orqali xavfsiz aloqa (HTTPS)</li>
+<li>PKI = Ochiq kalitlarni boshqarish, CA tasdiqlaydi</li>
+<li>Disk shifrlash: BitLocker (Windows), VeraCrypt</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 11,
+          title: "Ma'lumotlardan foydalanishni mantiqiy boshqarish",
+          short: "DAC, MAC, RBAC, ABAC, ACL, C-list, Confused Deputy",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🔐 Foydalanishni boshqarish nima?</h3>
+<div class="info-block">
+<p>Autentifikatsiyadan keyingi bosqich. <b>"Kim nima qila oladi?"</b> savoliga javob.</p>
+<ul>
+<li><b>Subyekt</b> — foydalanuvchi yoki dastur</li>
+<li><b>Obyekt</b> — fayl, baza, tizim resursi</li>
+<li><b>Amal</b> — o'qish (r), yozish (w), bajarish (x)</li>
+</ul>
+</div>
+
+<h3 class="sec-title">📊 4 ta asosiy usul</h3>
+<table class="cmp-table">
+<tr><th>Usul</th><th>Boshqaruvchi</th><th>Afzalligi</th><th>Kamchiligi</th></tr>
+<tr><td>DAC</td><td>Obyekt egasi</td><td class="good">Oddiy, moslashuvchan</td><td class="bad">To'liq nazorat yo'q</td></tr>
+<tr><td>MAC</td><td>Administrator</td><td class="good">Juda xavfsiz</td><td class="bad">Moslashuvchan emas</td></tr>
+<tr><td>RBAC</td><td>Rollarga asosan</td><td class="good">Tashkilotga mos</td><td class="bad">Rol boshqarish kerak</td></tr>
+<tr><td>ABAC</td><td>Atributlarga asosan</td><td class="good">Eng moslashuvchan</td><td class="bad">Murakkab</td></tr>
+</table>
+
+<h3 class="sec-title">🏛 MAC xavfsizlik darajalari</h3>
+<div class="info-block yellow">
+<p>MM (Mutlaqo Maxfiy) > M (Maxfiy) > K (Konfidensial) > O (Ochiq)</p>
+<ul>
+<li><b>"No Read Up"</b> — Yuqori darajadagi ma'lumotni o'qiy olmaydi</li>
+<li><b>"No Write Down"</b> — Quyi darajaga yozib bo'lmaydi</li>
+</ul>
+</div>
+
+<h3 class="sec-title">👤 RBAC</h3>
+<div class="info-block">
+<p>Foydalanuvchi → Rol → Huquq. Eng kam imtiyoz prinsipi. Majburiyatlarni ajratish.</p>
+</div>
+
+<h3 class="sec-title">🎯 ABAC</h3>
+<div class="formula">AGAR subyekt.lavozimi=Vrach VA muhit.vaqt>=8:00 VA <=18:00
+U HOLDA bemorni tibbiy kartasini ko'rish mumkin</div>
+<p style="margin:8px 0;font-size:.88rem">XACML standarti. Amazon AWS, OpenStack da ishlatiladi.</p>
+
+<h3 class="sec-title">🗂 ACL vs C-list</h3>
+<table class="cmp-table">
+<tr><th>ACL</th><th>C-list (Capability list)</th></tr>
+<tr><td>Obyektga bog'langan</td><td>Subyektga bog'langan</td></tr>
+<tr><td>"Sug'urta fayliga kim kirishi mumkin?"</td><td>"Alisa nimalarga kira oladi?"</td></tr>
+</table>
+
+<h3 class="sec-title">⚠️ Tartibsiz yordamchi (Confused Deputy)</h3>
+<div class="info-block red">
+<p>Dastur foydalanuvchi nomidan emas, <b>o'z huquqlari</b> bilan ishlaydi. Alisa → Kompilyator → BILL fayliga yozadi (Alisa kira olmaganda ham). Yechim: C-list ishlatish.</p>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>DAC</td><td>Discretionary Access Control — egasi boshqaradi, UNIX fayl huquqlari</td></tr>
+<tr><td>MAC</td><td>Mandatory Access Control — markazlashgan, administrator boshqaradi</td></tr>
+<tr><td>RBAC</td><td>Role-Based Access Control — rollarga asoslangan boshqaruv</td></tr>
+<tr><td>ABAC</td><td>Attribute-Based Access Control — atributlarga asoslangan (zamonaviy)</td></tr>
+<tr><td>ACL</td><td>Access Control List — obyektga bog'langan ruxsatlar ro'yxati</td></tr>
+<tr><td>C-list</td><td>Capability List — subyektga bog'langan imkoniyatlar ro'yxati</td></tr>
+<tr><td>Subyekt</td><td>Foydalanuvchi yoki dastur — ruxsatga ega bo'luvchi tomon</td></tr>
+<tr><td>Obyekt</td><td>Fayl, baza, tizim resursi — himoyalanadigan narsa</td></tr>
+<tr><td>XACML</td><td>ABAC standarti — siyosatlarni boshqarish tili</td></tr>
+<tr><td>No Read Up</td><td>MAC qoidasi: Yuqori darajadagi ma'lumotni o'qiy olmaydi</td></tr>
+<tr><td>No Write Down</td><td>MAC qoidasi: Quyi darajaga yozib bo'lmaydi</td></tr>
+<tr><td>Confused Deputy</td><td>Dastur o'z huquqi bilan foydalanuvchining ishini bajarib, xavfsizlik buzilishi</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>DAC = Egasi boshqaradi (UNIX r,w,x)</li>
+<li>MAC = Administrator, No Read Up + No Write Down qoidalari</li>
+<li>MAC darajalari: MM > M > K > O</li>
+<li>RBAC = Foydalanuvchi → Rol → Huquq</li>
+<li>ABAC = Eng moslashuvchan (XACML standarti, AWS da ishlatiladi)</li>
+<li>ACL = Obyektga, C-list = Subyektga bog'langan</li>
+<li>Confused Deputy = Dastur o'z huquqi bilan ishlash xavfi</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 12,
+          title: "Ko'p sathli xavfsizlik modellari",
+          short:
+            "MLS, Bell-LaPadula, Biba, Clark-Wilson, Brewer-Nash modellari",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🏛 Ko'p sathli xavfsizlik (MLS)</h3>
+<div class="info-block">
+<p>MLS da subyektlar = foydalanuvchilar, obyektlar = himoyalanadigan ma'lumotlar.</p>
+<p>DOD 4 ta daraja: <b>TOP SECRET > SECRET > CONFIDENTIAL > UNCLASSIFIED</b></p>
+</div>
+
+<h3 class="sec-title">🔔 Bell-LaPadula modeli</h3>
+<div class="info-block">
+<h4>Maqsad: Maxfiylikni ta'minlash</h4>
+<ul>
+<li><b>"Xavfsizlikning oddiy qoidasi"</b> (Simple Security / No Read Up): L(O) ≤ L(S) — subyekt faqat o'z darajasiga teng yoki past ma'lumotni o'qiydi</li>
+<li><b>"-Xususiyat" (Star Property / No Write Down)</b>: L(S) ≤ L(O) — subyekt faqat o'z darajasiga teng yoki yuqori obyektga yozadi</li>
+<li><b>"-Qat'iy xususiyat"</b> — kombinatsiyalangan qoida</li>
+</ul>
+</div>
+<div class="formula">No Read Up: Subyekt L(S) ≥ L(O) bo'lsagina o'qiydi
+No Write Down: Subyekt L(S) ≤ L(O) bo'lsagina yozadi</div>
+
+<h3 class="sec-title">✅ Biba modeli</h3>
+<div class="info-block green">
+<h4>Maqsad: Yaxlitlikni ta'minlash (Bell-LaPadulaning teskarisi)</h4>
+<ul>
+<li><b>No Read Down</b> — past darajadagi ma'lumotni o'qiy olmaydi</li>
+<li><b>No Write Up</b> — yuqori darajaga yozib bo'lmaydi</li>
+</ul>
+</div>
+
+<h3 class="sec-title">📊 Modellar taqqoslashi</h3>
+<table class="cmp-table">
+<tr><th>Model</th><th>Maqsad</th><th>Asosiy qoidalar</th></tr>
+<tr><td>Bell-LaPadula</td><td>Maxfiylik</td><td>No Read Up, No Write Down</td></tr>
+<tr><td>Biba</td><td>Yaxlitlik</td><td>No Read Down, No Write Up</td></tr>
+<tr><td>Clark-Wilson</td><td>Yaxlitlik (biznes)</td><td>CDI, UDI, TP, IVP</td></tr>
+<tr><td>Brewer-Nash (Xitoy devori)</td><td>Maxfiylik (tijorat)</td><td>Raqiblar ma'lumotiga kirish taqiqlash</td></tr>
+</table>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>MLS</td><td>Multilevel Security — ko'p sathli xavfsizlik</td></tr>
+<tr><td>Bell-LaPadula</td><td>Maxfiylikni ta'minlovchi model: No Read Up, No Write Down</td></tr>
+<tr><td>Biba</td><td>Yaxlitlikni ta'minlovchi model: No Read Down, No Write Up</td></tr>
+<tr><td>Clark-Wilson</td><td>Biznes uchun yaxlitlik modeli — CDI, UDI, TP, IVP</td></tr>
+<tr><td>Brewer-Nash</td><td>Xitoy devori — raqiblar ma'lumotiga kirmaslik</td></tr>
+<tr><td>Klassifikatsiya</td><td>Ma'lumotni xavfsizlik darajasiga (TS, S, C, U) ajratish</td></tr>
+<tr><td>L(O)</td><td>Obyektning xavfsizlik sathi</td></tr>
+<tr><td>L(S)</td><td>Subyektning xavfsizlik sathi (ruxsatnomasi)</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Bell-LaPadula = Maxfiylik: No Read Up + No Write Down</li>
+<li>Biba = Yaxlitlik: No Read Down + No Write Up (teskarisi!)</li>
+<li>MLS darajalari: TOP SECRET > SECRET > CONFIDENTIAL > UNCLASSIFIED</li>
+<li>L(O) = obyekt sathi, L(S) = subyekt ruxsatnomasi</li>
+<li>Clark-Wilson = Biznes yaxlitligi; Brewer-Nash = Raqiblar ajratish</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 13,
+          title: "Ma'lumotlarning fizik xavfsizligi",
+          short:
+            "Tabiiy va sun'iy tahdidlar, fizik kirishni boshqarish, OSI fizik sath",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🏢 Fizik xavfsizlik nima?</h3>
+<div class="info-block">
+<p>Ruxsatsiz kirishni oldini olish va tabiiy/inson tahdidlaridan himoya. OSI modelining <b>1-sathi (Fizik sath)</b>.</p>
+</div>
+<div class="info-block yellow">
+<p>AQSh HHS tadqiqoti: 2015-yilda eng ko'p xavfsizlik insidentlari fizik xavfsizlikni buzishga urinishlar edi.</p>
+</div>
+
+<h3 class="sec-title">⚠️ Tahdid turlari</h3>
+<table class="cmp-table">
+<tr><th>Tabiiy tahdidlar</th><th>Sun'iy tahdidlar</th></tr>
+<tr><td>Zilzila</td><td>O'g'irlik</td></tr>
+<tr><td>Sel va toshqin</td><td>Vandalizm</td></tr>
+<tr><td>Yong'in</td><td>Josuslik</td></tr>
+<tr><td>Qorongu</td><td>Bombali tahdid</td></tr>
+<tr><td>Elektr o'chishi</td><td>Terror harakatlari</td></tr>
+</table>
+
+<h3 class="sec-title">🔐 Fizik kirishni boshqarish</h3>
+<div class="info-block">
+<ul>
+<li>Qulf va eshiklar — birinchi himoya chizig'i</li>
+<li>Qo'riqchilar va qorovullar</li>
+<li>Kuzatuv kameralari (CCTV)</li>
+<li>Badge (kartochka) tizimi</li>
+<li>Biometrik kirish nazorati</li>
+<li>Mantraps (ikkita eshik orasida to'siq hudud)</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🖥 Ma'lumot markazlari xavfsizligi</h3>
+<div class="info-block green">
+<ul>
+<li>Harorat nazorati (18-27°C)</li>
+<li>Namlik nazorati (40-60%)</li>
+<li>UPS (uzliksiz quvvat manbai)</li>
+<li>Yong'indan himoya (Halon gazi)</li>
+<li>Zaxira elektr generatori</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Fizik xavfsizlik</td><td>Binolar, qurilmalar va axborot tizimlarini jismoniy tahdidlardan himoya</td></tr>
+<tr><td>CCTV</td><td>Closed Circuit Television — yopiq tizimdagi kuzatuv kamerasi</td></tr>
+<tr><td>Mantrap</td><td>Ikkita eshik orasidagi xavfsizlik hududi — bir vaqtda bir kishi kiradi</td></tr>
+<tr><td>UPS</td><td>Uninterruptible Power Supply — uzliksiz quvvat manbai</td></tr>
+<tr><td>Biometrik kirish</td><td>Barmoq izi, yuz yoki ko'z orqali identifikatsiya</td></tr>
+<tr><td>Data center</td><td>Ma'lumot markazi — server va tarmoq qurilmalarini joylashtiruvchi bino</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Fizik xavfsizlik = OSI 1-sath</li>
+<li>2 turdagi tahdid: Tabiiy (zilzila, sel) va Sun'iy (o'g'irlik, josuslik)</li>
+<li>Himoya: Qulf, Qo'riqchi, CCTV, Badge, Biometrika, Mantrap</li>
+<li>Data center: Harorat, Namlik, UPS, Yong'in himoya, Generator</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 14,
+          title: "Kompyuter tarmoqlari va tarmoq xavfsizligi",
+          short: "LAN, WAN, OSI, TCP/IP, tarmoq hujumlari, DDoS",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🌐 Tarmoq tushunchasi</h3>
+<div class="info-block">
+<p>Kompyuter tarmog'i — resurslarni almashish uchun bir nechta kompyuterlarning birlashuvi. Resurslar: Fayllar, Dasturlar, Printerlar, Modemlar.</p>
+</div>
+
+<h3 class="sec-title">📡 Tarmoq turlari</h3>
+<table class="term-table">
+<tr><th>Tur</th><th>Ko'lami</th><th>Misol</th></tr>
+<tr><td>PAN</td><td>Shaxsiy tarmoq (1-10m)</td><td>Bluetooth</td></tr>
+<tr><td>LAN</td><td>Mahalliy tarmoq (bino, xona)</td><td>Ofis tarmog'i</td></tr>
+<tr><td>MAN</td><td>Shahar miqyosidagi tarmoq</td><td>Shahar kabeli</td></tr>
+<tr><td>WAN</td><td>Katta geografik hudud</td><td>Internet</td></tr>
+</table>
+
+<h3 class="sec-title">🏗 OSI modeli (7 sath)</h3>
+<table class="term-table">
+<tr><th>Sath</th><th>Nomi</th><th>Protokol/Qurilma</th></tr>
+<tr><td>7</td><td>Ilova (Application)</td><td>HTTP, FTP, DNS, SMTP</td></tr>
+<tr><td>6</td><td>Taqdimot (Presentation)</td><td>SSL/TLS, JPEG</td></tr>
+<tr><td>5</td><td>Seans (Session)</td><td>NetBIOS, RPC</td></tr>
+<tr><td>4</td><td>Transport</td><td>TCP, UDP</td></tr>
+<tr><td>3</td><td>Tarmoq (Network)</td><td>IP, Router</td></tr>
+<tr><td>2</td><td>Kanal (Data Link)</td><td>Ethernet, Switch</td></tr>
+<tr><td>1</td><td>Fizik (Physical)</td><td>Kabellar, Hub</td></tr>
+</table>
+
+<h3 class="sec-title">⚔️ Tarmoq hujumlari</h3>
+<div class="info-block red">
+<ul>
+<li><b>DOS</b> — Denial of Service: bitta manbadan hujum</li>
+<li><b>DDoS</b> — Distributed DOS: ko'plab kompyuterlardan tarqatilgan hujum</li>
+<li><b>MITM</b> — Man-in-the-Middle: oradagi hujumchi</li>
+<li><b>Sniffing</b> — Tarmoq trafikini tinglash</li>
+<li><b>Spoofing</b> — IP yoki MAC manzilini soxtalashtirish</li>
+<li><b>Port Scanning</b> — Ochiq portlarni qidirish</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>LAN</td><td>Local Area Network — mahalliy tarmoq</td></tr>
+<tr><td>WAN</td><td>Wide Area Network — keng hududli tarmoq</td></tr>
+<tr><td>OSI modeli</td><td>7 qatlamli tarmoq modeli — Open Systems Interconnection</td></tr>
+<tr><td>TCP/IP</td><td>Internetning asosiy protokol to'plami</td></tr>
+<tr><td>Router</td><td>Tarmoqlar orasida ma'lumot yo'naltiruvchi qurilma</td></tr>
+<tr><td>Switch</td><td>LAN ichida ma'lumot yo'naltiruvchi qurilma</td></tr>
+<tr><td>DNS</td><td>Domain Name System — domen nomini IP ga tarjima qilish</td></tr>
+<tr><td>DDoS</td><td>Distributed Denial of Service — taqsimlangan hizmat yo'q qilish hujumi</td></tr>
+<tr><td>MITM</td><td>Man-in-the-Middle — oradagi odam hujumi</td></tr>
+<tr><td>Sniffing</td><td>Tarmoq trafikini ushlab olish va o'qish</td></tr>
+<tr><td>Intranet</td><td>Tashkilot ichidagi yopiq tarmoq</td></tr>
+<tr><td>Extranet</td><td>Tashqi foydalanuvchilar bilan ishlashchi yopiq tarmoq</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>LAN (mahalliy) — MAN (shahar) — WAN (keng)</li>
+<li>OSI = 7 sath: Fizik→Kanal→Tarmoq→Transport→Seans→Taqdimot→Ilova</li>
+<li>TCP = ishonchli, UDP = tez lekin ishonchsiz</li>
+<li>DDoS = ko'plab kompyuterdan hujum</li>
+<li>MITM = oradagi odam — ma'lumotni ushlab olish</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 15,
+          title: "Tarmoq xavfsizligini ta'minlovchi vositalar",
+          short: "Firewall, VPN, IDS, IPS, DLP, Honeypot",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🛡 Tarmoq xavfsizligi vositalari</h3>
+<table class="term-table">
+<tr><th>Vosita</th><th>Vazifasi</th></tr>
+<tr><td>Firewall (Tarmoqlararo ekran)</td><td>Trafikni filtrlash — ruxsat yoki bloklash</td></tr>
+<tr><td>VPN</td><td>Virtual Private Network — shifrlangan tunnel</td></tr>
+<tr><td>IDS</td><td>Intrusion Detection System — hujumni aniqlash</td></tr>
+<tr><td>IPS</td><td>Intrusion Prevention System — hujumni oldini olish</td></tr>
+<tr><td>DLP</td><td>Data Loss Prevention — ma'lumot sizishining oldini olish</td></tr>
+<tr><td>Honeypot</td><td>Yolg'on nishon — hujumchini chalg'itish</td></tr>
+</table>
+
+<h3 class="sec-title">🔥 Firewall (Tarmoqlararo ekran)</h3>
+<div class="info-block">
+<p>Tarmoq xavfsizligining asosiy vositasi. Trafik qoidalar bilan solishtiriladi → ACCEPT yoki DROP qaror.</p>
+</div>
+<table class="term-table">
+<tr><th>Tur</th><th>OSI sathi</th><th>Ishlash usuli</th></tr>
+<tr><td>Paketlar filtratsiyasi</td><td>3-4</td><td>IP/Port bo'yicha filtrlash</td></tr>
+<tr><td>Proksi</td><td>5-7</td><td>To'liq ma'lumot tekshirish</td></tr>
+<tr><td>Stateful Inspection</td><td>3-4</td><td>Holat jadvalini saqlash</td></tr>
+<tr><td>NGFW</td><td>7</td><td>Deep Packet Inspection</td></tr>
+</table>
+
+<h3 class="sec-title">🔐 VPN</h3>
+<div class="info-block green">
+<p>Ochiq tarmoq orqali shifrlangan tunnel yaratadi. Masofadan xavfsiz ulanish uchun. Protokollar: IPSec, OpenVPN, WireGuard, L2TP.</p>
+</div>
+
+<h3 class="sec-title">🕵 IDS vs IPS</h3>
+<table class="cmp-table">
+<tr><th>IDS</th><th>IPS</th></tr>
+<tr><td>Hujumni aniqlaydi va xabar beradi</td><td>Hujumni aniqlaydi va avtomatik bloklaydi</td></tr>
+<tr><td>Passiv</td><td>Aktiv</td></tr>
+<tr><td>Tarmoqqa ta'sir qilmaydi</td><td>Tarmoq yo'lida o'rnatiladi</td></tr>
+</table>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Firewall</td><td>Tarmoqlararo ekran — trafikni filtrlash qurilmasi</td></tr>
+<tr><td>VPN</td><td>Virtual Private Network — shifrlangan virtual tarmoq</td></tr>
+<tr><td>IDS</td><td>Intrusion Detection System — hujumlarni aniqlash tizimi</td></tr>
+<tr><td>IPS</td><td>Intrusion Prevention System — hujumlarni oldini olish tizimi</td></tr>
+<tr><td>DLP</td><td>Data Loss Prevention — ma'lumot yo'qolishini oldini olish</td></tr>
+<tr><td>Honeypot</td><td>Hujumchilarni jalb qilish uchun o'rnatilgan yolg'on tizim</td></tr>
+<tr><td>DMZ</td><td>Demilitarized Zone — ichki va tashqi tarmoq orasidagi xavfsiz zona</td></tr>
+<tr><td>NGFW</td><td>Next Generation Firewall — keng imkoniyatli zamonaviy firewall</td></tr>
+<tr><td>IPSec</td><td>Internet Protocol Security — IP darajasida shifrlash protokoli</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Firewall: ACCEPT yoki DROP qaror, trafikni filtrlash</li>
+<li>VPN = Shifrlangan tunnel, masofadan xavfsiz ulanish</li>
+<li>IDS = Aniqlaydi + xabar beradi (passiv)</li>
+<li>IPS = Aniqlaydi + bloklaydi (aktiv)</li>
+<li>DLP = Ma'lumot sizishini oldini oladi</li>
+<li>Honeypot = Yolg'on nishon, hujumchi jalb qilinadi</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 16,
+          title: "Simsiz tarmoq xavfsizligi",
+          short: "Wi-Fi, WEP, WPA, WPA2, WPA3, Bluetooth, WPAN/WLAN/WMAN/WWAN",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">📡 Simsiz tarmoq tasnifi</h3>
+<table class="term-table">
+<tr><th>Tur</th><th>Ko'lami</th><th>Texnologiya</th></tr>
+<tr><td>WPAN</td><td>Shaxsiy (1-10m)</td><td>Bluetooth, ZigBee</td></tr>
+<tr><td>WLAN</td><td>Mahalliy (100m)</td><td>Wi-Fi (802.11)</td></tr>
+<tr><td>WMAN</td><td>Shahar</td><td>WiMAX (802.16)</td></tr>
+<tr><td>WWAN</td><td>Global</td><td>4G/LTE, 5G</td></tr>
+</table>
+
+<h3 class="sec-title">🔐 Wi-Fi xavfsizlik protokollari</h3>
+<table class="cmp-table">
+<tr><th>Protokol</th><th>Xavfsizlik</th><th>Holati</th></tr>
+<tr><td>WEP</td><td class="bad">Juda zaif</td><td class="bad">Tashlab ketilgan (RC4, qisqa kalit)</td></tr>
+<tr><td>WPA</td><td class="bad">O'rtacha</td><td class="bad">Zaif (TKIP)</td></tr>
+<tr><td>WPA2</td><td>Yaxshi</td><td>Hozir keng tarqalgan (AES-CCMP)</td></tr>
+<tr><td>WPA3</td><td class="good">Eng kuchli</td><td class="good">Zamonaviy standart (SAE)</td></tr>
+</table>
+
+<h3 class="sec-title">⚔️ Simsiz tarmoq hujumlari</h3>
+<div class="info-block red">
+<ul>
+<li><b>Evil Twin</b> — Soxta Wi-Fi nuqtasi (haqiqiysiga o'xshash SSID)</li>
+<li><b>Deauthentication Attack</b> — Foydalanuvchini uzib qo'yish</li>
+<li><b>WPA2 KRACK</b> — Key Reinstallation Attack zaiflik</li>
+<li><b>Passive Sniffing</b> — Shifrsiz trafikni tinglash</li>
+<li><b>Wardriving</b> — Mashinada yurgan holda Wi-Fi qidirish</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🛡 Himoya choralar</h3>
+<div class="info-block green">
+<ul>
+<li>WPA3 yoki WPA2 ishlatish</li>
+<li>Standart parolni o'zgartirish</li>
+<li>SSID ni yashirish (kichik himoya)</li>
+<li>MAC filtrlash</li>
+<li>Jamoat Wi-Fi'da VPN ishlatish</li>
+<li>802.1X — Enterprise autentifikatsiya</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>WLAN</td><td>Wireless Local Area Network — simsiz mahalliy tarmoq (Wi-Fi)</td></tr>
+<tr><td>WEP</td><td>Wired Equivalent Privacy — eski, zaif Wi-Fi shifrlash</td></tr>
+<tr><td>WPA2</td><td>Wi-Fi Protected Access 2 — AES asosidagi zamonaviy standart</td></tr>
+<tr><td>WPA3</td><td>Eng yangi Wi-Fi xavfsizlik standarti — SAE kaliti</td></tr>
+<tr><td>SSID</td><td>Service Set Identifier — Wi-Fi tarmoq nomi</td></tr>
+<tr><td>Evil Twin</td><td>Haqiqiy tarmoqga o'xshash soxta Wi-Fi nuqtasi</td></tr>
+<tr><td>802.1X</td><td>Enterprise darajasidagi tarmoq autentifikatsiyasi</td></tr>
+<tr><td>TKIP</td><td>Temporal Key Integrity Protocol — WPA da ishlatilgan (zaif)</td></tr>
+<tr><td>AES-CCMP</td><td>WPA2 da ishlatiladigan kuchli shifrlash</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>WPAN → WLAN → WMAN → WWAN (kichikdan kattagacha)</li>
+<li>WEP = Zaif (tashlab ketilgan); WPA2 = Keng tarqalgan; WPA3 = Eng yangi</li>
+<li>Evil Twin = Soxta Wi-Fi nuqtasi</li>
+<li>Jamoat Wi-Fi'da bank tizimiga kirmaslik!</li>
+<li>WPA2 = AES-CCMP, WPA = TKIP (zaif)</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 17,
+          title: "Bulutli hisoblash va IoT xavfsizligi",
+          short: "IaaS, PaaS, SaaS, IoT tahdidlari, bulut xavfsizligi",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">☁️ Bulutli hisoblash</h3>
+<div class="info-block">
+<p>IT resurslarni internet ("bulut") orqali taqdim etish texnologiyasi. Maqsad: Moslashuvchan, tezkor va iqtisodiy tejamkor.</p>
+</div>
+
+<h3 class="sec-title">📋 5 ta asosiy xususiyat</h3>
+<div class="info-block">
+<ol style="padding-left:16px;line-height:2">
+<li><b>On-demand self-service</b> — Talabga binoan o'z-o'ziga xizmat</li>
+<li><b>Broad network access</b> — Keng tarmoq ulanishi</li>
+<li><b>Resource pooling</b> — Resurslarni birlashtirish</li>
+<li><b>Rapid elasticity</b> — Tezkor moslashuvchanlik</li>
+<li><b>Measured service</b> — O'lchanadigan xizmat</li>
+</ol>
+</div>
+
+<h3 class="sec-title">🏗 Xizmat modellari</h3>
+<table class="cmp-table">
+<tr><th>Model</th><th>To'liq nomi</th><th>Misol</th><th>Kim boshqaradi?</th></tr>
+<tr><td>IaaS</td><td>Infrastructure as a Service</td><td>AWS EC2, Azure VM</td><td>OT va ilova — mijoz</td></tr>
+<tr><td>PaaS</td><td>Platform as a Service</td><td>Google App Engine, Heroku</td><td>Faqat ilova — mijoz</td></tr>
+<tr><td>SaaS</td><td>Software as a Service</td><td>Gmail, Office 365</td><td>Hamma — provayder</td></tr>
+</table>
+
+<h3 class="sec-title">🌐 Joylashish modellari</h3>
+<div class="info-block">
+<ul>
+<li><b>Public cloud</b> — Umumiy (AWS, Azure, GCP)</li>
+<li><b>Private cloud</b> — Tashkilot uchun yopiq</li>
+<li><b>Hybrid cloud</b> — Ikkisining birikuvi</li>
+<li><b>Community cloud</b> — Bir tarmog'dagi tashkilotlar uchun</li>
+</ul>
+</div>
+
+<h3 class="sec-title">📟 IoT (Buyumlar interneti)</h3>
+<div class="info-block">
+<p>Internet-ga ulangan qurilmalar tizimi: aqlli soatlar, aqlli uylar, sanoat senserlari va boshqalar.</p>
+</div>
+<div class="info-block red">
+<h4>IoT asosiy tahdidlar</h4>
+<ul>
+<li>Standart parollar o'zgartirilmasligi</li>
+<li>Eskirgan firmware</li>
+<li>Shifrlanmagan aloqa</li>
+<li>Botnet (Mirai kabi) hujumlari</li>
+<li>Fizik kirish muammolari</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Cloud computing</td><td>Bulutli hisoblash — IT resurslarni internet orqali taqdim etish</td></tr>
+<tr><td>IaaS</td><td>Infrastructure as a Service — infratuzilma xizmat sifatida</td></tr>
+<tr><td>PaaS</td><td>Platform as a Service — platforma xizmat sifatida</td></tr>
+<tr><td>SaaS</td><td>Software as a Service — dastur xizmat sifatida</td></tr>
+<tr><td>IoT</td><td>Internet of Things — Buyumlar interneti</td></tr>
+<tr><td>Public cloud</td><td>Umumiy foydalanishdagi bulut (AWS, Azure)</td></tr>
+<tr><td>Private cloud</td><td>Faqat bir tashkilot uchun bulut</td></tr>
+<tr><td>Hybrid cloud</td><td>Public va private cloud birikuvi</td></tr>
+<tr><td>Shared responsibility</td><td>Bulut xavfsizligida provayder va mijoz uchun mas'uliyat taqsimi</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Bulut 5 xususiyat: On-demand, Broad access, Pooling, Elasticity, Measured</li>
+<li>IaaS = Infratuzilma (AWS EC2); PaaS = Platforma (Heroku); SaaS = Dastur (Gmail)</li>
+<li>SaaS da foydalanuvchi hech narsani o'zi boshqarmaydi</li>
+<li>IoT asosiy muammo: Standart parollar, eski firmware, shifrlanmagan aloqa</li>
+<li>Shared responsibility = Provayder vs Mijoz mas'uliyati</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 18,
+          title: "Foydalanuvchanlikni ta'minlash usullari",
+          short:
+            "RAID, zaxira nusxalash, Availability, DoS, hodisalarni qaydlash",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">⚡ Foydalanuvchanlik (Availability)</h3>
+<div class="info-block">
+<p>CIA triadasining uchinchi elementi. Vakolatli foydalanuvchilarning ma'lumotlardan o'z vaqtida va ishonchli foydalanish imkoniyati.</p>
+</div>
+<div class="info-block yellow">
+<p>Amazon 2013-yilda 30 daqiqa ishlamagani uchun 2 million dollar zarar ko'rgan. 99% foydalanuvchanlik = yiliga 87 soat ishlamaslik!</p>
+</div>
+
+<h3 class="sec-title">💾 RAID texnologiyalari</h3>
+<table class="term-table">
+<tr><th>RAID</th><th>Nomi</th><th>Afzalligi</th><th>Kamchiligi</th></tr>
+<tr><td>RAID 0</td><td>Striping</td><td>Tez yozish/o'qish</td><td>Zaxira yo'q, disk buzilsa hammasi yo'qoladi</td></tr>
+<tr><td>RAID 1</td><td>Mirroring</td><td>To'liq zaxira nusxa</td><td>2x disk kerak</td></tr>
+<tr><td>RAID 5</td><td>Striping+Parity</td><td>Tezlik + zaxira (1 disk buzilishi)</td><td>Parity hisoblash vaqt oladi</td></tr>
+<tr><td>RAID 6</td><td>Double Parity</td><td>2 ta disk buzilishiga bardosh</td><td>Qimmat</td></tr>
+<tr><td>RAID 10</td><td>Stripe+Mirror</td><td>Yuqori tezlik va ishonchlilik</td><td>4x disk kerak</td></tr>
+</table>
+
+<h3 class="sec-title">📦 Zaxira nusxalash usullari</h3>
+<table class="cmp-table">
+<tr><th>Usul</th><th>Nima nusxa oladi</th><th>Tezlik</th><th>Hajm</th></tr>
+<tr><td>To'liq (Full)</td><td>Hamma ma'lumot</td><td>Sekin</td><td>Katta</td></tr>
+<tr><td>Differensial</td><td>Oxirgi to'liq nusxadan o'zgarganlar</td><td>O'rta</td><td>O'rta</td></tr>
+<tr><td>Qo'shimcha (Incremental)</td><td>Oxirgi nusxadan o'zgarganlar</td><td>Tez</td><td>Kichik</td></tr>
+</table>
+
+<h3 class="sec-title">📋 3-2-1 Qoidasi</h3>
+<div class="info-block green">
+<ul>
+<li>3 ta nusxa saqlash</li>
+<li>2 ta turli xil media (disk va lenta)</li>
+<li>1 ta tashqarida (offsite) saqlash</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Availability</td><td>Foydalanuvchanlik — CIA triadasining uchinchi elementi</td></tr>
+<tr><td>RAID</td><td>Redundant Array of Independent Disks — ko'p diskli himoyalash texnologiyasi</td></tr>
+<tr><td>Mirroring</td><td>RAID 1 — ma'lumotni ikki diskka bir xilda yozish</td></tr>
+<tr><td>Striping</td><td>RAID 0 — ma'lumotni bir nechta diskga bo'lib yozish (tezlik uchun)</td></tr>
+<tr><td>Parity</td><td>RAID 5/6 da xatolikni tiklash uchun qo'shimcha ma'lumot</td></tr>
+<tr><td>RTO</td><td>Recovery Time Objective — tizim qancha vaqtda tiklanalishi kerak</td></tr>
+<tr><td>RPO</td><td>Recovery Point Objective — qancha ma'lumot yo'qotish mumkin</td></tr>
+<tr><td>Full backup</td><td>To'liq zaxira nusxa</td></tr>
+<tr><td>Incremental backup</td><td>Qo'shimcha nusxa — faqat o'zgargan ma'lumotlar</td></tr>
+<tr><td>3-2-1 qoidasi</td><td>3 nusxa, 2 xil media, 1 tashqarida</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Foydalanuvchanlik = CIA ning uchinchi elementi</li>
+<li>RAID 0 = Tezlik (zaxira yo'q); RAID 1 = Mirror; RAID 5 = Tezlik+Parity; RAID 10 = Mirror+Strip</li>
+<li>Zaxira: To'liq → Differensial → Incremental (tezlik bo'yicha)</li>
+<li>3-2-1 qoidasi: 3 nusxa, 2 media, 1 offsite</li>
+<li>RTO = Qancha vaqtda tiklanish; RPO = Qancha ma'lumot yo'qotish mumkin</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 19,
+          title: "Dasturiy vositalardagi xavfsizlik",
+          short:
+            "OWASP Top 10, Buffer Overflow, Buffer zaifliklar, brauzer xavfsizligi, OT xavfsizligi",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">💻 Dasturiy vositalar xavfsizligi</h3>
+<div class="info-block">
+<ul>
+<li><b>Nuqson (Defect)</b> — Loyihalash bosqichidagi yashirin kamchilik</li>
+<li><b>Bug</b> — Amalga oshirishda xato (tuzatish osonroq)</li>
+<li><b>Zaiflik (Vulnerability)</b> — Hujumchi tomonidan ishlatilishi mumkin bo'lgan bo'shliq</li>
+</ul>
+</div>
+<div class="info-block yellow">
+<p>Har 10,000 qator kodda taxminan 5 ta bug mavjud. Windows XP = 40 mln qator = 20,000 potensial xato.</p>
+</div>
+
+<h3 class="sec-title">🌐 OWASP Top 10 (2021/2025)</h3>
+<table class="term-table">
+<tr><th>#</th><th>Zaiflik</th><th>Ta'rif</th></tr>
+<tr><td>1</td><td>Broken Access Control</td><td>Foydalanish nazoratini buzish — boshqa foydalanuvchi ma'lumotiga kirish</td></tr>
+<tr><td>2</td><td>Security Misconfiguration</td><td>Xavfsizlikni noto'g'ri sozlash — standart parollar, ochiq portlar</td></tr>
+<tr><td>3</td><td>Supply Chain Failures</td><td>Ta'minot zanjiridagi zaiflik — tashqi kutubxona orqali hujum</td></tr>
+<tr><td>4</td><td>Cryptographic Failures</td><td>Zaif kriptografiya — MD5, HTTP, ochiq matn parollar</td></tr>
+<tr><td>5</td><td>Injection</td><td>SQL, OS, LDAP injection hujumlari</td></tr>
+<tr><td>6</td><td>Insecure Design</td><td>Xavfli dizayn — xavfsizlik arxitekturasiz loyihalash</td></tr>
+</table>
+
+<h3 class="sec-title">💥 Buffer Overflow</h3>
+<div class="info-block red">
+<p>Foydalanuvchi kiritgan ma'lumot hajmi ajratilgan xotiradan katta bo'lganda, qo'shni xotira manzillariga yozib yuboriladi. Hujumchi zararli kodni ishga tushirishi mumkin.</p>
+</div>
+<table class="cmp-table">
+<tr><th>C/C++ (Xavfli)</th><th>Java/Python (Xavfsiz)</th></tr>
+<tr><td class="bad">Xotirani qo'lda boshqarish</td><td class="good">Garbage Collection bor</td></tr>
+<tr><td class="bad">Buffer Overflow xavfi</td><td class="good">Xotira avtomatik boshqariladi</td></tr>
+</table>
+
+<h3 class="sec-title">🍪 Cookie xavfsizligi</h3>
+<table class="term-table">
+<tr><th>Flag</th><th>Vazifasi</th></tr>
+<tr><td>HttpOnly</td><td>JS orqali cookie ga kirishni taqiqlaydi (XSS dan himoya)</td></tr>
+<tr><td>Secure</td><td>Faqat HTTPS orqali yuboradi</td></tr>
+<tr><td>SameSite</td><td>Kross-sayt so'rovlarini nazorat qiladi (CSRF dan himoya)</td></tr>
+</table>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>OWASP</td><td>Open Web Application Security Project — web xavfsizlik tashkiloti</td></tr>
+<tr><td>Buffer Overflow</td><td>Xotira to'lib-toshishi — ajratilgan xotiradan ko'p ma'lumot yozilishi</td></tr>
+<tr><td>SQL Injection</td><td>Dasturga SQL buyruq kiritib ma'lumotlar bazasini boshqarish</td></tr>
+<tr><td>XSS</td><td>Cross-Site Scripting — boshqa saytga zararli skript kiritish</td></tr>
+<tr><td>CSRF</td><td>Cross-Site Request Forgery — foydalanuvchi nomidan soxta so'rov yuborish</td></tr>
+<tr><td>Cookie</td><td>Veb-sayt tomonidan brauzerdagi saqlangan kichik ma'lumot</td></tr>
+<tr><td>HttpOnly</td><td>Cookie ni JavaScript dan yashiradigan flag</td></tr>
+<tr><td>SameSite</td><td>Cookie ni faqat bir sayt uchun cheklaydigan flag</td></tr>
+<tr><td>Zaiflik</td><td>Vulnerability — tizimda hujumchi ishlatishi mumkin bo'lgan kamchilik</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>3 tushuncha: Nuqson (yashirin) → Bug (amalga oshirish xatosi) → Zaiflik (hujumga ochiq)</li>
+<li>OWASP Top 10 birinchisi: Broken Access Control</li>
+<li>Buffer Overflow: C/C++ da xavf bor, Java/Python da avtomatik boshqariladi</li>
+<li>Cookie flag: HttpOnly (XSS), Secure (HTTPS), SameSite (CSRF)</li>
+<li>Kriptografik xatolik: MD5, SHA-1, HTTP (HTTPS o'rniga), plain text parol</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 20,
+          title: "Zararli dasturlardan himoyalanish",
+          short:
+            "Malware turlari, viruslar, troyan, ransomware, antivirus, evristik tahlil",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">🦠 Malware (Zararli dastur)</h3>
+<div class="info-block red">
+<p><b>Malware</b> — kompyuter tizimiga zarar yetkazish, ma'lumot o'g'irlash yoki ruxsatsiz kirish uchun yaratilgan dasturiy kod. Fred Koen (1984): "Boshqa dasturlarni modifikatsiyalash orqali ko'payadigan kod"</p>
+</div>
+
+<h3 class="sec-title">📋 Zararli dastur kategoriyalari</h3>
+<table class="term-table">
+<tr><th>Tur</th><th>Ta'rif</th></tr>
+<tr><td>Virus</td><td>O'zini ko'paytiradigan, boshqa dasturlarga birikadigan kod</td></tr>
+<tr><td>Worm (Cherv)</td><td>Mustaqil tarqaladigan virus — boshqa dasturga birikmasdan</td></tr>
+<tr><td>Troyan oti</td><td>Foydali dastur ko'rinishida yashiringan zararli kod</td></tr>
+<tr><td>Rootkit</td><td>OT dan yashirinadigan, tizim nazoratini oladigan dastur</td></tr>
+<tr><td>Backdoor</td><td>Autentifikatsiyani chetlab o'tib tizimga yashirin kirish yo'li</td></tr>
+<tr><td>Spyware</td><td>Foydalanuvchi ma'lumotlarini hujumchiga yuboruvchi dastur</td></tr>
+<tr><td>Ransomware</td><td>Fayllarni shifrlaydi, to'lov talab qiladi</td></tr>
+<tr><td>Botnet</td><td>Hujumchi boshqaradigan zararlangan kompyuterlar tarmog'i</td></tr>
+<tr><td>Adware</td><td>Reklama maqsadida faoliyatni kuzatuvchi dastur</td></tr>
+<tr><td>Mantiqiy bomba</td><td>Shart bajarilganda ishga tushadigan zararli dastur (masalan, sanaga ko'ra)</td></tr>
+</table>
+
+<h3 class="sec-title">🎯 Virus turlari</h3>
+<table class="cmp-table">
+<tr><th>Tasnif</th><th>Tur</th></tr>
+<tr><td>Tarqalishi bo'yicha</td><td>Virus-parazit (boshqa dasturga birikadi) / Cherv (mustaqil)</td></tr>
+<tr><td>Zararlangan ob'ekt</td><td>Dasturiy / Boot (yuklanish) / Makro (Word, Excel)</td></tr>
+<tr><td>Faollashishi</td><td>Rezident (doim aktiv) / Norezident (vaqtinchalik)</td></tr>
+<tr><td>Kod tuzilishi</td><td>Oddiy / Shifrlangan / Polimorf (kodni o'zgartiradi)</td></tr>
+</table>
+
+<h3 class="sec-title">🔍 Aniqlash usullari</h3>
+<div class="info-block">
+<ul>
+<li><b>Signatura tahlili</b> — Ma'lum viruslar bazasi bilan solishtirish (100% ma'lum viruslar uchun, lekin 0-day uchun emas)</li>
+<li><b>Evristik tahlil</b> — Shubhali xatti-harakatlarni skanerlash (yangi viruslar uchun, lekin false positive bor)</li>
+<li><b>Anomaliyaga asoslangan</b> — "Normal" holat bilan solishtirish (murakkab hujumlarga qarshi)</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Malware</td><td>Malicious Software — zararli dasturiy ta'minot</td></tr>
+<tr><td>Virus</td><td>O'zini ko'paytiradigan va boshqa fayllarga birikadigan zararli kod</td></tr>
+<tr><td>Worm</td><td>Cherv — mustaqil tarqaladigan zararli dastur, boshqa faylga birikmasdan</td></tr>
+<tr><td>Troyan</td><td>Foydali dastur ko'rinishida yashirinadigan zararli dastur</td></tr>
+<tr><td>Ransomware</td><td>Fayllarni shifrlaydi va to'lov talab qiladi</td></tr>
+<tr><td>Rootkit</td><td>Operatsion tizimdan o'zini yashiradigan dastur</td></tr>
+<tr><td>Backdoor</td><td>Orqa eshik — autentifikatsiyasiz kirish yo'li</td></tr>
+<tr><td>Botnet</td><td>Zararlangan kompyuterlar tarmog'i, masofadan boshqariladi</td></tr>
+<tr><td>Polimorf virus</td><td>Har safar o'z kodini o'zgartiruvchi, aniqlanishi qiyin virus</td></tr>
+<tr><td>Signatura tahlili</td><td>Ma'lum viruslar bazasi bilan solishtirish usuli</td></tr>
+<tr><td>Evristik tahlil</td><td>Shubhali xatti-harakatlarni aniqlash — yangi viruslar uchun</td></tr>
+<tr><td>0-day</td><td>Hali ma'lum bo'lmagan, signatura bazasida yo'q zaiflik</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Malware 9 tur: Virus, Worm, Troyan, Rootkit, Backdoor, Spyware, Ransomware, Botnet, Adware</li>
+<li>Virus ≠ Worm: Virus boshqa faylga birikadi, Worm mustaqil tarqaladi</li>
+<li>Troyan ≠ Virus: Troyan o'zini ko'paytirmaydi, aldash orqali ishlaydi</li>
+<li>Polimorf virus = Kodni o'zgartirib antivirusdan yashirinadi</li>
+<li>3 ta aniqlash: Signatura (ma'lum), Evristik (yangi), Anomaliya (murakkab)</li>
+<li>Signatura = 0-day dan himoya qilmaydi!</li>
+</ul>
+</div>`,
+          },
+        },
+        {
+          num: 21,
+          title:
+            "Qayd yozuvini himoyalash va ijtimoiy injineriyaga qarshi himoya",
+          short:
+            "Parollar, MFA, Phishing, Spear Phishing, Vishing, Smishing, Cialdini prinsiplari",
+          sections: {
+            konspekt: `
+<h3 class="sec-title">👤 Inson omili — eng zaif nuqta</h3>
+<div class="info-block red">
+<p>"Kiberxavfsizlikda inson — bu buzilishi mumkin bo'lgan eng oson operatsion tizimdir." — Jeyms Skott</p>
+</div>
+
+<h3 class="sec-title">🔑 Kuchli parol qoidalari</h3>
+<div class="info-block green">
+<ul>
+<li>Kamida <b>12-16 belgidan</b> iborat</li>
+<li>Katta va kichik harflar kombinatsiyasi</li>
+<li>Raqamlar va maxsus belgilar</li>
+<li>Har bir xizmat uchun <b>alohida parol</b></li>
+<li>Parol menejerlari: Bitwarden, LastPass, KeePass</li>
+</ul>
+<p>Zaif parollar: 123456, password, qwerty, tug'ilgan sana</p>
+</div>
+
+<h3 class="sec-title">🔐 Ko'p faktorli autentifikatsiya (MFA)</h3>
+<div class="info-block">
+<ul>
+<li><b>Biladigan narsa</b> — parol yoki PIN</li>
+<li><b>Egalik qiladigan narsa</b> — telefon, token, smart-karta</li>
+<li><b>Biometrik ma'lumot</b> — barmoq izi, yuz, ko'z</li>
+</ul>
+</div>
+
+<h3 class="sec-title">🎭 Ijtimoiy injineriya turlari</h3>
+<table class="term-table">
+<tr><th>Tur</th><th>Ta'rif</th></tr>
+<tr><td>Phishing</td><td>Soxta email/sayt orqali ma'lumot olish</td></tr>
+<tr><td>Spear Phishing</td><td>Muayyan shaxsga qaratilgan maqsadli phishing</td></tr>
+<tr><td>Vishing</td><td>Telefon qo'ng'iroq orqali aldash</td></tr>
+<tr><td>Smishing</td><td>SMS xabar orqali phishing</td></tr>
+<tr><td>Pretexting</td><td>Soxta ssenariy bilan ishonch qozonib ma'lumot olish</td></tr>
+<tr><td>Baiting</td><td>Qiziqtiruvchi yem (bepul dastur, fleshka) orqali aldash</td></tr>
+<tr><td>Tailgating</td><td>Vakolatli xodim ortidan binoga kirish</td></tr>
+</table>
+
+<h3 class="sec-title">🧠 Robert Cialdini — 6 ta ta'sir prinsipi</h3>
+<div class="info-block yellow">
+<ol style="padding-left:16px;line-height:2">
+<li><b>Ijtimoiy dalil</b> — "Hammalar shunday qilmoqda"</li>
+<li><b>O'zaro munosabat</b> — "Men senga yaxshilik qildim, endi sen"</li>
+<li><b>Hokimiyat</b> — "Men direktor/bank xodimiman"</li>
+<li><b>Yoquvchanlik</b> — Ishonch uyg'otuvchi muomala</li>
+<li><b>Majburiyat va barqarorlik</b> — Kichik va'da → katta harakat</li>
+<li><b>Yetishmovchilik</b> — "Oxirgi imkoniyat!", "Bugun tugaydi!"</li>
+</ol>
+</div>
+
+<h3 class="sec-title">🛡 Himoya tavsiyalari</h3>
+<div class="info-block green">
+<ul>
+<li>Shoshilinch va qo'rqituvchi xabarlarga ishonmaslik</li>
+<li>Har qanday so'rovni mustaqil tekshirish</li>
+<li>Ijtimoiy tarmoqda shaxsiy ma'lumot ulashmaslik</li>
+<li>Noma'lum havolalarni ochmang</li>
+<li>Kuchli parol + MFA = Asosiy himoya</li>
+</ul>
+</div>`,
+
+            atamalar: `
+<table class="term-table">
+<tr><th>Atama</th><th>Izoh</th></tr>
+<tr><td>Ijtimoiy injineriya</td><td>Inson psixologiyasidan foydalanib ma'lumot olish usuli</td></tr>
+<tr><td>Phishing</td><td>Soxta email yoki sayt orqali foydalanuvchini aldash</td></tr>
+<tr><td>Spear Phishing</td><td>Muayyan shaxsga qaratilgan maqsadli phishing hujumi</td></tr>
+<tr><td>Vishing</td><td>Voice Phishing — telefon orqali ijtimoiy injineriya</td></tr>
+<tr><td>Smishing</td><td>SMS orqali phishing hujumi</td></tr>
+<tr><td>Pretexting</td><td>Soxta ssenariy bilan ishonch qozonib ma'lumot olish</td></tr>
+<tr><td>Baiting</td><td>Qiziqtiruvchi "yem" orqali foydalanuvchini aldash</td></tr>
+<tr><td>Tailgating</td><td>Xodim ortidan ruxsatsiz binoga kirish</td></tr>
+<tr><td>MFA</td><td>Multi-Factor Authentication — ko'p faktorli autentifikatsiya</td></tr>
+<tr><td>2FA</td><td>Two-Factor Authentication — ikki faktorli autentifikatsiya</td></tr>
+<tr><td>OTP</td><td>One-Time Password — bir martalik parol</td></tr>
+<tr><td>Cialdini prinsiplari</td><td>Ijtimoiy ta'sir 6 ta prinsipi: Dalil, O'zaro, Hokimiyat, Yoquvchanlik, Majburiyat, Yetishmovchilik</td></tr>
+</table>`,
+
+            xulosa: `
+<div class="info-block green">
+<h4>✅ Eslab qolish kerak</h4>
+<ul>
+<li>Inson = Eng zaif nuqta</li>
+<li>MFA 3 faktor: Biladigan (parol) + Egalik qiladigan (token) + Biometrika</li>
+<li>7 ta ijtimoiy injineriya: Phishing, Spear, Vishing, Smishing, Pretexting, Baiting, Tailgating</li>
+<li>Cialdini 6 prinsipi: Dalil, O'zaro, Hokimiyat, Yoquvchanlik, Majburiyat, Yetishmovchilik</li>
+<li>Shoshilinch xabarlarga ishonmaslik — "Hisob bloklanadi!" = Aldov!</li>
+</ul>
+</div>`,
+          },
+        },
+      ];
+
+      // ═══════════════════════════════════════════════════════
+      // GLOSSARY DATA
+      // ═══════════════════════════════════════════════════════
+      const GLOSSARY = [
+        {
+          term: "Kiberxavfsizlik",
+          def: "Kibermakonda shaxs, jamiyat va davlat manfaatlarining tahdidlardan himoyalanganlik holati.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "CIA Triada",
+          def: "Konfidensiallik (Confidentiality), Yaxlitlik (Integrity), Foydalanuvchanlik (Availability) — axborot xavfsizligining 3 asosiy tamoyili.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Konfidensiallik",
+          def: "Axborotdan ruxsatsiz foydalanishning oldini olish — o'qishdan himoya.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Yaxlitlik",
+          def: "Ma'lumotning o'zgartirilmagan holatda mavjudligi — yozishdan himoya.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Foydalanuvchanlik",
+          def: "Vakolatli foydalanuvchilarning ma'lumotdan o'z vaqtida foydalana olishi.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Aktiv",
+          def: "Tashkilot uchun qimmatli barcha narsalar — himoyalanuvchi axborot yoki resurslar.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Tahdid",
+          def: "Tizim yoki tashkilotga zarar yetkazishi mumkin bo'lgan istalmagan hodisa.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Zaiflik",
+          def: "Tahdidni amalga oshirishga imkon beruvchi tizim kamchiligi.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Kibermakon",
+          def: "Axborot texnologiyalari yordamida yaratilgan virtual muhit.",
+          tag: "1-ma'ruza",
+        },
+        {
+          term: "Risk",
+          def: "RISK = Tahdid × Zaiflik × Ta'sir. Hodisaning yuzaga kelish ehtimoli va oqibatining birikuvi.",
+          tag: "2-ma'ruza",
+        },
+        {
+          term: "ERM Framework",
+          def: "Enterprise Risk Management Framework — tashkilotda risklarni boshqarishning yagona strukturasi.",
+          tag: "2-ma'ruza",
+        },
+        {
+          term: "RMIS",
+          def: "Risk Management Information Systems — risklarni boshqarish uchun axborot tizimi.",
+          tag: "2-ma'ruza",
+        },
+        {
+          term: "KRI",
+          def: "Key Risk Indicators — Muhim risk ko'rsatkichlari, dastlabki xavf signali.",
+          tag: "2-ma'ruza",
+        },
+        {
+          term: "Kiberjinoyat",
+          def: "Kibermakonda dasturiy va texnik vositalar yordamida amalga oshirilgan jinoyat.",
+          tag: "3-ma'ruza",
+        },
+        {
+          term: "Budapesht konvensiyasi",
+          def: "Yevropa Kengashining 2004-yildagi kiberjinoyatchilik bo'yicha xalqaro shartnoma.",
+          tag: "3-ma'ruza",
+        },
+        {
+          term: "Raqamli kriminalistika",
+          def: "Raqamli dalillarni yig'ish va tahlil qilish — sud ekspertizasining yo'nalishi.",
+          tag: "3-ma'ruza",
+        },
+        {
+          term: "Kiberetika",
+          def: "Kompyuterlar bilan bog'liq falsafiy soha — foydalanuvchi xatti-harakatlari va texnologiyaning ta'siri.",
+          tag: "3-ma'ruza",
+        },
+        {
+          term: "EISP",
+          def: "Enterprise Information Security Policies — tashkilot miqyosida xavfsizlik siyosati.",
+          tag: "4-ma'ruza",
+        },
+        {
+          term: "ISSP",
+          def: "Issue-Specific Security Policies — muayyan xavfsizlik muammosiga qaratilgan siyosat.",
+          tag: "4-ma'ruza",
+        },
+        {
+          term: "SSSP",
+          def: "System-Specific Security Policies — tizimga qaratilgan xavfsizlik siyosati.",
+          tag: "4-ma'ruza",
+        },
+        {
+          term: "Prudent Policy",
+          def: "Ehtiyotkorlik siyosati — barcha xizmatlar bloklangan, ma'mur alohida ruxsat beradi.",
+          tag: "4-ma'ruza",
+        },
+        {
+          term: "Kriptografiya",
+          def: "Ma'lumotni maxfiy kodlarga aylantirib, faqat vakolatli tomonga o'qiladigan qilish fani.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "Kerkgoff prinsipi",
+          def: "Faqat kalit sir saqlanadi, shifrlash algoritmi esa ochiq bo'lishi lozim.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "Shifrlash",
+          def: "Ochiq matnni shifrmatnga aylantirish jarayoni — encryption.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "Ochiq matn",
+          def: "Plaintext — shifrlashdan oldingi asl ma'lumot.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "Shifrmatn",
+          def: "Ciphertext — shifrlangan ma'lumot.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "XOR amali",
+          def: "Bit darajasidagi mantiqiy amal: 0⊕0=0, 0⊕1=1, 1⊕1=0. Vernam shifrida ishlatiladi.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "Bir martali bloknot (OTP)",
+          def: "Vernam shifri — absolyut bardoshli, kalit bir marta ishlatiladi.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "Steganografiya",
+          def: "Maxfiy xabarni boshqa ob'ekt (rasm, audio) ichiga yashirish.",
+          tag: "5-ma'ruza",
+        },
+        {
+          term: "AES",
+          def: "Advanced Encryption Standard — 128/192/256 bitli kalit, blokli simmetrik shifrlash standarti.",
+          tag: "6-ma'ruza",
+        },
+        {
+          term: "DES",
+          def: "Data Encryption Standard — 56 bitli kalit, hozir xavfsiz emas.",
+          tag: "6-ma'ruza",
+        },
+        {
+          term: "Stream cipher",
+          def: "Oqimli shifrlash — ma'lumotni bit yoki bayt darajasida shifrlash. Misol: A5/1, RC4.",
+          tag: "6-ma'ruza",
+        },
+        {
+          term: "Block cipher",
+          def: "Blokli shifrlash — ma'lumotni bloklarga bo'lib shifrlash. Misol: AES, DES.",
+          tag: "6-ma'ruza",
+        },
+        {
+          term: "A5/1",
+          def: "GSM mobil aloqa tizimida ishlatiladigan oqimli shifrlash algoritmi.",
+          tag: "6-ma'ruza",
+        },
+        {
+          term: "Ochiq kalit",
+          def: "Public key — hamma bilishi mumkin bo'lgan kalit, shifrlash uchun ishlatiladi.",
+          tag: "7-ma'ruza",
+        },
+        {
+          term: "Shaxsiy kalit",
+          def: "Private key — faqat egasi biladigan kalit, rasshifrovkalash uchun.",
+          tag: "7-ma'ruza",
+        },
+        {
+          term: "RSA",
+          def: "Rivest-Shamir-Adleman — faktorlash muammosiga asoslangan ochiq kalitli tizim.",
+          tag: "7-ma'ruza",
+        },
+        {
+          term: "Bir tomonlama funksiya",
+          def: "Hisoblash oson, ammo teskarisi o'ta qiyin bo'lgan matematik funksiya.",
+          tag: "7-ma'ruza",
+        },
+        {
+          term: "Modul arifmetikasi",
+          def: "a mod b — a ni b ga bo'lgandagi qoldiq. Kriptografiyaning matematik asosi.",
+          tag: "7-ma'ruza",
+        },
+        {
+          term: "Xesh funksiya",
+          def: "Ixtiyoriy uzunlikdagi ma'lumotni qat'iy uzunlikdagi qiymatga aylantiruvchi funksiya.",
+          tag: "8-ma'ruza",
+        },
+        {
+          term: "MD5",
+          def: "Message Digest 5 — 128 bit xesh, kolliziya topilgan, zaif.",
+          tag: "8-ma'ruza",
+        },
+        {
+          term: "SHA-256",
+          def: "Secure Hash Algorithm — 256 bit, kuchli, keng tarqalgan.",
+          tag: "8-ma'ruza",
+        },
+        {
+          term: "MAC",
+          def: "Message Authentication Code — kalit yordamida hisoblangan xesh. Yaxlitlik + autentifikatsiya.",
+          tag: "8-ma'ruza",
+        },
+        {
+          term: "ERI",
+          def: "Elektron Raqamli Imzo — shaxsiy kalit bilan imzolash. Yaxlitlik + rad etishdan himoya.",
+          tag: "8-ma'ruza",
+        },
+        {
+          term: "Kolliziya",
+          def: "Ikki xil kirishdan bir xil xesh qiymati chiqishi — zaiflik.",
+          tag: "8-ma'ruza",
+        },
+        {
+          term: "HSM",
+          def: "Hardware Security Module — kriptografik kalitlarni saqlash uchun apparat qurilma.",
+          tag: "9-ma'ruza",
+        },
+        {
+          term: "PKI",
+          def: "Public Key Infrastructure — ochiq kalitlarni boshqarish infratuzilmasi.",
+          tag: "9-ma'ruza",
+        },
+        {
+          term: "SSL/TLS",
+          def: "Internet orqali xavfsiz ma'lumot uzatish protokoli. HTTPS asosi.",
+          tag: "9-ma'ruza",
+        },
+        {
+          term: "CA",
+          def: "Certificate Authority — sertifikatlash markazi, ochiq kalitni tasdiqlaydi.",
+          tag: "9-ma'ruza",
+        },
+        {
+          term: "DAC",
+          def: "Discretionary Access Control — obyekt egasi ruxsatlarni boshqaradi. UNIX fayl huquqlari.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "MAC (boshqaruv)",
+          def: "Mandatory Access Control — markazlashgan boshqaruv, No Read Up + No Write Down.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "RBAC",
+          def: "Role-Based Access Control — rollarga asoslangan boshqaruv. Foydalanuvchi → Rol → Huquq.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "ABAC",
+          def: "Attribute-Based Access Control — atributlarga asoslangan eng moslashuvchan model.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "ACL",
+          def: "Access Control List — obyektga bog'langan ruxsatlar ro'yxati.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "C-list",
+          def: "Capability List — subyektga bog'langan imkoniyatlar ro'yxati.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "Confused Deputy",
+          def: "Dastur o'z huquqi bilan foydalanuvchi nomidan xavfli amal bajarishi — xavfsizlik muammosi.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "XACML",
+          def: "eXtensible Access Control Markup Language — ABAC standarti.",
+          tag: "11-ma'ruza",
+        },
+        {
+          term: "Bell-LaPadula",
+          def: "Ko'p sathli maxfiylik modeli: No Read Up + No Write Down.",
+          tag: "12-ma'ruza",
+        },
+        {
+          term: "Biba modeli",
+          def: "Ko'p sathli yaxlitlik modeli (Bell-LaPadula teskarisi): No Read Down + No Write Up.",
+          tag: "12-ma'ruza",
+        },
+        {
+          term: "MLS",
+          def: "Multilevel Security — ko'p sathli xavfsizlik. DOD: TOP SECRET > SECRET > CONFIDENTIAL > UNCLASSIFIED.",
+          tag: "12-ma'ruza",
+        },
+        {
+          term: "No Read Up",
+          def: "Bell-LaPadula: Subyekt o'z darajasidan yuqori ma'lumotni o'qiy olmaydi.",
+          tag: "12-ma'ruza",
+        },
+        {
+          term: "No Write Down",
+          def: "Bell-LaPadula: Subyekt o'z darajasidan past ma'lumotga yoza olmaydi.",
+          tag: "12-ma'ruza",
+        },
+        {
+          term: "Fizik xavfsizlik",
+          def: "Bino, qurilma va tizimlarni jismoniy tahdidlardan himoya. OSI 1-sath.",
+          tag: "13-ma'ruza",
+        },
+        {
+          term: "CCTV",
+          def: "Closed Circuit TV — yopiq kuzatuv kamerasi tizimi.",
+          tag: "13-ma'ruza",
+        },
+        {
+          term: "UPS",
+          def: "Uninterruptible Power Supply — uzliksiz quvvat manbai.",
+          tag: "13-ma'ruza",
+        },
+        {
+          term: "Mantrap",
+          def: "Ikkita eshik orasidagi xavfsizlik hududi — bir vaqtda faqat bir kishi kiradi.",
+          tag: "13-ma'ruza",
+        },
+        {
+          term: "LAN",
+          def: "Local Area Network — mahalliy tarmoq (bino, ofis miqyosi).",
+          tag: "14-ma'ruza",
+        },
+        {
+          term: "WAN",
+          def: "Wide Area Network — keng hududli tarmoq, Internet kabi.",
+          tag: "14-ma'ruza",
+        },
+        {
+          term: "OSI modeli",
+          def: "7 qatlamli tarmoq modeli: Fizik, Kanal, Tarmoq, Transport, Seans, Taqdimot, Ilova.",
+          tag: "14-ma'ruza",
+        },
+        {
+          term: "DDoS",
+          def: "Distributed Denial of Service — ko'plab manba orqali tarqatilgan hizmat buzish hujumi.",
+          tag: "14-ma'ruza",
+        },
+        {
+          term: "MITM",
+          def: "Man-in-the-Middle — aloqa orasidagi hujumchi, ma'lumotni ushlab oladi.",
+          tag: "14-ma'ruza",
+        },
+        {
+          term: "Firewall",
+          def: "Tarmoqlararo ekran — trafikni filtrlash, ACCEPT yoki DROP qaror.",
+          tag: "15-ma'ruza",
+        },
+        {
+          term: "VPN",
+          def: "Virtual Private Network — ochiq tarmoq orqali shifrlangan tunnel.",
+          tag: "15-ma'ruza",
+        },
+        {
+          term: "IDS",
+          def: "Intrusion Detection System — hujumni aniqlaydi va xabar beradi (passiv).",
+          tag: "15-ma'ruza",
+        },
+        {
+          term: "IPS",
+          def: "Intrusion Prevention System — hujumni aniqlaydi va bloklaydi (aktiv).",
+          tag: "15-ma'ruza",
+        },
+        {
+          term: "DLP",
+          def: "Data Loss Prevention — ma'lumot sizishini oldini olish tizimi.",
+          tag: "15-ma'ruza",
+        },
+        {
+          term: "Honeypot",
+          def: "Hujumchilarni jalb qilish uchun o'rnatilgan yolg'on tizim.",
+          tag: "15-ma'ruza",
+        },
+        {
+          term: "WPA3",
+          def: "Wi-Fi Protected Access 3 — eng yangi simsiz tarmoq xavfsizlik standarti.",
+          tag: "16-ma'ruza",
+        },
+        {
+          term: "WEP",
+          def: "Wired Equivalent Privacy — eski va zaif Wi-Fi shifrlash, tashlab ketilgan.",
+          tag: "16-ma'ruza",
+        },
+        {
+          term: "Evil Twin",
+          def: "Haqiqiy Wi-Fi ga o'xshash SSID bilan soxta kirish nuqtasi.",
+          tag: "16-ma'ruza",
+        },
+        {
+          term: "SSID",
+          def: "Service Set Identifier — Wi-Fi tarmoq nomi.",
+          tag: "16-ma'ruza",
+        },
+        {
+          term: "Cloud computing",
+          def: "IT resurslarni internet orqali taqdim etish — bulutli hisoblash.",
+          tag: "17-ma'ruza",
+        },
+        {
+          term: "IaaS",
+          def: "Infrastructure as a Service — infratuzilma xizmat sifatida (AWS EC2, Azure VM).",
+          tag: "17-ma'ruza",
+        },
+        {
+          term: "PaaS",
+          def: "Platform as a Service — platforma xizmat sifatida (Heroku, Google App Engine).",
+          tag: "17-ma'ruza",
+        },
+        {
+          term: "SaaS",
+          def: "Software as a Service — dastur xizmat sifatida (Gmail, Office 365).",
+          tag: "17-ma'ruza",
+        },
+        {
+          term: "IoT",
+          def: "Internet of Things — Buyumlar interneti. Internetga ulangan qurilmalar tarmog'i.",
+          tag: "17-ma'ruza",
+        },
+        {
+          term: "RAID",
+          def: "Redundant Array of Independent Disks — bir nechta diskda ma'lumotni himoyalash.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "RAID 0",
+          def: "Striping — tezlik uchun, zaxira yo'q.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "RAID 1",
+          def: "Mirroring — to'liq nusxa, 2 disk kerak.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "RAID 5",
+          def: "Striping + Parity — tezlik va 1 disk buzilishiga bardosh.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "3-2-1 qoidasi",
+          def: "3 nusxa, 2 xil media, 1 tashqarida (offsite) saqlash qoidasi.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "RTO",
+          def: "Recovery Time Objective — tizim qancha vaqtda tiklanishi kerak.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "RPO",
+          def: "Recovery Point Objective — qancha ma'lumot yo'qotish mumkin.",
+          tag: "18-ma'ruza",
+        },
+        {
+          term: "OWASP",
+          def: "Open Web Application Security Project — web xavfsizlik zaifliklarini o'rganuvchi tashkilot.",
+          tag: "19-ma'ruza",
+        },
+        {
+          term: "Buffer Overflow",
+          def: "Xotira to'lib-toshishi — ajratilgan xotiradan ko'p ma'lumot yozilishi, hujumchi kod ishga tushirishi mumkin.",
+          tag: "19-ma'ruza",
+        },
+        {
+          term: "SQL Injection",
+          def: "Dasturga SQL buyruq kiritib ma'lumotlar bazasini boshqarish hujumi.",
+          tag: "19-ma'ruza",
+        },
+        {
+          term: "XSS",
+          def: "Cross-Site Scripting — boshqa saytga zararli skript kiritish.",
+          tag: "19-ma'ruza",
+        },
+        {
+          term: "Cookie",
+          def: "Veb-sayt brauzerda saqlagan kichik ma'lumot. HttpOnly, Secure, SameSite flaglari.",
+          tag: "19-ma'ruza",
+        },
+        {
+          term: "Malware",
+          def: "Malicious Software — zararli dasturiy ta'minot.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Virus",
+          def: "O'zini ko'paytiradigan va boshqa fayllarga birikadigan zararli dastur.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Worm (Cherv)",
+          def: "Mustaqil tarqaladigan zararli dastur, boshqa faylga birikmasdan.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Troyan oti",
+          def: "Foydali dastur ko'rinishida yashirinadigan zararli kod, o'zini ko'paytirmaydi.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Ransomware",
+          def: "Fayllarni shifrlaydi va to'lov talab qiladi.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Rootkit",
+          def: "Operatsion tizimdan o'z harakatlarini yashiradigan zararli dastur.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Backdoor",
+          def: "Orqa eshik — autentifikatsiyani chetlab o'tib tizimga yashirin kirish yo'li.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Polimorf virus",
+          def: "Har safar o'z kodini o'zgartiruvchi virus — antivirus bazasidan yashirinadi.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Botnet",
+          def: "Zararlangan kompyuterlar tarmog'i, masofadan boshqariladi (DDoS uchun).",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Evristik tahlil",
+          def: "Dasturning shubhali xatti-harakatlarini aniqlash — yangi viruslar uchun samarali.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Signatura tahlili",
+          def: "Ma'lum virus bazasi bilan solishtirish — tez lekin 0-day dan himoya qilmaydi.",
+          tag: "20-ma'ruza",
+        },
+        {
+          term: "Ijtimoiy injineriya",
+          def: "Inson psixologiyasidan foydalanib, aldov orqali maxfiy ma'lumot olish.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Phishing",
+          def: "Soxta email yoki sayt orqali foydalanuvchi ma'lumotlarini o'g'irlash.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Spear Phishing",
+          def: "Muayyan shaxsga qaratilgan maqsadli phishing hujumi.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Vishing",
+          def: "Voice Phishing — telefon qo'ng'iroq orqali aldash.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Smishing",
+          def: "SMS orqali phishing hujumi.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Pretexting",
+          def: "Soxta ssenariy bilan ishonch qozonib maxfiy ma'lumot olish.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Baiting",
+          def: "Qiziqtiruvchi yem (bepul dastur, fleshka) orqali foydalanuvchini aldash.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Tailgating",
+          def: "Vakolatli xodim ortidan ruxsatsiz binoga kirish.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "MFA",
+          def: "Multi-Factor Authentication — 3 faktor: biladigan + egalik qiladigan + biometrika.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "OTP",
+          def: "One-Time Password — bir martalik parol.",
+          tag: "21-ma'ruza",
+        },
+        {
+          term: "Cialdini prinsiplari",
+          def: "Ijtimoiy ta'sir 6 prinsipi: Dalil, O'zaro, Hokimiyat, Yoquvchanlik, Majburiyat, Yetishmovchilik.",
+          tag: "21-ma'ruza",
+        },
+      ];
+
+      // ═══════════════════════════════════════════════════════
+      // TEST QUESTIONS
+      // ═══════════════════════════════════════════════════════
+      const QUESTIONS = [
+        {
+          q: "CIA triadasi necha elementdan iborat va ular qaysilar?",
+          opts: [
+            "2 ta: Konfidensiallik va Yaxlitlik",
+            "3 ta: Konfidensiallik, Yaxlitlik, Foydalanuvchanlik",
+            "4 ta: Konfidensiallik, Yaxlitlik, Foydalanuvchanlik va Risk",
+            "5 ta",
+          ],
+          ans: 1,
+          lec: 1,
+          exp: "CIA = Confidentiality + Integrity + Availability — axborot xavfsizligining 3 asosiy tamoyili.",
+        },
+        {
+          q: "Risk qanday formula bilan hisoblanadi?",
+          opts: [
+            "Risk = Tahdid + Zaiflik",
+            "Risk = Tahdid × Zaiflik × Ta'sir",
+            "Risk = Aktiv / Zaiflik",
+            "Risk = Tahdid - Himoya",
+          ],
+          ans: 1,
+          lec: 2,
+          exp: "RISK = Tahdid × Zaiflik × Ta'sir — bu asosiy risk formulasidir.",
+        },
+        {
+          q: "Kerkgoff prinsipiga ko'ra nima sir saqlanishi kerak?",
+          opts: ["Algoritm", "Kalit", "Ikkisi ham", "Hech narsa"],
+          ans: 1,
+          lec: 5,
+          exp: "Kerkgoff prinsipi: Faqat kalit sir, algoritm esa ochiq bo'lishi kerak.",
+        },
+        {
+          q: "Bell-LaPadula modeli qaysi maqsadni ta'minlaydi?",
+          opts: [
+            "Foydalanuvchanlik",
+            "Yaxlitlik",
+            "Maxfiylik (Konfidensiallik)",
+            "Autentifikatsiya",
+          ],
+          ans: 2,
+          lec: 12,
+          exp: "Bell-LaPadula modeli maxfiylikni ta'minlaydi: No Read Up + No Write Down.",
+        },
+        {
+          q: "AES kalitining mumkin bo'lgan uzunliklari qaysilar?",
+          opts: [
+            "56, 112, 168 bit",
+            "64, 128, 192 bit",
+            "128, 192, 256 bit",
+            "256, 512, 1024 bit",
+          ],
+          ans: 2,
+          lec: 6,
+          exp: "AES (Advanced Encryption Standard) kaliti 128, 192 yoki 256 bit bo'lishi mumkin.",
+        },
+        {
+          q: "Xesh funksiyaning asosiy xususiyati nima?",
+          opts: [
+            "Bir tomonlilik — teskari hisoblash mumkin emas",
+            "Ikkala tomonlama ishlashi",
+            "Kalit talab qilishi",
+            "Chiqish uzunligi o'zgaruvchan bo'lishi",
+          ],
+          ans: 0,
+          lec: 8,
+          exp: "Xesh funksiyaning asosiy xususiyati bir tomonlilik — h(x) = H dan x ni hisoblab bo'lmaydi.",
+        },
+        {
+          q: "MAC (Message Authentication Code) qaysi xavfsizlik xususiyatlarini ta'minlaydi?",
+          opts: [
+            "Faqat konfidensiallik",
+            "Faqat yaxlitlik",
+            "Yaxlitlik va autentifikatsiya",
+            "Foydalanuvchanlik va rad etishdan himoya",
+          ],
+          ans: 2,
+          lec: 8,
+          exp: "MAC kalit yordamida xesh hisoblab yaxlitlik + autentifikatsiya ta'minlaydi.",
+        },
+        {
+          q: "DAC (Discretionary Access Control) kimga boshqariladi?",
+          opts: [
+            "Markaziy administrator",
+            "Hukumat",
+            "Obyekt egasi",
+            "Tarmoq ma'muri",
+          ],
+          ans: 2,
+          lec: 11,
+          exp: "DAC — Discretionary Access Control: Obyekt egasi kimga qanday ruxsat berishni belgilaydi.",
+        },
+        {
+          q: "MAC boshqarish modelida 'No Read Up' qoidasi nimani bildiradi?",
+          opts: [
+            "Yuqori darajadagi ma'lumotni o'qiy olmaydi",
+            "Quyi darajaga yoza olmaydi",
+            "Hamma ma'lumotni o'qiy oladi",
+            "Administrator ruxsati kerak",
+          ],
+          ans: 0,
+          lec: 11,
+          exp: "No Read Up: Subyekt faqat o'z darajasiga teng yoki past ma'lumotni o'qiy oladi.",
+        },
+        {
+          q: "RBAC modelida foydalanishni boshqarish qanday ishlaydi?",
+          opts: [
+            "Foydalanuvchi → Fayl → Ruxsat",
+            "Foydalanuvchi → Rol → Huquq",
+            "Administrator → Foydalanuvchi → Qaror",
+            "Rol → Foydalanuvchi → Aktiv",
+          ],
+          ans: 1,
+          lec: 11,
+          exp: "RBAC: Foydalanuvchi → Rol → Huquq. Tashkilot strukturasiga mos model.",
+        },
+        {
+          q: "RAID 1 texnologiyasi qanday ishlaydi?",
+          opts: [
+            "Striping — ma'lumotni bloklarga bo'ladi",
+            "Mirroring — to'liq nusxalash",
+            "Parity — xatolikni tiklash",
+            "Striping + Parity",
+          ],
+          ans: 1,
+          lec: 18,
+          exp: "RAID 1 = Mirroring. Ma'lumot ikkita diskka bir xil yoziladi — to'liq zaxira.",
+        },
+        {
+          q: "Phishing hujumining asosiy maqsadi nima?",
+          opts: [
+            "Tarmoqni bloklash",
+            "Foydalanuvchini aldab maxfiy ma'lumot olish",
+            "Dasturni o'chirish",
+            "Kompyuterni qayta ishga tushirish",
+          ],
+          ans: 1,
+          lec: 21,
+          exp: "Phishing — soxta email/sayt orqali foydalanuvchini aldab parol, karta ma'lumoti olish.",
+        },
+        {
+          q: "IDS va IPS o'rtasidagi asosiy farq nima?",
+          opts: [
+            "IDS tezroq ishlaydi",
+            "IDS passiv (aniqlaydi), IPS aktiv (bloklaydi)",
+            "IPS faqat Wi-Fi uchun",
+            "IDS va IPS bir xil",
+          ],
+          ans: 1,
+          lec: 15,
+          exp: "IDS = Passiv: aniqlaydi va xabar beradi. IPS = Aktiv: aniqlaydi va avtomatik bloklaydi.",
+        },
+        {
+          q: "WEP protokoli hozir nima sababli ishlatilmaydi?",
+          opts: [
+            "Juda qimmat",
+            "Zaif shifrlash, kolliziya topilgan (RC4 + qisqa kalit)",
+            "Faqat Windows uchun",
+            "Juda sekin",
+          ],
+          ans: 1,
+          lec: 16,
+          exp: "WEP zaif RC4 shifrlash va qisqa kalit tufayli buzilishi oson — tashlab ketilgan.",
+        },
+        {
+          q: "Bulutli hisoblashda IaaS nimani anglatadi?",
+          opts: [
+            "Internet as a Service",
+            "Infrastructure as a Service — infratuzilma xizmat sifatida",
+            "Integrated Application Solution",
+            "Internal as a System",
+          ],
+          ans: 1,
+          lec: 17,
+          exp: "IaaS = Infrastructure as a Service. Misol: AWS EC2, Azure Virtual Machines.",
+        },
+        {
+          q: "Ransomware qanday ishlaydi?",
+          opts: [
+            "Fayllarni o'chiradi",
+            "Fayllarni shifrlaydi va to'lov talab qiladi",
+            "Internet aloqasini uzadi",
+            "Foydalanuvchini kuzatadi",
+          ],
+          ans: 1,
+          lec: 20,
+          exp: "Ransomware qurbon kompyuterida qimmatli fayllarni shifrlaydi, to'lov amalga oshirilishini talab qiladi.",
+        },
+        {
+          q: "MFA (Multi-Factor Authentication) 3 ta faktori qaysilar?",
+          opts: [
+            "Parol, PIN, OTP",
+            "Biladigan + Egalik qiladigan + Biometrika",
+            "Foydalanuvchi, Tizim, Server",
+            "Barmoq izi, Yuz, Ko'z",
+          ],
+          ans: 1,
+          lec: 21,
+          exp: "MFA 3 faktor: Biladigan (parol), Egalik qiladigan (telefon/token), Biometrika (barmoq izi).",
+        },
+        {
+          q: "'Confused Deputy' muammosi nima?",
+          opts: [
+            "Foydalanuvchi parolini unutishi",
+            "Dastur o'z huquqi bilan foydalanuvchi nomidan xavfli amal bajarishi",
+            "Administrator ikki hisob yaratishi",
+            "Tarmoq uzilishi",
+          ],
+          ans: 1,
+          lec: 11,
+          exp: "Confused Deputy: Dastur o'z keng huquqidan foydalanib, cheklangan huquqli foydalanuvchi nomidan xavfli ishni bajaradi.",
+        },
+        {
+          q: "Kriptografiyaning steganografiyadan asosiy farqi nima?",
+          opts: [
+            "Kriptografiya faqat rasm uchun",
+            "Kriptografiya ma'lumotni shifrlaydi, steganografiya yashiradi",
+            "Ular bir xil",
+            "Steganografiya tezroq",
+          ],
+          ans: 1,
+          lec: 5,
+          exp: "Kriptografiya = ma'lumotni tushunarsi qiladi. Steganografiya = ma'lumotning mavjudligini yashiradi.",
+        },
+        {
+          q: "SHA-256 qancha bitli xesh qiymat qaytaradi?",
+          opts: ["128 bit", "160 bit", "256 bit", "512 bit"],
+          ans: 2,
+          lec: 8,
+          exp: "SHA-256 (Secure Hash Algorithm 256) = 256 bitli xesh qiymat qaytaradi.",
+        },
+        {
+          q: "Firewall trafikni filtrlashda qanday qaror qabul qiladi?",
+          opts: [
+            "Faqat BLOCK",
+            "ACCEPT yoki DROP",
+            "Faqat ALLOW",
+            "SCAN va REPORT",
+          ],
+          ans: 1,
+          lec: 15,
+          exp: "Firewall trafik qoidalar bilan solishtiriladi → ACCEPT (o'tkazadi) yoki DROP (bloklaydi) qaror.",
+        },
+        {
+          q: "3-2-1 zaxira nusxalash qoidasi nima?",
+          opts: [
+            "3 ta fayl, 2 ta papka, 1 ta disk",
+            "3 nusxa, 2 xil media, 1 tashqarida saqlash",
+            "3 marta backup, 2 soat ichida, 1 ta server",
+            "3 ta disk, 2 ta server, 1 ta bulut",
+          ],
+          ans: 1,
+          lec: 18,
+          exp: "3-2-1 qoidasi: 3 nusxa, 2 xil media (disk va lenta), 1 tashqarida (offsite) saqlash.",
+        },
+        {
+          q: "Ochiq kalitli kriptotizimlarda RSA qaysi matematik muammoga asoslanadi?",
+          opts: [
+            "Diskret logarifmlash",
+            "Faktorlash muammosi (N=p×q)",
+            "Elliptik egri muammo",
+            "Modulli qoldiq",
+          ],
+          ans: 1,
+          lec: 7,
+          exp: "RSA faktorlash muammosiga asoslangan: katta N sonini ikkita tub songa bo'lish o'ta qiyin.",
+        },
+        {
+          q: "Bell-LaPadula modelida '* (star) xususiyat' nima?",
+          opts: ["No Read Up", "No Write Down", "No Read Down", "No Write Up"],
+          ans: 1,
+          lec: 12,
+          exp: "Bell-LaPadula da * (star/yulduz) xususiyat = No Write Down. Subyekt o'z darajasidan past obyektga yoza olmaydi.",
+        },
+        {
+          q: "OWASP Top 10 da 2021-yilgi birinchi o'rindagi zaiflik qaysi?",
+          opts: [
+            "SQL Injection",
+            "Broken Access Control",
+            "XSS",
+            "Cryptographic Failures",
+          ],
+          ans: 1,
+          lec: 19,
+          exp: "OWASP 2021: #1 — Broken Access Control (Buzilgan foydalanish nazorati).",
+        },
+        {
+          q: "Polimorf virus nima sababli xavfli?",
+          opts: [
+            "Juda tez tarqaladi",
+            "Har safar o'z kodini o'zgartirib antivirus bazasidan yashirinadi",
+            "Faqat maxsus kompyuterlarda ishlaydi",
+            "Ko'p xotira ishlatadi",
+          ],
+          ans: 1,
+          lec: 20,
+          exp: "Polimorf virus har gal o'z kodini o'zgartiradi — shuning uchun signatura bazasi uni aniqlay olmaydi.",
+        },
+        {
+          q: "Bulutli hisoblashning 5 asosiy xususiyatidan biri 'Rapid Elasticity' nimani anglatadi?",
+          opts: [
+            "Tez internet",
+            "Tezkor moslashuvchanlik — resurslarni tez kengaytirish/kamaytirish",
+            "Tez fayl yuklab olish",
+            "Tez registratsiya",
+          ],
+          ans: 1,
+          lec: 17,
+          exp: "Rapid Elasticity = Tezkor moslashuvchanlik: Resurslarni talab bo'yicha tez ko'paytirish yoki kamaytirish imkoniyati.",
+        },
+        {
+          q: "Vishing hujumi qaysi kanal orqali amalga oshiriladi?",
+          opts: ["Email", "SMS", "Telefon qo'ng'irog'i", "Faks"],
+          ans: 2,
+          lec: 21,
+          exp: "Vishing = Voice Phishing. Telefon qo'ng'irog'i orqali aldash — firibgar bank xodimi sifatida qo'ng'iroq qiladi.",
+        },
+        {
+          q: "Honeypot nima vazifani bajaradi?",
+          opts: [
+            "Trafikni shifrlaydi",
+            "Hujumchilarni jalb qilish uchun yolg'on tizim o'rnatadi",
+            "Zaxira nusxa yaratadi",
+            "Autentifikatsiya qiladi",
+          ],
+          ans: 1,
+          lec: 15,
+          exp: "Honeypot — hujumchilarni jalb qilish uchun ataylab zaif ko'rinishda o'rnatilgan yolg'on tizim.",
+        },
+        {
+          q: "RAID 5 qanday ishlaydi?",
+          opts: [
+            "Faqat Mirroring",
+            "Faqat Striping",
+            "Striping + Parity (1 disk buzilishiga bardosh)",
+            "Mirroring + Striping",
+          ],
+          ans: 2,
+          lec: 18,
+          exp: "RAID 5 = Striping + Parity. Ma'lumot va parity ma'lumot barcha disklarga taqsimlanadi. 1 ta disk buzilsa tiklash mumkin.",
+        },
+        {
+          q: "'No Write Down' qoidasi Bell-LaPadula modelida nimani taqiqlaydi?",
+          opts: [
+            "Yuqori darajadan o'qishni",
+            "O'z darajasidan past obyektga yozishni",
+            "Barcha yozishni",
+            "Administrator harakatlarini",
+          ],
+          ans: 1,
+          lec: 12,
+          exp: "No Write Down: Subyekt o'z xavfsizlik darajasidan past obyektga yoza olmaydi. Bu maxfiy ma'lumotning 'pastga oqishini' oldini oladi.",
+        },
+        {
+          q: "Kiberxavfsizlik sohasida 'aktiv' tushunchasi nimani bildiradi?",
+          opts: [
+            "Kompyuter tarmoqlari",
+            "Tashkilot uchun qimmatli barcha narsalar (ma'lumot, qurilma)",
+            "Faqat moliyaviy resurslar",
+            "Foydalanuvchi hisoblar",
+          ],
+          ans: 1,
+          lec: 1,
+          exp: "Aktiv (Asset) = Tashkilot uchun qimmatli barcha narsalar: ma'lumot, qurilma, dastur, inson resurslari.",
+        },
+        {
+          q: "Simmetrik shifrlashda kalit soni necha ta?",
+          opts: [
+            "1 ta umumiy kalit",
+            "2 ta: ochiq va shaxsiy",
+            "3 ta: shifrlash, rasshifrovkalash, autentifikatsiya",
+            "Kalitsiz",
+          ],
+          ans: 0,
+          lec: 6,
+          exp: "Simmetrik shifrlashda 1 ta umumiy kalit ishlatiladi — ham shifrlash, ham rasshifrovkalash uchun.",
+        },
+        {
+          q: "OSI modelining nechta sathi mavjud?",
+          opts: ["4", "5", "6", "7"],
+          ans: 3,
+          lec: 14,
+          exp: "OSI modeli 7 qatlamdan iborat: Fizik, Kanal, Tarmoq, Transport, Seans, Taqdimot, Ilova.",
+        },
+        {
+          q: "ERI (Elektron Raqamli Imzo) qaysi kalit bilan imzolanadi?",
+          opts: [
+            "Ochiq kalit",
+            "Shaxsiy kalit",
+            "Simmetrik kalit",
+            "Xesh kalit",
+          ],
+          ans: 1,
+          lec: 8,
+          exp: "ERI = Shaxsiy kalit bilan imzolash, Ochiq kalit bilan tekshirish. Yaxlitlik + Rad etishdan himoya.",
+        },
+        {
+          q: "O'zbekistonda kiberxavfsizlik sohasidagi vakolatli davlat organi qaysi?",
+          opts: [
+            "Ichki ishlar vazirligi",
+            "Davlat xavfsizlik xizmati (DXX)",
+            "Axborot texnologiyalari vazirligi",
+            "Milliy gvardiya",
+          ],
+          ans: 1,
+          lec: 3,
+          exp: "O'zRes 'Kiberxavfsizlik to'g'risida'gi Qonun 11-modda: DXX — kiberxavfsizlik sohasidagi vakolatli davlat organi.",
+        },
+        {
+          q: "Buffer Overflow hujumida nima sodir bo'ladi?",
+          opts: [
+            "Tarmoq to'kiladi",
+            "Ajratilgan xotiradan ko'p ma'lumot yoziladi, qo'shni xotira buziladi",
+            "Fayl o'chiriladi",
+            "Dastur muzlaydi",
+          ],
+          ans: 1,
+          lec: 19,
+          exp: "Buffer Overflow: Kiritilgan ma'lumot ajratilgan xotiradan katta bo'lganda, qo'shni xotira manzillariga yozib yuboriladi — hujumchi zararli kod ishga tushirishi mumkin.",
+        },
+        {
+          q: "Smishing hujumi qaysi kanal orqali amalga oshiriladi?",
+          opts: ["Email", "Telefon qo'ng'irog'i", "SMS xabar", "Faks"],
+          ans: 2,
+          lec: 21,
+          exp: "Smishing = SMS Phishing. SMS xabar orqali zararli havola yoki soxta tasdiqlash kodi yuboriladi.",
+        },
+        {
+          q: "IoT qurilmalarida eng keng tarqalgan xavfsizlik muammosi nima?",
+          opts: [
+            "Juda qimmat",
+            "Standart parollar o'zgartirilmasligi, eskirgan firmware",
+            "Tarmoqqa ulanmasligi",
+            "Faqat iOS bilan ishlashi",
+          ],
+          ans: 1,
+          lec: 17,
+          exp: "IoT ning asosiy muammosi: Standart parollar o'zgartirilmasligi, eskirgan firmware, shifrsiz aloqa.",
+        },
+        {
+          q: "Kriptografiyada 'one-time pad' nima uchun absolyut bardoshli deyiladi?",
+          opts: [
+            "Juda murakkab algoritm",
+            "Kalit bir marta ishlatiladi va tasodifiy bo'ladi — matematik tahlil imkonsiz",
+            "Qisqa kalit",
+            "Tez ishlashi",
+          ],
+          ans: 1,
+          lec: 5,
+          exp: "Bir martali bloknot (OTP/Vernam): Kalit uzunligi matn uzunligiga teng, tasodifiy, bir marta ishlatiladi — matematik tahlil imkonsiz.",
+        },
+        {
+          q: "Raqamli kriminalistika bosqichlari qaysi tartibda?",
+          opts: [
+            "Tahlil→Yig'ish→Tekshirish→Hisobot",
+            "Yig'ish→Tekshirish→Tahlil→Hisobot",
+            "Hisobot→Tahlil→Tekshirish→Yig'ish",
+            "Tekshirish→Yig'ish→Tahlil→Hisobot",
+          ],
+          ans: 1,
+          lec: 3,
+          exp: "Raqamli kriminalistika: 1.Yig'ish → 2.Tekshirish → 3.Tahlil → 4.Hisobot.",
+        },
+        {
+          q: "ABAC modeli RBAC dan qanday farq qiladi?",
+          opts: [
+            "ABAC faqat rol bo'yicha",
+            "ABAC atributlar (subyekt, obyekt, muhit) bo'yicha — yanada moslashuvchan",
+            "ABAC faqat apparat uchun",
+            "ABAC eski model",
+          ],
+          ans: 1,
+          lec: 11,
+          exp: "ABAC = Atributlarga asoslangan: subyekt, obyekt va muhit atributlari bo'yicha — eng moslashuvchan model. RBAC = faqat rollar.",
+        },
+        {
+          q: "Xavfsizlik siyosatining iyerarxiyasida eng yuqori qaysi?",
+          opts: ["Siyosatlar", "Standartlar", "Qonunlar", "Muolajalar"],
+          ans: 2,
+          lec: 4,
+          exp: "Iyerarxiya (yuqoridan): Qonunlar → Normativ hujjatlar → Siyosatlar → Standartlar → Yo'riqnomalar → Muolajalar.",
+        },
+        {
+          q: "MD5 nima sababli xavfli hisoblanadi?",
+          opts: [
+            "Juda sekin",
+            "Kolliziya topilgan — ikki xil kirishdan bir xil xesh chiqishi aniqlangan",
+            "Faqat Linux da ishlaydi",
+            "Kalit talab qiladi",
+          ],
+          ans: 1,
+          lec: 8,
+          exp: "MD5 uchun kolliziya (ikki xil kirishdan bir xil chiqish) topilgan — shuning uchun xavfsiz emas.",
+        },
+        {
+          q: "Tailgating hujumi qanday amalga oshiriladi?",
+          opts: [
+            "Email orqali",
+            "Vakolatli xodim ortidan binoga kirib olish",
+            "SMS orqali",
+            "Parolni taxmin qilish",
+          ],
+          ans: 1,
+          lec: 21,
+          exp: "Tailgating = Xodim ortidan yopiq hududga kirish. Bu fizik xavfsizlikka qarshi ijtimoiy injineriya turi.",
+        },
+        {
+          q: "BIBA modeli Bell-LaPaduladanfarq qiladi, chunki:",
+          opts: [
+            "Maxfiylikni ta'minlaydi",
+            "Yaxlitlikni ta'minlaydi (No Read Down + No Write Up)",
+            "Foydalanuvchanlikni ta'minlaydi",
+            "Autentifikatsiyani ta'minlaydi",
+          ],
+          ans: 1,
+          lec: 12,
+          exp: "Biba = Yaxlitlik modeli: No Read Down (past darajadagi ma'lumotni o'qiy olmaydi) + No Write Up (yuqoriga yozib bo'lmaydi).",
+        },
+        {
+          q: "'Evil Twin' hujumi nimaga qaratilgan?",
+          opts: [
+            "Serverga",
+            "Simsiz tarmoq foydalanuvchilariga — soxta Wi-Fi nuqtasi yaratish",
+            "Ma'lumotlar bazasiga",
+            "Printerlarga",
+          ],
+          ans: 1,
+          lec: 16,
+          exp: "Evil Twin — haqiqiy Wi-Fi nuqtasiga o'xshash SSID bilan soxta kirish nuqtasi. Foydalanuvchilar unga ulanganda, trafik ushlab olinadi.",
+        },
+        {
+          q: "Robert Cialdini'ning ijtimoiy ta'sir prinsiplari nechtaga bo'linadi?",
+          opts: ["4", "5", "6", "8"],
+          ans: 2,
+          lec: 21,
+          exp: "Cialdini 6 prinsipi: Ijtimoiy dalil, O'zaro munosabat, Hokimiyat, Yoquvchanlik, Majburiyat, Yetishmovchilik.",
+        },
+      ];
+
+      // ═══════════════════════════════════════════════════════
+      // TOPIC GROUPS
+      // ═══════════════════════════════════════════════════════
+      const topicQMap = {
+        1: [1, 2, 3, 4],
+        2: [5, 6, 7, 8, 9],
+        3: [11, 12],
+        4: [13, 14, 15, 16],
+        5: [17, 18],
+        6: [19, 20, 21],
+      };
+
+      // ═══════════════════════════════════════════════════════
+      // STATE
+      // ═══════════════════════════════════════════════════════
+      let currentPage = "home";
+      let currentLecture = null;
+      let currentSection = "konspekt";
+      let testQuestions = [];
+      let testIdx = 0;
+      let testScore = 0;
+      let testAnswered = false;
+      let testResults = [];
+
+      // ═══════════════════════════════════════════════════════
+      // INIT
+      // ═══════════════════════════════════════════════════════
+      function init() {
+        buildHomeGrid();
+        buildSidebar();
+        buildGlossary();
+      }
+
+      function buildHomeGrid() {
+        const grid = document.getElementById("homeGrid");
+        LECTURES.forEach((lec) => {
+          const card = document.createElement("div");
+          card.className = "lecture-card";
+          card.innerHTML = `<div class="badge">📖 ${lec.num}-ma'ruza</div><h3>${lec.title}</h3><p>${lec.short}</p>`;
+          card.onclick = () => {
+            showPage("lectures");
+            openLecture(lec.num);
+          };
+          grid.appendChild(card);
+        });
+      }
+
+      function buildSidebar() {
+        const list = document.getElementById("sidebarList");
+        LECTURES.forEach((lec) => {
+          const item = document.createElement("div");
+          item.className = "sidebar-item";
+          item.id = "sb-" + lec.num;
+          item.innerHTML = `<span class="num">${lec.num}</span><span>${lec.title}</span>`;
+          item.onclick = () => openLecture(lec.num);
+          list.appendChild(item);
+        });
+      }
+
+      function buildGlossary() {
+        const list = document.getElementById("glossList");
+        GLOSSARY.forEach((g, i) => {
+          const item = document.createElement("div");
+          item.className = "gloss-item";
+          item.dataset.text = (g.term + " " + g.def).toLowerCase();
+          item.innerHTML = `<div class="term">${g.term}</div><div class="def">${g.def}</div><span class="tag">${g.tag}</span>`;
+          list.appendChild(item);
+        });
+      }
+
+      function filterGloss(val) {
+        const v = val.toLowerCase();
+        document.querySelectorAll(".gloss-item").forEach((item) => {
+          item.classList.toggle("hidden", v && !item.dataset.text.includes(v));
+        });
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // PAGE NAVIGATION
+      // ═══════════════════════════════════════════════════════
+      function showPage(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+        document.querySelectorAll("nav .tabs button").forEach((b, i) => {
+          b.classList.remove("active");
+        });
+        const pages = ["home", "lectures", "glossary", "test"];
+        const idx = pages.indexOf(name);
+        if (idx >= 0)
+          document
+            .querySelectorAll("nav .tabs button")
+            [idx].classList.add("active");
+        currentPage = name;
+        if (name !== "home") {
+          document.getElementById("searchPage").classList.add("hidden");
+          document.getElementById("homeMain").style.display = "block";
+        }
+        document.getElementById("globalSearch").value = "";
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // LECTURE VIEW
+      // ═══════════════════════════════════════════════════════
+      function openLecture(num) {
+        const lec = LECTURES.find((l) => l.num === num);
+        if (!lec) return;
+        currentLecture = num;
+
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((i) => i.classList.remove("active"));
+        const sb = document.getElementById("sb-" + num);
+        if (sb) {
+          sb.classList.add("active");
+          sb.scrollIntoView({ block: "nearest" });
+        }
+
+        const c = document.getElementById("lectureContent");
+        c.innerHTML = `
+    <button class="back-btn" onclick="clearLecture()">← Ortga</button>
+    <div class="lecture-view">
+      <div class="lv-header">
+        <div class="lv-num">📖 ${lec.num}-Ma'ruza</div>
+        <h2>${lec.title}</h2>
+      </div>
+      <div class="lv-body">
+        <div class="lv-nav">
+          <button class="lv-nav-btn active" onclick="showSec('konspekt',this)">📝 Konspekt</button>
+          <button class="lv-nav-btn" onclick="showSec('atamalar',this)">📖 Atamalar</button>
+          <button class="lv-nav-btn" onclick="showSec('xulosa',this)">✅ Xulosa</button>
+        </div>
+        <div id="sec-konspekt" class="section active">${lec.sections.konspekt}</div>
+        <div id="sec-atamalar" class="section">${lec.sections.atamalar}</div>
+        <div id="sec-xulosa" class="section">${lec.sections.xulosa}</div>
+      </div>
+    </div>`;
+      }
+
+      function showSec(name, btn) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".lv-nav-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("sec-" + name).classList.add("active");
+        btn.classList.add("active");
+      }
+
+      function clearLecture() {
+        currentLecture = null;
+        document
+          .querySelectorAll(".sidebar-item")
+          .forEach((i) => i.classList.remove("active"));
+        document.getElementById("lectureContent").innerHTML =
+          `<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:3rem">📖</div><p>Chap tomondagi ro'yxatdan ma'ruzani tanlang</p></div>`;
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // SEARCH
+      // ═══════════════════════════════════════════════════════
+      function doSearch(val) {
+        if (!val || val.length < 2) {
+          document.getElementById("searchPage").classList.add("hidden");
+          document.getElementById("homeMain").style.display = "block";
+          return;
+        }
+        document.getElementById("searchPage").classList.remove("hidden");
+        document.getElementById("homeMain").style.display = "none";
+
+        const v = val.toLowerCase();
+        const results = [];
+
+        LECTURES.forEach((lec) => {
+          const all = (
+            lec.title +
+            " " +
+            lec.short +
+            " " +
+            Object.values(lec.sections).join(" ")
+          ).toLowerCase();
+          if (all.includes(v)) {
+            let excerpt = "";
+            const full = Object.values(lec.sections)
+              .join(" ")
+              .replace(/<[^>]+>/g, "");
+            const idx2 = full.toLowerCase().indexOf(v);
+            if (idx2 >= 0)
+              excerpt =
+                "..." +
+                full.substring(Math.max(0, idx2 - 60), idx2 + 100) +
+                "...";
+            results.push({
+              title: lec.num + "-ma'ruza: " + lec.title,
+              text: excerpt,
+              lec: lec.num,
+            });
+          }
+        });
+
+        GLOSSARY.forEach((g) => {
+          if ((g.term + g.def).toLowerCase().includes(v)) {
+            results.push({ title: g.term, text: g.def, lec: null, tag: g.tag });
+          }
+        });
+
+        const container = document.getElementById("searchResults");
+        if (!results.length) {
+          container.innerHTML =
+            '<p style="color:var(--muted);padding:20px">Hech narsa topilmadi.</p>';
+          return;
+        }
+
+        const highlight = (str) =>
+          str.replace(new RegExp(val, "gi"), (m) => `<mark>${m}</mark>`);
+        container.innerHTML = results
+          .slice(0, 15)
+          .map(
+            (r) => `
+    <div class="sr-item" onclick="${r.lec ? `showPage('lectures');openLecture(${r.lec})` : `showPage('glossary')`}">
+      <div class="sr-title">${highlight(r.title)}</div>
+      <div class="sr-text">${highlight((r.text || "").substring(0, 200))}</div>
+      <div class="sr-source">${r.tag || (r.lec ? r.lec + "-ma'ruza" : "")}</div>
+    </div>`,
+          )
+          .join("");
+      }
+
+      // ═══════════════════════════════════════════════════════
+      // TEST
+      // ═══════════════════════════════════════════════════════
+      function startTest() {
+        const topic = document.getElementById("testTopic").value;
+        const cnt = document.getElementById("testCount").value;
+
+        let pool = [...QUESTIONS];
+        if (topic !== "all") {
+          const lecs = topicQMap[topic] || [];
+          pool = pool.filter((q) => lecs.includes(q.lec));
+        }
+
+        shuffle(pool);
+        const n =
+          cnt === "all" ? pool.length : Math.min(parseInt(cnt), pool.length);
+        testQuestions = pool.slice(0, n);
+        testIdx = 0;
+        testScore = 0;
+        testAnswered = false;
+        testResults = [];
+
+        document.getElementById("testSetup").style.display = "none";
+        document.getElementById("testActive").style.display = "block";
+        document.getElementById("testResult").style.display = "none";
+        renderQuestion();
+      }
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      }
+
+      function renderQuestion() {
+        const q = testQuestions[testIdx];
+        const total = testQuestions.length;
+        document.getElementById("qNum").textContent =
+          `Savol ${testIdx + 1} / ${total}`;
+        document.getElementById("qScore").textContent = `Ballar: ${testScore}`;
+        document.getElementById("qProgress").style.width =
+          (testIdx / total) * 100 + "%";
+        document.getElementById("qText").textContent = q.q;
+        document.getElementById("qFeedback").className = "q-feedback";
+        document.getElementById("qFeedback").textContent = "";
+        document.getElementById("btnNext").className = "btn-next";
+        testAnswered = false;
+
+        const opts = document.getElementById("qOptions");
+        opts.innerHTML = "";
+        q.opts.forEach((opt, i) => {
+          const btn = document.createElement("div");
+          btn.className = "q-opt";
+          btn.textContent = opt;
+          btn.onclick = () => selectAnswer(i, q);
+          opts.appendChild(btn);
+        });
+      }
+
+      function selectAnswer(i, q) {
+        if (testAnswered) return;
+        testAnswered = true;
+        const opts = document.querySelectorAll(".q-opt");
+        opts.forEach((o) => o.classList.add("disabled"));
+
+        const correct = i === q.ans;
+        opts[i].classList.add(correct ? "correct" : "wrong");
+        if (!correct) opts[q.ans].classList.add("correct");
+
+        if (correct) testScore++;
+        testResults.push({
+          q: q.q,
+          correct,
+          userAns: q.opts[i],
+          correctAns: q.opts[q.ans],
+          exp: q.exp,
+        });
+
+        const fb = document.getElementById("qFeedback");
+        fb.className = "q-feedback show " + (correct ? "ok" : "fail");
+        fb.textContent = correct
+          ? "✅ To'g'ri! " + q.exp
+          : "❌ Noto'g'ri. " + q.exp;
+        document.getElementById("btnNext").className = "btn-next show";
+      }
+
+      function nextQuestion() {
+        testIdx++;
+        if (testIdx >= testQuestions.length) {
+          showResult();
+        } else {
+          renderQuestion();
+        }
+      }
+
+      function showResult() {
+        document.getElementById("testActive").style.display = "none";
+        document.getElementById("testResult").style.display = "block";
+
+        const pct = Math.round((testScore / testQuestions.length) * 100);
+        document.getElementById("resultScore").textContent = pct + "%";
+        document.getElementById("resultLabel").textContent =
+          testScore + " ta to'g'ri / " + testQuestions.length + " ta savoldan";
+
+        let grade, gradeClass;
+        if (pct >= 90) {
+          grade = "⭐ A — Ajoyib!";
+          gradeClass = "grade-a";
+        } else if (pct >= 75) {
+          grade = "👍 B — Yaxshi";
+          gradeClass = "grade-b";
+        } else if (pct >= 60) {
+          grade = "😊 C — Qoniqarli";
+          gradeClass = "grade-c";
+        } else {
+          grade = "📚 D — Ko'proq o'qing";
+          gradeClass = "grade-d";
+        }
+
+        document.getElementById("resultGrade").textContent = grade;
+        document.getElementById("resultGrade").className =
+          "grade " + gradeClass;
+
+        const details = document.getElementById("resultDetails");
+        details.innerHTML =
+          '<h3 style="margin-bottom:12px">Batafsil natijalar:</h3>' +
+          testResults
+            .map(
+              (r, i) => `
+      <div class="result-item">
+        <span class="ri">${r.correct ? "✅" : "❌"}</span>
+        <div>
+          <div style="font-weight:600">${i + 1}. ${r.q}</div>
+          ${!r.correct ? `<div style="color:var(--red);font-size:.82rem">Siz: ${r.userAns}</div><div style="color:var(--green);font-size:.82rem">To'g'ri: ${r.correctAns}</div>` : ""}
+        </div>
+      </div>`,
+            )
+            .join("");
+      }
+
+      function resetTest() {
+        document.getElementById("testSetup").style.display = "block";
+        document.getElementById("testActive").style.display = "none";
+        document.getElementById("testResult").style.display = "none";
+      }
+
+      init();
+    </script>
+  </body>
+</html>
+<!-- bu keyengi reja qilish kerak html fayldagi css va js qisimlarni ajratib chiq -->
